@@ -20,3 +20,4 @@ public class Recipe100Menu {
     }
 
 }
+
