@@ -1,45 +1,31 @@
 package DatabaseAPI;
 import java.sql.*;
 
-interface DB_Ingredient_Interface extends DB_BaseOptions{
-    public void create(String name, double calories, double protein, double fats, double carbs);
-    public void update(int id, String name, double calories, double protein, double fats, double carbs);
-}
-
 abstract class IngredientDBAbstract extends DB_BaseAbstract {
     public IngredientDBAbstract(String tableName) {
         super(tableName);
     }
+
+    public abstract void create(String name, double calories, double protein, double fats, double carbs);
+
+    public abstract void update(int id, String name, double calories, double protein, double fats, double carbs);
 }
 
-class test extends IngredientDBAbstract {
-
-    public test(String tableName) {
-        super(tableName);
+public class IngredientDB extends IngredientDBAbstract {
+    public IngredientDB() {
+        super("Ingredients");
     }
 
-    @Override
-    public void initTable() {
-
-    }
-
-    @Override
-    public void createTableIfNotExists() {
-
-    }
-}
-
-public class IngredientDB implements DB_Ingredient_Interface {
     public void createTableIfNotExists() {
         try (Connection connection = this.getConnection()) {
-            String createTableQuery = "CREATE TABLE IF NOT EXISTS Ingredients (" +
+            String createTableQuery = String.format("CREATE TABLE IF NOT EXISTS %s (" +
                     "id SERIAL PRIMARY KEY," +
                     "name TEXT," +
                     "calories DOUBLE PRECISION," +
                     "protein DOUBLE PRECISION," +
                     "fats DOUBLE PRECISION," +
                     "carbs DOUBLE PRECISION" +
-                    ")";
+                    ");", this.tableName);
 
             Statement stmt = connection.createStatement();
             stmt.executeUpdate(createTableQuery);
@@ -54,9 +40,14 @@ public class IngredientDB implements DB_Ingredient_Interface {
         this.createTableIfNotExists();
     }
 
+    @Override
     public void create(String name, double calories, double protein, double fats, double carbs) {
         try (Connection connection = this.getConnection()) {
-            String insertQuery = "INSERT INTO Ingredients (name, calories, protein, fats, carbs) VALUES (?, ?, ?, ?, ?)";
+            String insertQuery = String.format(
+                "INSERT INTO %s (name, calories, protein, fats, carbs) VALUES (?, ?, ?, ?, ?);",
+                tableName
+            );
+
             PreparedStatement pstmt = connection.prepareStatement(insertQuery);
             pstmt.setString(1, name);
             pstmt.setDouble(2, calories);
@@ -71,47 +62,50 @@ public class IngredientDB implements DB_Ingredient_Interface {
         }
 
     }
-
-    public ResultSet read(int id) {
-        try (Connection connection = this.getConnection()) {
-            String selectQuery = "SELECT * FROM Ingredients WHERE id = ?";
-            PreparedStatement pstmt = connection.prepareStatement(selectQuery);
-            pstmt.setInt(1, id);
-            return pstmt.executeQuery();
-        } catch (SQLException e) {
-            System.out.println("Error connecting to PostgreSQL database:");
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public ResultSet readAll(){
-        try (Connection connection = this.getConnection()) {
-            String selectQuery = "SELECT * FROM Ingredients";
-            Statement stmt = connection.createStatement();
-            return stmt.executeQuery(selectQuery);
-        } catch (SQLException e) {
-            System.out.println("Error connecting to PostgreSQL database:");
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public void delete(int id){
-        try (Connection connection = this.getConnection()) {
-            String deleteQuery = "DELETE FROM Ingredients WHERE id = ?";
-            PreparedStatement pstmt = connection.prepareStatement(deleteQuery);
-            pstmt.setInt(1, id);
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Error connecting to PostgreSQL database:");
-            e.printStackTrace();
-        }
-    }
-
+//
+//    public ResultSet read(int id) {
+//        try (Connection connection = this.getConnection()) {
+//            String selectQuery = String.format("SELECT * FROM %s WHERE id = ?;", tableName);
+//            PreparedStatement pstmt = connection.prepareStatement(selectQuery);
+//            pstmt.setInt(1, id);
+//            return pstmt.executeQuery();
+//        } catch (SQLException e) {
+//            System.out.println("Error connecting to PostgreSQL database:");
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+//
+//    public ResultSet readAll(){
+//        try (Connection connection = this.getConnection()) {
+//            String selectQuery = String.format("SELECT * FROM %s;", tableName);
+//            Statement stmt = connection.createStatement();
+//            return stmt.executeQuery(selectQuery);
+//        } catch (SQLException e) {
+//            System.out.println("Error connecting to PostgreSQL database:");
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+//
+//    public void delete(int id){
+//        try (Connection connection = this.getConnection()) {
+//            String deleteQuery = String.format("DELETE FROM %s WHERE id = ?;", tableName);
+//            PreparedStatement pstmt = connection.prepareStatement(deleteQuery);
+//            pstmt.setInt(1, id);
+//            pstmt.executeUpdate();
+//        } catch (SQLException e) {
+//            System.out.println("Error connecting to PostgreSQL database:");
+//            e.printStackTrace();
+//        }
+//    }
+    @Override
     public void update(int id, String name, double calories, double protein, double fats, double carbs) {
         try (Connection connection = this.getConnection()) {
-            String updateQuery = "UPDATE Ingredients SET name = ?, calories = ?, protein = ?, fats = ?, carbs = ? WHERE id = ?";
+            String updateQuery = String.format(
+                    "UPDATE %s SET name = ?, calories = ?, protein = ?, fats = ?, carbs = ? WHERE id = ?",
+                    tableName
+            );
             PreparedStatement pstmt = connection.prepareStatement(updateQuery);
             pstmt.setString(1, name);
             pstmt.setDouble(2, calories);
@@ -125,4 +119,5 @@ public class IngredientDB implements DB_Ingredient_Interface {
             e.printStackTrace();
         }
     }
+
 }

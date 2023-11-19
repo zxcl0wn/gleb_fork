@@ -10,21 +10,21 @@ interface DB_GetConnection {
 }
 
 interface DB_InitTableInterface {
-    public void initTable();
+    void initTable();
 }
 
 interface DB_CreateTableInterface {
-    public void createTableIfNotExists();
+    void createTableIfNotExists();
 }
 
 interface DB_ReadInterface {
-    public ResultSet read(int id);
+    ResultSet read(int id);
 
-    public ResultSet readAll();
+    ResultSet readAll();
 }
 
 interface DB_DeleteInterface {
-    public void delete(int id);
+    void delete(int id);
 }
 
 interface DB_BaseOptions extends DB_GetConnection, DB_CreateTableInterface, DB_InitTableInterface,
@@ -32,17 +32,17 @@ interface DB_BaseOptions extends DB_GetConnection, DB_CreateTableInterface, DB_I
 
 
 public abstract class DB_BaseAbstract implements DB_BaseOptions {
-    private String tableName;
+    protected String tableName;
 
     public DB_BaseAbstract(String tableName){
-        System.out.println("abstract1234");
+//        System.out.println("abstract1234");
         this.tableName = tableName;
-        System.out.println(String.format("a: %s", this.tableName));
+//        System.out.println(String.format("a: %s", this.tableName));
     }
 
     public ResultSet read(int id) {
         try (Connection connection = this.getConnection()) {
-            String selectQuery = "SELECT * FROM Ingredients WHERE id = ?";
+            String selectQuery = String.format("SELECT * FROM %s WHERE id = ?", this.tableName);
             PreparedStatement pstmt = connection.prepareStatement(selectQuery);
             pstmt.setInt(1, id);
             return pstmt.executeQuery();
@@ -55,7 +55,7 @@ public abstract class DB_BaseAbstract implements DB_BaseOptions {
 
     public ResultSet readAll(){
         try (Connection connection = this.getConnection()) {
-            String selectQuery = "SELECT * FROM Ingredients";
+            String selectQuery = String.format("SELECT * FROM %s", this.tableName);
             Statement stmt = connection.createStatement();
             return stmt.executeQuery(selectQuery);
         } catch (SQLException e) {
@@ -67,7 +67,7 @@ public abstract class DB_BaseAbstract implements DB_BaseOptions {
 
     public void delete(int id){
         try (Connection connection = this.getConnection()) {
-            String deleteQuery = "DELETE FROM Ingredients WHERE id = ?";
+            String deleteQuery = String.format("DELETE FROM %s WHERE id = ?", this.tableName);
             PreparedStatement pstmt = connection.prepareStatement(deleteQuery);
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
