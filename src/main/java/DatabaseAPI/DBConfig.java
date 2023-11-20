@@ -14,6 +14,7 @@ public class DBConfig {
         ConfigLevelsOfDifficultyDB(add_data);
         ConfigRecipeDB(add_data);
         ConfigRecipeStepsDB(add_data);
+        ConfigFavoritesDB(add_data);
 
         }
 
@@ -92,6 +93,18 @@ public class DBConfig {
             rs1.create(2, "Шаг 1. Положите булку с маком в духовку", "2");
             rs1.create(2, "Шаг 2. Соль и перец по вкусы", "2");
             rs1.create(2, "Шаг 3. Можно есть", "2");
+
+        }
+    }
+
+    private static void ConfigFavoritesDB(boolean add_data) {
+        FavoritesDB f1 = new FavoritesDB();
+        f1.initTable();
+        if (add_data && f1.countLines() == 0) {
+            f1.create(1);
+            f1.create(3);
+            f1.create(6);
+            f1.create(4);
 
         }
     }
