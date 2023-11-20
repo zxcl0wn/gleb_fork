@@ -35,9 +35,22 @@ public abstract class DB_BaseAbstract implements DB_BaseOptions {
     protected String tableName;
 
     public DB_BaseAbstract(String tableName){
-//        System.out.println("abstract1234");
         this.tableName = tableName;
-//        System.out.println(String.format("a: %s", this.tableName));
+    }
+
+    public int countLines() {
+        try (Connection connection = this.getConnection()) {
+            String query = String.format("SELECT COUNT(*) FROM %s;", this.tableName);
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database:");
+            e.printStackTrace();
+        }
+        return -1;
     }
 
     public ResultSet read(int id) {

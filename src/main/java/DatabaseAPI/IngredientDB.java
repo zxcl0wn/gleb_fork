@@ -20,7 +20,7 @@ public class IngredientDB extends IngredientDBAbstract {
         try (Connection connection = this.getConnection()) {
             String createTableQuery = String.format("CREATE TABLE IF NOT EXISTS %s (" +
                     "id SERIAL PRIMARY KEY," +
-                    "name TEXT," +
+                    "name TEXT UNIQUE," +
                     "calories DOUBLE PRECISION," +
                     "protein DOUBLE PRECISION," +
                     "fats DOUBLE PRECISION," +
@@ -45,7 +45,7 @@ public class IngredientDB extends IngredientDBAbstract {
         try (Connection connection = this.getConnection()) {
             String insertQuery = String.format(
                 "INSERT INTO %s (name, calories, protein, fats, carbs) VALUES (?, ?, ?, ?, ?);",
-                tableName
+                this.tableName
             );
 
             PreparedStatement pstmt = connection.prepareStatement(insertQuery);
@@ -58,7 +58,7 @@ public class IngredientDB extends IngredientDBAbstract {
 
         } catch (SQLException e) {
             System.out.println("Error connecting to PostgreSQL database:");
-            e.printStackTrace();
+//            e.printStackTrace();
         }
 
     }
