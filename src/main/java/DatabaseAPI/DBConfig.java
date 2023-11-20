@@ -13,6 +13,7 @@ public class DBConfig {
         ConfigCategoriesDB(add_data);
         ConfigLevelsOfDifficultyDB(add_data);
         ConfigRecipeDB(add_data);
+        ConfigRecipeStepsDB(add_data);
 
         }
 
@@ -74,6 +75,24 @@ public class DBConfig {
             r1.create("Утка с грибами", 2, "2", 60000, 2);
             r1.create("Гриб с грибами", 2, "2", 60, 1);
             r1.create("Чай из ягод", 7, "2", 6000000, 5);
+        }
+    }
+
+    private static void ConfigRecipeStepsDB(boolean add_data) {
+        RecipeStepsDB rs1 = new RecipeStepsDB();
+        rs1.initTable();
+        if (add_data && rs1.countLines() == 0) {
+            rs1.create(9, "Шаг 1. Возмите гриб", "2");
+            rs1.create(9, "Шаг 2. Возмите ещё 1 один гриб", "2");
+            rs1.create(9, "Шаг 3. Возмите ещё 1 один гриб", "2");
+            rs1.create(9, "Шаг 4. Поместите грибы внутрь гриба", "2");
+            rs1.create(9, "Шаг 5. Перемещайте получившуюся смесь", "2");
+            rs1.create(9, "Шаг 6. Подовать с грибами", "2");
+
+            rs1.create(2, "Шаг 1. Положите булку с маком в духовку", "2");
+            rs1.create(2, "Шаг 2. Соль и перец по вкусы", "2");
+            rs1.create(2, "Шаг 3. Можно есть", "2");
+
         }
     }
 

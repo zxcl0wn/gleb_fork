@@ -15,7 +15,7 @@ abstract class RecipeStepsDBAbstract extends DB_BaseAbstract {
 
 public class RecipeStepsDB extends RecipeStepsDBAbstract {
     public RecipeStepsDB() {
-        super("Recipe");
+        super("RecipeSteps");
     }
 
     public void createTableIfNotExists() {
