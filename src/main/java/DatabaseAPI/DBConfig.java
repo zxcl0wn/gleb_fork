@@ -11,6 +11,7 @@ public class DBConfig {
     public static void ConfigDB(boolean add_data) {
         ConfigIngredientsDB(add_data);
         ConfigCategoriesDB(add_data);
+        ConfigLevelsOfDifficultyDB(add_data);
 
         }
 
@@ -45,6 +46,19 @@ public class DBConfig {
             c1.create("Высокая кухня");
         }
     }
+
+    private static void ConfigLevelsOfDifficultyDB(boolean add_data) {
+        LevelsOfDifficultyDB l1 = new LevelsOfDifficultyDB();
+        l1.initTable();
+        if (add_data && l1.countLines() == 0) {
+            l1.create("Easy");
+            l1.create("Medium");
+            l1.create("Hard");
+            l1.create("Unreal");
+            l1.create("Super Unreal");
+        }
+    }
+
 
 }
 
