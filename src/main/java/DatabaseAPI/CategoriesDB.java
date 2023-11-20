@@ -1,30 +1,28 @@
 package DatabaseAPI;
+
 import java.sql.*;
 
-abstract class IngredientDBAbstract extends DB_BaseAbstract {
-    public IngredientDBAbstract(String tableName) {
+
+abstract class CategoriesDBDBAbstract extends DB_BaseAbstract {
+    public CategoriesDBDBAbstract(String tableName) {
         super(tableName);
     }
 
-    public abstract void create(String name, double calories, double protein, double fats, double carbs);
+    public abstract void create(String name);
 
-    public abstract void update(int id, String name, double calories, double protein, double fats, double carbs);
+    public abstract void update(int id, String name);
 }
 
-public class IngredientDB extends IngredientDBAbstract {
-    public IngredientDB() {
-        super("Ingredients");
+public class CategoriesDB extends CategoriesDBDBAbstract {
+    public CategoriesDB() {
+        super("Categories");
     }
 
     public void createTableIfNotExists() {
         try (Connection connection = this.getConnection()) {
             String createTableQuery = String.format("CREATE TABLE IF NOT EXISTS %s (" +
                     "id SERIAL PRIMARY KEY," +
-                    "name TEXT UNIQUE," +
-                    "calories DOUBLE PRECISION," +
-                    "protein DOUBLE PRECISION," +
-                    "fats DOUBLE PRECISION," +
-                    "carbs DOUBLE PRECISION" +
+                    "name TEXT UNIQUE" +
                     ");", this.tableName);
 
             Statement stmt = connection.createStatement();
@@ -41,19 +39,15 @@ public class IngredientDB extends IngredientDBAbstract {
     }
 
     @Override
-    public void create(String name, double calories, double protein, double fats, double carbs) {
+    public void create(String name) {
         try (Connection connection = this.getConnection()) {
             String insertQuery = String.format(
-                "INSERT INTO %s (name, calories, protein, fats, carbs) VALUES (?, ?, ?, ?, ?);",
-                this.tableName
+                    "INSERT INTO %s (name) VALUES (?);",
+                    this.tableName
             );
 
             PreparedStatement pstmt = connection.prepareStatement(insertQuery);
             pstmt.setString(1, name);
-            pstmt.setDouble(2, calories);
-            pstmt.setDouble(3, protein);
-            pstmt.setDouble(4, fats);
-            pstmt.setDouble(5, carbs);
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -64,24 +58,22 @@ public class IngredientDB extends IngredientDBAbstract {
     }
 
     @Override
-    public void update(int id, String name, double calories, double protein, double fats, double carbs) {
+    public void update(int id, String name) {
         try (Connection connection = this.getConnection()) {
             String updateQuery = String.format(
-                    "UPDATE %s SET name = ?, calories = ?, protein = ?, fats = ?, carbs = ? WHERE id = ?;",
+                    "UPDATE %s SET name = ? WHERE id = ?;",
                     this.tableName
             );
             PreparedStatement pstmt = connection.prepareStatement(updateQuery);
             pstmt.setString(1, name);
-            pstmt.setDouble(2, calories);
-            pstmt.setDouble(3, protein);
-            pstmt.setDouble(4, fats);
-            pstmt.setDouble(5, carbs);
-            pstmt.setInt(6, id);
+            pstmt.setInt(2, id);
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Error connecting to PostgreSQL database:");
             e.printStackTrace();
         }
+
     }
+
 
 }

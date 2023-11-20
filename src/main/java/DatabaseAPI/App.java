@@ -6,13 +6,13 @@ import java.sql.*;
 public class App {
 
     public static void main(String[] args) throws SQLException {
-        IngredientDB i1 = new IngredientDB();
+//        IngredientDB i1 = new IngredientDB();
 
 
         DBConfig.ConfigDB(true);
         System.out.println("ok");
 
-        System.out.println(i1.countLines());
+//        System.out.println(i1.countLines());
 //
 //        i1.createTableIfNotExists();
 //        i1.create("Potato", 10.5,2.23,3.22,1.8);
