@@ -15,6 +15,7 @@ public class DBConfig {
         ConfigRecipeDB(add_data);
         ConfigRecipeStepsDB(add_data);
         ConfigFavoritesDB(add_data);
+        ConfigRecipesIngredientsDB(add_data);
 
         }
 
@@ -106,6 +107,26 @@ public class DBConfig {
             f1.create(6);
             f1.create(4);
 
+        }
+    }
+
+    private static void ConfigRecipesIngredientsDB(boolean add_data) {
+        RecipesIngredientsDB ri1 = new RecipesIngredientsDB();
+        ri1.initTable();
+        if (add_data && ri1.countLines() == 0) {
+            ri1.create(9, 9, 300);
+            ri1.create(9, 10, 100);
+
+            ri1.create(1, 9, 200);
+            ri1.create(1, 11, 100);
+            ri1.create(1, 8, 4000);
+            ri1.create(1, 7, 30);
+
+            ri1.create(6, 8, 200);
+            ri1.create(6, 9, 250);
+            ri1.create(6, 1, 600);
+            ri1.create(6, 2, 150);
+            ri1.create(6, 3, 25);
         }
     }
 
