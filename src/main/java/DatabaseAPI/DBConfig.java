@@ -16,6 +16,7 @@ public class DBConfig {
         ConfigRecipeStepsDB(add_data);
         ConfigFavoritesDB(add_data);
         ConfigRecipesIngredientsDB(add_data);
+        ConfigShoppingCartDB(add_data);
 
         }
 
@@ -129,6 +130,17 @@ public class DBConfig {
             ri1.create(6, 3, 25);
         }
     }
+
+    private static void ConfigShoppingCartDB(boolean add_data) {
+        ShoppingCartDB cs1 = new ShoppingCartDB();
+        cs1.initTable();
+        if (add_data && cs1.countLines() == 0) {
+            cs1.create(1);
+            cs1.create(2);
+            cs1.create(5);
+        }
+    }
+
 
 
 }
