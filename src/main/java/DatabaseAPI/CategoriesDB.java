@@ -3,8 +3,8 @@ package DatabaseAPI;
 import java.sql.*;
 
 
-abstract class CategoriesDBDBAbstract extends DB_BaseAbstract {
-    public CategoriesDBDBAbstract(String tableName) {
+abstract class CategoriesDBAbstract extends DB_BaseAbstract {
+    public CategoriesDBAbstract(String tableName) {
         super(tableName);
     }
 
@@ -13,7 +13,7 @@ abstract class CategoriesDBDBAbstract extends DB_BaseAbstract {
     public abstract void update(int id, String name);
 }
 
-public class CategoriesDB extends CategoriesDBDBAbstract {
+public class CategoriesDB extends CategoriesDBAbstract {
     public CategoriesDB() {
         super("Categories");
     }
@@ -52,7 +52,7 @@ public class CategoriesDB extends CategoriesDBDBAbstract {
 
         } catch (SQLException e) {
             System.out.println("Error connecting to PostgreSQL database:");
-//            e.printStackTrace();
+            e.printStackTrace();
         }
 
     }

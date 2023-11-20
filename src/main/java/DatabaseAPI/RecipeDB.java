@@ -69,7 +69,7 @@ public class RecipeDB extends RecipeDBAbstract {
 
         } catch (SQLException e) {
             System.out.println("Error connecting to PostgreSQL database:");
-//            e.printStackTrace();
+            e.printStackTrace();
         }
 
     }
