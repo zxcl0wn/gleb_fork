@@ -12,6 +12,7 @@ public class DBConfig {
         ConfigIngredientsDB(add_data);
         ConfigCategoriesDB(add_data);
         ConfigLevelsOfDifficultyDB(add_data);
+        ConfigRecipeDB(add_data);
 
         }
 
@@ -56,6 +57,23 @@ public class DBConfig {
             l1.create("Hard");
             l1.create("Unreal");
             l1.create("Super Unreal");
+        }
+    }
+
+    private static void ConfigRecipeDB(boolean add_data) {
+        RecipeDB r1 = new RecipeDB();
+        r1.initTable();
+        if (add_data && r1.countLines() == 0) {
+            r1.create("Салат из лесных цветов с грибами", 6, "2", 600, 1);
+            r1.create("Булка с маком", 7, "2", 1800, 2);
+            r1.create("Грибы с сыром", 2, "2", 3600, 3);
+            r1.create("Креветки с ягодами", 7, "2", 36000, 3);
+            r1.create("Жаренные томаты", 4, "2", 200, 4);
+            r1.create("Борщ с женьшенем", 3, "2", 2400, 3);
+            r1.create("Постный жир с тестом", 5, "2", 122400, 1);
+            r1.create("Утка с грибами", 2, "2", 60000, 2);
+            r1.create("Гриб с грибами", 2, "2", 60, 1);
+            r1.create("Чай из ягод", 7, "2", 6000000, 5);
         }
     }
 

@@ -7,6 +7,8 @@ public class App {
 
     public static void main(String[] args) throws SQLException {
 //        IngredientDB i1 = new IngredientDB();
+//        RecipeDB r1 = new RecipeDB();
+//        r1.initTable();
 
 
         DBConfig.ConfigDB(true);
