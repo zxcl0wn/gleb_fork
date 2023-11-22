@@ -20,7 +20,7 @@ public class Recipe100Menu {
         this.ingredients = ingredients;
         this.recipe_steps = recipe_steps;
     }
-
+    @Override
     public String toString() {
         return "Recipe100Menu {" +
                 "name='" + name + '\'' +
