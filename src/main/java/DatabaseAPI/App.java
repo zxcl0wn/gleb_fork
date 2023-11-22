@@ -25,17 +25,19 @@ public class App {
 ////        i1.delete(3);
 ////        i1.delete(4);
 ////        i1.delete(5);
-//        ResultSet rs = i1.readAll();
-//        while (rs.next()) {
-//            int id = rs.getInt("id");
-//            String name = rs.getString("name");
-//            double calories = rs.getDouble("calories");
-//            double protein = rs.getDouble("protein");
-//            double fats = rs.getDouble("fats");
-//            double carbs = rs.getDouble("carbs");
-//            System.out.println(name + " " + calories);
-//
-//        }
+        IngredientDB i1 = new IngredientDB();
+
+        ResultSet rs = i1.readAll();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+            double calories = rs.getDouble("calories");
+            double protein = rs.getDouble("protein");
+            double fats = rs.getDouble("fats");
+            double carbs = rs.getDouble("carbs");
+            System.out.println(name + " " + calories);
+
+        }
 
 
     }
