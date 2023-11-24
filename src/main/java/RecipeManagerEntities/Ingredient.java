@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import DatabaseAPI.IngredientDB;
+
 class Ingredient {
     public int id;
     public String name;
@@ -13,7 +15,7 @@ class Ingredient {
     public double fats;
     public double carbs;
 
-    public Ingredient(int id, String name, double calories, double protein, double fats, double carbs) {
+    private Ingredient(int id, String name, double calories, double protein, double fats, double carbs) {
         this.id = id;
         this.name = name;
         this.calories = calories;
@@ -34,6 +36,16 @@ class Ingredient {
                 '}';
     }
 
+    public static ResultSet getAllIngredientsResultSet(){
+        IngredientDB ingredients_db = new IngredientDB();
+        return ingredients_db.readAll();
+    }
+
+    public static ResultSet getIngredientByNameResultSet(String name){
+        IngredientDB ingredients_db = new IngredientDB();
+        return ingredients_db.readByName(name);
+    }
+
     public static List<Ingredient> getIngredientsByResultSet(ResultSet rs) throws SQLException {
         List<Ingredient> list = new ArrayList<>();
         while (rs.next()) {
@@ -48,15 +60,27 @@ class Ingredient {
         }
         return list;
     }
-}
 
+    public static Ingredient addToDBAndGet(String name, double calories, double protein, double fats, double carbs) throws SQLException {
 
-class IngredientEntry {
-    private Ingredient ingredient;
+        List<Ingredient> list_of_ingredients = Ingredient.getIngredientsByResultSet(Ingredient.getIngredientByNameResultSet(name));
 
-    public IngredientEntry (String name, double calories, double protein, double fats, double carbs) {
+        if (list_of_ingredients.size() == 1) {
+            return list_of_ingredients.get(0);
+        }
 
+        IngredientDB ingredients_db = new IngredientDB();
+        ingredients_db.create(name, calories, protein, fats, carbs);
+
+        list_of_ingredients = Ingredient.getIngredientsByResultSet(Ingredient.getIngredientByNameResultSet(name));
+        return list_of_ingredients.get(0);
     }
 
-    // getters and setters
+    public void updateInDB() {
+        IngredientDB ingredients_db = new IngredientDB();
+        ingredients_db.update(id, name, calories, protein, fats, carbs);
+    }
+
 }
+
+
