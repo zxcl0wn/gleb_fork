@@ -8,7 +8,11 @@ import java.util.List;
 import DatabaseAPI.IngredientDB;
 
 class Ingredient {
-    public int id;
+    public int getId() {
+        return id;
+    }
+
+    private final int id;
     public String name;
     public double calories;
     public double protein;
@@ -76,9 +80,10 @@ class Ingredient {
         return list_of_ingredients.get(0);
     }
 
-    public void updateInDB() {
+    public boolean updateInDB() {
+//      Метод возвращает false, если продукт с указанным именем уже существует
         IngredientDB ingredients_db = new IngredientDB();
-        ingredients_db.update(id, name, calories, protein, fats, carbs);
+        return ingredients_db.update(id, name, calories, protein, fats, carbs);
     }
 
 }
