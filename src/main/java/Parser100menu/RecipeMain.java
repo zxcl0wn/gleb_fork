@@ -1,11 +1,6 @@
 package Parser100menu;
 
-import RecipeManagementEntities.RecipeIngredient;
-
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Vector;
 
 public class RecipeMain {
     public static void main(String[] args) throws IOException {

@@ -1,4 +1,4 @@
-package RecipeManagementEntities;
+package RecipeManagerEntities;
 
 public class Category {
     private int id;

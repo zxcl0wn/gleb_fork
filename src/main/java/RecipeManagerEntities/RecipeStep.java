@@ -1,4 +1,4 @@
-package RecipeManagementEntities;
+package RecipeManagerEntities;
 
 public class RecipeStep {
     private int id;
