@@ -5,16 +5,16 @@ public class RecipeStep {
         return id;
     }
 
-    public String getRecipeId() {
+    public int getRecipeId() {
         return recipe_id;
     }
 
     private int id;
-    private String recipe_id;
+    private int recipe_id;
     public String text;
     public String img;
 
-    public RecipeStep(int id, String recipe_id, String text, String img) {
+    public RecipeStep(int id, int recipe_id, String text, String img) {
         this.id = id;
         this.recipe_id = recipe_id;
         this.text = text;
