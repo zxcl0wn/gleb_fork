@@ -2,7 +2,7 @@ package RecipeManagerEntities;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import DatabaseAPI.IngredientDB;
@@ -51,7 +51,7 @@ class Ingredient {
     }
 
     public static List<Ingredient> getIngredientsByResultSet(ResultSet rs) throws SQLException {
-        List<Ingredient> list = new ArrayList<>();
+        List<Ingredient> list = new LinkedList<>();
         while (rs.next()) {
             int id = rs.getInt("id");
             String name = rs.getString("name");
