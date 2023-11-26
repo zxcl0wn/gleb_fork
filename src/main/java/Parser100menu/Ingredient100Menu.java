@@ -17,10 +17,27 @@ public class Ingredient100Menu {
     public String name;
     public int quantity;
 
+    public double calories;
+    public double protein;
+    public double fats;
+    public double carbs;
+
     public Ingredient100Menu(String name, int quantity){
         this.name = name;
         this.quantity = quantity;
     }
+
+    //        TODO: Gleb
+    public Ingredient100Menu(String name, int quantity, double calories, double protein, double fats, double carbs){
+        this.name = name;
+        this.quantity = quantity;
+        this.calories = calories;
+        this.protein = protein;
+        this.fats = fats;
+        this.carbs = carbs;
+    }
+
+
 
     @Override
     public String toString() {
