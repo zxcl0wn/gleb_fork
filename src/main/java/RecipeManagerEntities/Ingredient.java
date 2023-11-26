@@ -65,12 +65,26 @@ class Ingredient {
         return list;
     }
 
-    public static Ingredient addToDBAndGet(String name, double calories, double protein, double fats, double carbs) throws SQLException {
+    public boolean checkIsInDB(String name) throws SQLException {
+        List<Ingredient> list_of_ingredients = Ingredient.getIngredientsByResultSet(Ingredient.getIngredientByNameResultSet(name));
+        if (list_of_ingredients.size() == 1) {
+            return true;
+        }
+        return false;
+    }
 
+    public static Ingredient addToDBAndGet(String name, double calories, double protein, double fats, double carbs) throws SQLException {
+//      если ингредиент с таким именем есть, то обновляет его
         List<Ingredient> list_of_ingredients = Ingredient.getIngredientsByResultSet(Ingredient.getIngredientByNameResultSet(name));
 
         if (list_of_ingredients.size() == 1) {
-            return list_of_ingredients.get(0);
+            Ingredient ingredient = list_of_ingredients.get(0);
+            ingredient.calories = calories;
+            ingredient.protein = protein;
+            ingredient.fats = fats;
+            ingredient.carbs = carbs;
+            ingredient.updateInDB();
+            return ingredient;
         }
 
         IngredientDB ingredients_db = new IngredientDB();
