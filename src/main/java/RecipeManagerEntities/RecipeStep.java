@@ -1,6 +1,5 @@
 package RecipeManagerEntities;
 
-import DatabaseAPI.IngredientDB;
 import DatabaseAPI.RecipeStepsDB;
 
 import java.sql.ResultSet;
