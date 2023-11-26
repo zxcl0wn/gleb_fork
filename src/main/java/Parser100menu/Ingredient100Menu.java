@@ -16,15 +16,25 @@ import com.google.gson.Gson;
 public class Ingredient100Menu {
     public String name;
     public int quantity;
+    public double carbohydrates;
+    public double fats;
+    public double proteins;
+    public double calories;
 
-    public Ingredient100Menu(String name, int quantity){
+    public Ingredient100Menu(String name, int quantity, double carbohydrates, double fats, double proteins, double calories) {
         this.name = name;
         this.quantity = quantity;
+        this.carbohydrates = carbohydrates;
+        this.fats = fats;
+        this.proteins = proteins;
+        this.calories = calories;
     }
 
     @Override
     public String toString() {
-        return "name='" + name + "', quantity=" + quantity;
+        return String.format("name='%s', quantity=%d, carbohydrates=%.2f, fats=%.2f, proteins=%.2f, calories=%.2f",
+                name, quantity, carbohydrates, fats, proteins, calories / 1000.0);
     }
+
 
 }
