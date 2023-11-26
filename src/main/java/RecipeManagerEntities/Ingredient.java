@@ -12,12 +12,12 @@ class Ingredient {
         return id;
     }
 
-    private final int id;
-    public String name;
-    public double calories;
-    public double protein;
-    public double fats;
-    public double carbs;
+    private int id;
+    private String name;
+    private double calories;
+    private double protein;
+    private double fats;
+    private double carbs;
 
     private Ingredient(int id, String name, double calories, double protein, double fats, double carbs) {
         this.id = id;
@@ -74,17 +74,11 @@ class Ingredient {
     }
 
     public static Ingredient addToDBAndGet(String name, double calories, double protein, double fats, double carbs) throws SQLException {
-//      если ингредиент с таким именем есть, то обновляет его
+//      если ингредиент с таким именем есть, то возвращает null
         List<Ingredient> list_of_ingredients = Ingredient.getIngredientsByResultSet(Ingredient.getIngredientByNameResultSet(name));
 
         if (list_of_ingredients.size() == 1) {
-            Ingredient ingredient = list_of_ingredients.get(0);
-            ingredient.calories = calories;
-            ingredient.protein = protein;
-            ingredient.fats = fats;
-            ingredient.carbs = carbs;
-            ingredient.updateInDB();
-            return ingredient;
+            return null;
         }
 
         IngredientDB ingredients_db = new IngredientDB();
@@ -94,7 +88,7 @@ class Ingredient {
         return list_of_ingredients.get(0);
     }
 
-    public boolean updateInDB() {
+    private boolean updateInDB() {
 //      Метод возвращает false, если продукт с указанным именем уже существует
         IngredientDB ingredients_db = new IngredientDB();
         return ingredients_db.update(id, name, calories, protein, fats, carbs);
@@ -104,8 +98,57 @@ class Ingredient {
 //      удаляет интредиент из бд
         IngredientDB ingredients_db = new IngredientDB();
         ingredients_db.delete(id);
+        this.id = -1;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public boolean setName(String name) throws SQLException {
+        if (Ingredient.checkIsInDB(name)) return false;
+        String old_name = this.name;
+        this.name = name;
+        if (this.updateInDB()) return true;
+        this.name = old_name;
+        return false;
+    }
+
+    public double getCalories() {
+        return calories;
+    }
+
+    public boolean setCalories(double calories) {
+        this.calories = calories;
+        return this.updateInDB();
+    }
+
+    public double getProtein() {
+        return protein;
+    }
+
+    public boolean setProtein(double protein) {
+        this.protein = protein;
+        return this.updateInDB();
+    }
+
+    public double getFats() {
+        return fats;
+    }
+
+    public boolean setFats(double fats) {
+        this.fats = fats;
+        return this.updateInDB();
+    }
+
+    public double getCarbs() {
+        return carbs;
+    }
+
+    public boolean setCarbs(double carbs) {
+        this.carbs = carbs;
+        return this.updateInDB();
+    }
 }
 
 
