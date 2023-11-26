@@ -9,20 +9,25 @@ import java.util.List;
 import java.util.Objects;
 
 public class Favorite {
-    private final int id;
-    private final int recipe_id;
+    private int id;
+    private int recipe_id;
 
     private Favorite(int id, int recipe_id) {
         this.id = id;
         this.recipe_id = recipe_id;
     }
 
-    public static ResultSet getAllFavoritesResultSet(){
+    private static ResultSet getAllFavoritesResultSet(){
         FavoritesDB favorites_db = new FavoritesDB();
         return favorites_db.readAll();
     }
 
-    public static List<Favorite> getFavoritesByResultSet(ResultSet rs) throws SQLException {
+    private static ResultSet getAllFavoriteByRecipeIdResultSet(int recipe_id){
+        FavoritesDB favorites_db = new FavoritesDB();
+        return favorites_db.readByRecipeId(recipe_id);
+    }
+
+    private static List<Favorite> getFavoritesByResultSet(ResultSet rs) throws SQLException {
         List<Favorite> list = new LinkedList<>();
         while (rs.next()) {
             int id = rs.getInt("id");
@@ -33,43 +38,41 @@ public class Favorite {
         return list;
     }
 
+    public static List<Favorite> getAllFavoritesList() throws SQLException {
+        return Favorite.getFavoritesByResultSet(Favorite.getAllFavoritesResultSet());
+    }
+
+    public static Favorite getFavoriteByRecipeId(int recipe_id) throws SQLException {
+        List<Favorite> f1 = Favorite.getFavoritesByResultSet(Favorite.getAllFavoriteByRecipeIdResultSet(recipe_id));
+        if (f1.isEmpty()) return null;
+        return f1.getFirst();
+    }
+
     public static boolean checkIsInDB(int recipe_id) throws SQLException {
-        List<Favorite> all_favorites = Favorite.getFavoritesByResultSet(Favorite.getAllFavoritesResultSet());
-        for (Favorite f1: all_favorites) {
-            if (Objects.equals(f1.recipe_id, recipe_id)){
-                return true;
-            }
-        }
-        return false;
+        Favorite f1 = getFavoriteByRecipeId(recipe_id);
+        return !Objects.isNull(f1);
     }
 
     public static Favorite addToDBAndGet(int recipe_id) throws SQLException {
-        List<Favorite> all_favorites = Favorite.getFavoritesByResultSet(Favorite.getAllFavoritesResultSet());
-        for (Favorite f1: all_favorites) {
-            if (f1.recipe_id == recipe_id){
-                return f1;
-            }
-        }
-
+        if (checkIsInDB(recipe_id)) return null;
         FavoritesDB favorites_db = new FavoritesDB();
         favorites_db.create(recipe_id);
-        all_favorites = Favorite.getFavoritesByResultSet(Favorite.getAllFavoritesResultSet());
 
-        Favorite last_favorite = all_favorites.getLast();
-        if (last_favorite.recipe_id != recipe_id) return null; // если рецепта с таким id не существует
-        return last_favorite;
+        return getFavoriteByRecipeId(recipe_id);
     }
 
     public void delete() {
         FavoritesDB favorites_db = new FavoritesDB();
         favorites_db.delete(id);
+        id = -1;
+        recipe_id = -1;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getRecipe_id() {
+    public int getRecipeId() {
         return recipe_id;
     }
 

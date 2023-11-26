@@ -12,6 +12,9 @@ abstract class FavoritesDBAbstract extends DB_BaseAbstract {
     public abstract void create(int recipe_id);
 
     public abstract void update();
+
+    public abstract ResultSet readByRecipeId(int recipe_id);
+
 }
 
 public class FavoritesDB extends FavoritesDBAbstract {
@@ -61,5 +64,20 @@ public class FavoritesDB extends FavoritesDBAbstract {
     }
 
     public void update() {}
+
+    @Override
+    public ResultSet readByRecipeId(int recipe_id) {
+        try (Connection connection = this.getConnection()) {
+            String selectQuery = String.format("SELECT * FROM %s WHERE recipe_id = ?", this.tableName);
+            PreparedStatement pstmt = connection.prepareStatement(selectQuery);
+            pstmt.setInt(1, recipe_id);
+            return pstmt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database:");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

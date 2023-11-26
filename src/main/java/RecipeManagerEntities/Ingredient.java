@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 import DatabaseAPI.IngredientDB;
 
@@ -40,17 +41,22 @@ class Ingredient {
                 '}';
     }
 
-    public static ResultSet getAllIngredientsResultSet(){
+    private static ResultSet getAllIngredientsResultSet(){
         IngredientDB ingredients_db = new IngredientDB();
         return ingredients_db.readAll();
     }
 
-    public static ResultSet getIngredientByNameResultSet(String name){
+    private static ResultSet getIngredientByNameResultSet(String name){
         IngredientDB ingredients_db = new IngredientDB();
         return ingredients_db.readByName(name);
     }
 
-    public static List<Ingredient> getIngredientsByResultSet(ResultSet rs) throws SQLException {
+    private static ResultSet getIngredientByIdResultSet(int id){
+        IngredientDB ingredients_db = new IngredientDB();
+        return ingredients_db.read(id);
+    }
+
+    private static List<Ingredient> getIngredientsByResultSet(ResultSet rs) throws SQLException {
         List<Ingredient> list = new LinkedList<>();
         while (rs.next()) {
             int id = rs.getInt("id");
@@ -65,27 +71,34 @@ class Ingredient {
         return list;
     }
 
+    public static List<Ingredient> getAllIngredientsList() throws SQLException {
+        return Ingredient.getIngredientsByResultSet(Ingredient.getAllIngredientsResultSet());
+    }
+
+    public static Ingredient getIngredientById(int id) throws SQLException {
+        List<Ingredient> i1 =  Ingredient.getIngredientsByResultSet(Ingredient.getIngredientByIdResultSet(id));
+        if (i1.isEmpty()) return null;
+        return i1.getFirst();
+    }
+
+    public static Ingredient getIngredientByName(String name) throws SQLException {
+        List<Ingredient> i1 =  Ingredient.getIngredientsByResultSet(Ingredient.getIngredientByNameResultSet(name));
+        if (i1.isEmpty()) return null;
+        return i1.getFirst();
+    }
+
     public static boolean checkIsInDB(String name) throws SQLException {
-        List<Ingredient> list_of_ingredients = Ingredient.getIngredientsByResultSet(Ingredient.getIngredientByNameResultSet(name));
-        if (list_of_ingredients.size() == 1) {
-            return true;
-        }
-        return false;
+        Ingredient i1 = getIngredientByName(name);
+        return !Objects.isNull(i1);
     }
 
     public static Ingredient addToDBAndGet(String name, double calories, double protein, double fats, double carbs) throws SQLException {
 //      если ингредиент с таким именем есть, то возвращает null
-        List<Ingredient> list_of_ingredients = Ingredient.getIngredientsByResultSet(Ingredient.getIngredientByNameResultSet(name));
-
-        if (list_of_ingredients.size() == 1) {
-            return null;
-        }
+        if (checkIsInDB(name)) return null;
 
         IngredientDB ingredients_db = new IngredientDB();
         ingredients_db.create(name, calories, protein, fats, carbs);
-
-        list_of_ingredients = Ingredient.getIngredientsByResultSet(Ingredient.getIngredientByNameResultSet(name));
-        return list_of_ingredients.get(0);
+        return getIngredientByName(name);
     }
 
     private boolean updateInDB() {
