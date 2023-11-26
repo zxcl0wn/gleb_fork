@@ -5,6 +5,7 @@ import RecipeManagementEntities.RecipeIngredient;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Vector;
 
 public class RecipeMain {
@@ -16,8 +17,10 @@ public class RecipeMain {
         String crispy_salty_cucumbers_for_winter_without_vinegar = "https://1000.menu/cooking/13467-xrustyashchie-solenye-ogurcy-na-zimu-bez-uksusa";
         String sour_salty_cucumbers_for_winter_in_jars_without_vinegar ="https://1000.menu/cooking/48686-kislye-solenye-ogurcy-na-zimu-v-bankax-bez-uksusa";
         String salate = "https://1000.menu/cooking/7637-kurinji-salat-s-pomidorom-i-sjrom";
-        RecipeParser parser1 = new RecipeParser(medovik);
+        RecipeParser parser1 = new RecipeParser(rice);
+//        Recipe100Menu recipe_by_url = parser1.getRecipeByUrl();
         System.out.println(parser1.getRecipeByUrl());
+//        System.out.println(recipe_by_url.img);
 //        AllCPFC t1 = new AllCPFC();
 //        System.out.println(t1.table_CPFC());
     }
