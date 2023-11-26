@@ -86,6 +86,12 @@ class Ingredient {
         return ingredients_db.update(id, name, calories, protein, fats, carbs);
     }
 
+    public void delete() {
+//      удаляет интредиент из бд
+        IngredientDB ingredients_db = new IngredientDB();
+        ingredients_db.delete(id);
+    }
+
 }
 
 

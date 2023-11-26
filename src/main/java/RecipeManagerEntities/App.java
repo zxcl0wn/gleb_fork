@@ -30,6 +30,24 @@ public class App {
             System.out.println(i1.toString());
         }
 
+        System.out.println("new");
+
+        RecipeStep recipe_step1 = RecipeStep.addToDBAndGet(4, "title", "img1");
+        recipe_step1.text = "new text 1";
+        recipe_step1.updateInDB();
+
+        for (RecipeStep r1 : RecipeStep.getRecipeStepByResultSet(RecipeStep.getAllRecipeStepsResultSet())) {
+            System.out.println(r1.toString());
+        }
+
+        RecipeStep recipe_step2 = RecipeStep.addToDBAndGet(4, "title", "img1");
+        recipe_step2.text = "new text 234rtwd";
+
+        for (RecipeStep r1 : RecipeStep.getRecipeStepByResultSet(RecipeStep.getAllRecipeStepsResultSet())) {
+            System.out.println(r1.toString());
+        }
+        recipe_step2.updateInDB();
+
 
 
     }

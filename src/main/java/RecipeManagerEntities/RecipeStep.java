@@ -1,5 +1,6 @@
 package RecipeManagerEntities;
 
+import DatabaseAPI.IngredientDB;
 import DatabaseAPI.RecipeStepsDB;
 
 import java.sql.ResultSet;
@@ -73,6 +74,12 @@ public class RecipeStep {
     public void updateInDB() {
         RecipeStepsDB recipe_steps_db = new RecipeStepsDB();
         recipe_steps_db.update(id, recipe_id, text, img);
+    }
+
+    public void delete() {
+//      удаляет шаг рецепта из бд
+        RecipeStepsDB recipe_steps_db = new RecipeStepsDB();
+        recipe_steps_db.delete(id);
     }
 
 
