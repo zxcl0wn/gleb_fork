@@ -11,6 +11,8 @@ abstract class CategoriesDBAbstract extends DB_BaseAbstract {
     public abstract void create(String name);
 
     public abstract void update(int id, String name);
+
+    public abstract ResultSet readByName(String name);
 }
 
 public class CategoriesDB extends CategoriesDBAbstract {
@@ -73,6 +75,20 @@ public class CategoriesDB extends CategoriesDBAbstract {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public ResultSet readByName(String name) {
+        try (Connection connection = this.getConnection()) {
+            String selectQuery = String.format("SELECT * FROM %s WHERE name = ?", this.tableName);
+            PreparedStatement pstmt = connection.prepareStatement(selectQuery);
+            pstmt.setString(1, name);
+            return pstmt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database:");
+            e.printStackTrace();
+        }
+        return null;
     }
 
 

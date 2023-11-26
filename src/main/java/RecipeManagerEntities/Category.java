@@ -36,6 +36,17 @@ public class Category {
         return categories_db.readAll();
     }
 
+    public static ResultSet getCategoryByIdResultSet(int id){
+        CategoriesDB categories_db = new CategoriesDB();
+        return categories_db.read(id);
+    }
+
+    public static ResultSet getCategoryByNameResultSet(String name){
+        CategoriesDB categories_db = new CategoriesDB();
+        return categories_db.readByName(name);
+    }
+
+
     public static List<Category> getCategoriesByResultSet(ResultSet rs) throws SQLException {
         List<Category> list = new LinkedList<>();
         while (rs.next()) {
@@ -45,6 +56,14 @@ public class Category {
             list.add(new Category(id, name));
         }
         return list;
+    }
+
+    public static boolean checkIsInDB(String name) throws SQLException {
+        List<Category> all_categories =  Category.getCategoriesByResultSet(Category.getCategoryByNameResultSet(name));
+        if (all_categories.size() == 1) {
+            return true;
+        }
+        return false;
     }
 
     public static Category addToDBAndGet(String name) throws SQLException {

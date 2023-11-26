@@ -65,7 +65,7 @@ class Ingredient {
         return list;
     }
 
-    public boolean checkIsInDB(String name) throws SQLException {
+    public static boolean checkIsInDB(String name) throws SQLException {
         List<Ingredient> list_of_ingredients = Ingredient.getIngredientsByResultSet(Ingredient.getIngredientByNameResultSet(name));
         if (list_of_ingredients.size() == 1) {
             return true;
