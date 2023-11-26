@@ -54,7 +54,10 @@ public class Favorite {
         FavoritesDB favorites_db = new FavoritesDB();
         favorites_db.create(recipe_id);
         all_favorites = Favorite.getFavoritesByResultSet(Favorite.getAllFavoritesResultSet());
-        return all_favorites.getLast();
+
+        Favorite last_favorite = all_favorites.getLast();
+        if (last_favorite.recipe_id != recipe_id) return null; // если рецепта с таким id не существует
+        return last_favorite;
     }
 
     public void delete() {
