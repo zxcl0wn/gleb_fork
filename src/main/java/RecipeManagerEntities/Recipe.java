@@ -18,16 +18,26 @@ public class Recipe {
         return name;
     }
 
-    public void setName(String name) {
-//        this.name = name;
+    public boolean setName(String name) throws SQLException {
+        String old_name = this.name;
+        if (!Objects.isNull(getRecipeByName(name))) return false;
+        this.name = name;
+        if (this.updateInDB()) return true;
+
+        this.name = old_name;
+        return false;
     }
 
     public Category getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
-//        this.category = category;
+    public boolean setCategory(Category category) throws SQLException {
+        if (Objects.isNull(category)) return false;
+        if (!Category.checkIsInDB(category.getId())) return false;
+        this.category = category;
+        this.updateInDB();
+        return true;
     }
 
     public String getImg() {
@@ -35,7 +45,8 @@ public class Recipe {
     }
 
     public void setImg(String img) {
-//        this.img = img;
+        this.img = img;
+        this.updateInDB();
     }
 
     public String getCookingTime() {
@@ -43,7 +54,8 @@ public class Recipe {
     }
 
     public void setCookingTime(String cookingTime) {
-//        this.cookingTime = cookingTime;
+        this.cookingTime = cookingTime;
+        this.updateInDB();
     }
 
     public LevelOfDifficulty getDifficultyLevel() {
@@ -51,7 +63,8 @@ public class Recipe {
     }
 
     public void setDifficultyLevel(LevelOfDifficulty difficulty_level) {
-//        this.difficulty_level = difficulty_level;
+        this.difficulty_level = difficulty_level;
+        this.updateInDB();
     }
 
     public List<IngredientWithQuantity> getIngredientsWithQuantity() {

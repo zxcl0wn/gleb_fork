@@ -61,6 +61,11 @@ public class Category {
         return c1.getFirst();
     }
 
+    public static boolean checkIsInDB(int id) throws SQLException {
+        Category c1 = getCategoryById(id);
+        return !Objects.isNull(c1);
+    }
+
     public static boolean checkIsInDB(String name) throws SQLException {
         Category c1 = getCategoryByName(name);
         return !Objects.isNull(c1);
