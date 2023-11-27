@@ -1,11 +1,13 @@
 package RecipeManagerEntities;
 
+import DatabaseAPI.IngredientDB;
 import DatabaseAPI.RecipeDB;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Recipe {
@@ -58,6 +60,7 @@ public class Recipe {
     private static List<IngredientWithQuantity> getIngredientsWithQuantity(int recipe_id) throws SQLException {
         return IngredientWithQuantity.getIngredientsWithQuantityByRecipeId(recipe_id);
     }
+
     @Override
     public String toString() {
         return "Recipe{" +
@@ -70,7 +73,6 @@ public class Recipe {
                 ", ingredients_with_quantity=" + ingredients_with_quantity +
                 '}';
     }
-
 
     private static ResultSet getAllRecipesResultSet(){
         RecipeDB recipe_db = new RecipeDB();
@@ -94,7 +96,7 @@ public class Recipe {
 
     private static ResultSet getRecipeByLevelOfDifficultyResultSet(LevelOfDifficulty level_of_difficulty){
         RecipeDB recipe_db = new RecipeDB();
-        return recipe_db.readByCategory(level_of_difficulty.getId());
+        return recipe_db.readByLevelOfDifficulty(level_of_difficulty.getId());
     }
 
     private static List<RecipeData> getRecipeDataByResultSet(ResultSet rs) throws SQLException {
@@ -123,6 +125,7 @@ public class Recipe {
     }
 
     public void updateIngredientsWithQuantity() throws SQLException {
+//      обновляет список ингредиентов в рецепте (получаем актуальные данные из бд)
         this.ingredients_with_quantity = getIngredientsWithQuantity(this.id);
     }
 
@@ -146,6 +149,17 @@ public class Recipe {
         return recipes_list;
     }
 
+    public static List<Recipe> getRecipesByLevelOfDifficulty(LevelOfDifficulty level_of_difficulty) throws SQLException {
+        List<RecipeData> recipe_data_list = getRecipeDataByResultSet(getRecipeByLevelOfDifficultyResultSet(level_of_difficulty));
+        List<Recipe> recipes_list = new LinkedList<>();
+
+        for (RecipeData recipe_data : recipe_data_list) {
+            recipes_list.add(new Recipe(recipe_data));
+        }
+        return recipes_list;
+    }
+
+
     public static Recipe getRecipeById(int id) throws SQLException {
         List<RecipeData> recipe_data_list = getRecipeDataByResultSet(getRecipeByIdResultSet(id));
         if (recipe_data_list.isEmpty()) return null;
@@ -157,6 +171,27 @@ public class Recipe {
         if (recipe_data_list.isEmpty()) return null;
         return new Recipe(recipe_data_list.getFirst());
     }
+
+    public static boolean checkIsInDB(int id) throws SQLException {
+        Recipe r1 = getRecipeById(id);
+        return !Objects.isNull(r1);
+    }
+    public static boolean checkIsInDB(String name) throws SQLException {
+        Recipe r1 = getRecipeByName(name);
+        return !Objects.isNull(r1);
+    }
+
+    public static Recipe addToDBAndGet(String name, Category category, String img, String cookingTime, LevelOfDifficulty difficulty_level) throws SQLException {
+//      если рецепт с таким именем есть, то возвращает null
+        if (checkIsInDB(name)) return null;
+
+        RecipeDB recipe_db = new RecipeDB();
+        boolean success = recipe_db.create(name, category.getId(), img, cookingTime, difficulty_level.getId());
+        if (!success) return null;
+
+        return getRecipeByName(name);
+    }
+
 
 
 
