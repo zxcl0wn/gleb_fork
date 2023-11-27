@@ -1,9 +1,6 @@
 package DatabaseAPI;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 
 abstract class RecipeDBAbstract extends DB_BaseAbstract {
@@ -14,6 +11,12 @@ abstract class RecipeDBAbstract extends DB_BaseAbstract {
     public abstract void create(String name, int category, String img, String cooking_time, int difficulty_level);
 
     public abstract void update(int id, String name, int category, String img, String cooking_time, int difficulty_level);
+
+    public abstract ResultSet readByName(String name);
+
+    public abstract ResultSet readByCategory(int category_id);
+
+    public abstract ResultSet readByLevelOfDifficulty(int level_of_difficulty);
 }
 
 public class RecipeDB extends RecipeDBAbstract {
@@ -92,4 +95,45 @@ public class RecipeDB extends RecipeDBAbstract {
         }
     }
 
+    @Override
+    public ResultSet readByName(String name) {
+        try (Connection connection = this.getConnection()) {
+            String selectQuery = String.format("SELECT * FROM %s WHERE name = ?", this.tableName);
+            PreparedStatement pstmt = connection.prepareStatement(selectQuery);
+            pstmt.setString(1, name);
+            return pstmt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database:");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ResultSet readByCategory(int category_id) {
+        try (Connection connection = this.getConnection()) {
+            String selectQuery = String.format("SELECT * FROM %s WHERE category = ?", this.tableName);
+            PreparedStatement pstmt = connection.prepareStatement(selectQuery);
+            pstmt.setInt(1, category_id);
+            return pstmt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database:");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ResultSet readByLevelOfDifficulty(int level_of_difficulty) {
+        try (Connection connection = this.getConnection()) {
+            String selectQuery = String.format("SELECT * FROM %s WHERE difficulty_level = ?", this.tableName);
+            PreparedStatement pstmt = connection.prepareStatement(selectQuery);
+            pstmt.setInt(1, level_of_difficulty);
+            return pstmt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database:");
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
