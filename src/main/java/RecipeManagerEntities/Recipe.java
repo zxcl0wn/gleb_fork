@@ -85,7 +85,7 @@ public class Recipe {
 
     private static ResultSet getRecipeByIdResultSet(int id){
         RecipeDB recipe_db = new RecipeDB();
-        return recipe_db.readAll();
+        return recipe_db.read(id);
     }
 
     private static ResultSet getRecipeByNameResultSet(String name){
