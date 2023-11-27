@@ -10,7 +10,7 @@ abstract class RecipeDBAbstract extends DB_BaseAbstract {
 
     public abstract boolean create(String name, int category, String img, String cooking_time, int difficulty_level);
 
-    public abstract void update(int id, String name, int category, String img, String cooking_time, int difficulty_level);
+    public abstract boolean update(int id, String name, int category, String img, String cooking_time, int difficulty_level);
 
     public abstract ResultSet readByName(String name);
 
@@ -77,7 +77,7 @@ public class RecipeDB extends RecipeDBAbstract {
 
     }
 
-    public void update(int id, String name, int category, String img, String cooking_time, int difficulty_level) {
+    public boolean update(int id, String name, int category, String img, String cooking_time, int difficulty_level) {
         try (Connection connection = this.getConnection()) {
             String updateQuery = String.format(
         "UPDATE %s SET name = ?, category = ?, img = ?, cooking_time = ?, difficulty_level = ? WHERE id = ?;",
@@ -91,9 +91,11 @@ public class RecipeDB extends RecipeDBAbstract {
             pstmt.setInt(5, difficulty_level);
             pstmt.setInt(6, id);
             pstmt.executeUpdate();
+            return true;
         } catch (SQLException e) {
             System.out.println("Error connecting to PostgreSQL database:");
             e.printStackTrace();
+            return false;
         }
     }
 

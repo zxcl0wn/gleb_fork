@@ -1,6 +1,5 @@
 package RecipeManagerEntities;
 
-import DatabaseAPI.IngredientDB;
 import DatabaseAPI.RecipeDB;
 
 import java.sql.ResultSet;
@@ -192,9 +191,49 @@ public class Recipe {
         return getRecipeByName(name);
     }
 
+    private boolean updateInDB() {
+//      Метод возвращает false, если продукт с указанным именем уже существует
+        RecipeDB recipe_db = new RecipeDB();
+        return recipe_db.update(id, name, category.getId(), img, cookingTime, difficulty_level.getId());
+    }
 
+    public void delete() {
+//      удаляет интредиент из бд
+        RecipeDB recipe_db = new RecipeDB();
+        recipe_db.delete(id);
+        this.id = -1;
+        name = "deleted";
+        category = null;
+        img = "/deleted";
+        cookingTime = "-1";
+        difficulty_level = null;
+    }
 
+    public boolean addNewIngredientWithQuantity(Ingredient ingredient, double quantity) throws SQLException {
+        // ингредиента не существует
+        if (Objects.isNull(ingredient)) return false;
+        if (Objects.isNull(Ingredient.getIngredientById(ingredient.getId()))) return false;
 
+        // ингредиент уже добавлен в рецепт
+        if (!Objects.isNull(RecipeIngredient.getRecipeIngredientByRecipeIdAndIngredientId(this.id, ingredient.getId()))) return false;
 
+        RecipeIngredient rs1 = RecipeIngredient.addToDBAndGet(this.id, ingredient.getId(), quantity);
+        if (Objects.isNull(rs1)) return false;
+        this.updateIngredientsWithQuantity();
+        return true;
+    }
+
+    public void delIngredientWithQuantity(IngredientWithQuantity ingredient_with_quantity) throws SQLException {
+        ingredient_with_quantity.delete();
+        this.updateIngredientsWithQuantity();
+    }
+
+    public void delIngredientWithQuantity(int ingredient_id) throws SQLException {
+        RecipeIngredient rs1 = RecipeIngredient.getRecipeIngredientByRecipeIdAndIngredientId(this.id, ingredient_id);
+        if (Objects.isNull(rs1)) return;
+        rs1.delete();
+        this.updateIngredientsWithQuantity();
+    }
 
 }
+

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import DatabaseAPI.IngredientDB;
 
-class Ingredient {
+public class Ingredient {
     public int getId() {
         return id;
     }
