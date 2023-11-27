@@ -11,9 +11,9 @@ abstract class RecipeDBAbstract extends DB_BaseAbstract {
         super(tableName);
     }
 
-    public abstract void create(String name, int category, String img, int cooking_time, int difficulty_level);
+    public abstract void create(String name, int category, String img, String cooking_time, int difficulty_level);
 
-    public abstract void update(int id, String name, int category, String img, int cooking_time, int difficulty_level);
+    public abstract void update(int id, String name, int category, String img, String cooking_time, int difficulty_level);
 }
 
 public class RecipeDB extends RecipeDBAbstract {
@@ -28,7 +28,7 @@ public class RecipeDB extends RecipeDBAbstract {
                     "name TEXT UNIQUE," +
                     "category INTEGER REFERENCES Categories (id) ON DELETE CASCADE," +
                     "img TEXT," +
-                    "cooking_time INTEGER," +
+                    "cooking_time TEXT," +
                     "difficulty_level INTEGER REFERENCES LevelsOfDifficulty (id) ON DELETE CASCADE" +
                     ");", this.tableName);
 
@@ -52,21 +52,19 @@ public class RecipeDB extends RecipeDBAbstract {
     }
 
     @Override
-    public void create(String name, int category, String img, int cooking_time, int difficulty_level) {
+    public void create(String name, int category, String img, String cooking_time, int difficulty_level) {
         try (Connection connection = this.getConnection()) {
             String insertQuery = String.format(
                     "INSERT INTO %s (name, category, img, cooking_time, difficulty_level) VALUES (?, ?, ?, ?, ?);",
                     this.tableName
             );
-
             PreparedStatement pstmt = connection.prepareStatement(insertQuery);
             pstmt.setString(1, name);
             pstmt.setInt(2, category);
             pstmt.setString(3, img);
-            pstmt.setInt(4, cooking_time);
+            pstmt.setString(4, cooking_time);
             pstmt.setInt(5, difficulty_level);
             pstmt.executeUpdate();
-
         } catch (SQLException e) {
             System.out.println("Error connecting to PostgreSQL database:");
             e.printStackTrace();
@@ -74,7 +72,7 @@ public class RecipeDB extends RecipeDBAbstract {
 
     }
 
-    public void update(int id, String name, int category, String img, int cooking_time, int difficulty_level) {
+    public void update(int id, String name, int category, String img, String cooking_time, int difficulty_level) {
         try (Connection connection = this.getConnection()) {
             String updateQuery = String.format(
         "UPDATE %s SET name = ?, category = ?, img = ?, cooking_time = ?, difficulty_level = ? WHERE id = ?;",
@@ -84,7 +82,7 @@ public class RecipeDB extends RecipeDBAbstract {
             pstmt.setString(1, name);
             pstmt.setInt(2, category);
             pstmt.setString(3, img);
-            pstmt.setInt(4, cooking_time);
+            pstmt.setString(4, cooking_time);
             pstmt.setInt(5, difficulty_level);
             pstmt.setInt(6, id);
             pstmt.executeUpdate();
