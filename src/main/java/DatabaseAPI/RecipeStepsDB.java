@@ -8,7 +8,7 @@ abstract class RecipeStepsDBAbstract extends DB_BaseAbstract {
         super(tableName);
     }
 
-    public abstract void create(int recipe_id, String text, String img);
+    public abstract boolean create(int recipe_id, String text, String img);
 
     public abstract void update(int id, int recipe_id, String text, String img);
 
@@ -45,7 +45,7 @@ public class RecipeStepsDB extends RecipeStepsDBAbstract {
         this.createTableIfNotExists();
     }
 
-    public void create(int recipe_id, String text, String img) {
+    public boolean create(int recipe_id, String text, String img) {
         try (Connection connection = this.getConnection()) {
             String insertQuery = String.format(
                     "INSERT INTO %s (recipe_id, text, img) VALUES (?, ?, ?);",
@@ -57,10 +57,11 @@ public class RecipeStepsDB extends RecipeStepsDBAbstract {
             pstmt.setString(2, text);
             pstmt.setString(3, img);
             pstmt.executeUpdate();
-
+            return true;
         } catch (SQLException e) {
             System.out.println("Error connecting to PostgreSQL database:");
             e.printStackTrace();
+            return false;
         }
 
     }

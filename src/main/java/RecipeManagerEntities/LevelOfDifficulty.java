@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class LevelOfDifficulty {
-    private int id;
+    private final int id;
     public String name;
 
     public LevelOfDifficulty(int id, String name) {
@@ -34,9 +34,13 @@ public class LevelOfDifficulty {
         return levels_of_difficulty_db.readAll();
     }
 
-    public static List<LevelOfDifficulty> getAllLevelsOfDifficulty() throws SQLException {
+    private static ResultSet getLevelOfDifficultyByIdResultSet(int id){
+        LevelsOfDifficultyDB levels_of_difficulty_db = new LevelsOfDifficultyDB();
+        return levels_of_difficulty_db.read(id);
+    }
+
+    private static List<LevelOfDifficulty> getLevelsOfDifficultyByResultSet(ResultSet rs) throws SQLException {
         List<LevelOfDifficulty> list = new LinkedList<>();
-        ResultSet rs = LevelOfDifficulty.getAllLevelsOfDifficultyResultSet();
         while (rs.next()) {
             int id = rs.getInt("id");
             String name = rs.getString("name");
@@ -44,4 +48,16 @@ public class LevelOfDifficulty {
         }
         return list;
     }
+
+    public static List<LevelOfDifficulty> getAllLevelsOfDifficulty() throws SQLException {
+        return getLevelsOfDifficultyByResultSet(getAllLevelsOfDifficultyResultSet());
+    }
+
+    public static LevelOfDifficulty getLevelOfDifficultyById(int id) throws SQLException {
+        List<LevelOfDifficulty> l1 = getLevelsOfDifficultyByResultSet(getLevelOfDifficultyByIdResultSet(id));
+        if (l1.isEmpty()) return null;
+        return l1.getFirst();
+    }
+
+
 }

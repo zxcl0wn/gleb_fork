@@ -8,47 +8,34 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RecipeStep {
-    public int getId() {
-        return id;
-    }
+    private int id;
+    private int recipe_id;
+    private String text;
+    private String img;
 
-    public int getRecipeId() {
-        return recipe_id;
-    }
-
-    private final int id;
-    private final int recipe_id;
-    public String text;
-    public String img;
-
-    public RecipeStep(int id, int recipe_id, String text, String img) {
+    private RecipeStep(int id, int recipe_id, String text, String img) {
         this.id = id;
         this.recipe_id = recipe_id;
         this.text = text;
         this.img = img;
     }
 
-    @Override
-    public String toString() {
-        return "RecipeStep{" +
-                "id=" + id +
-                ", recipe=" + recipe_id +
-                ", text='" + text + '\'' +
-                ", img='" + img + '\'' +
-                '}';
-    }
-
-    public static ResultSet getAllRecipeStepsResultSet(){
+    private static ResultSet getAllRecipeStepsResultSet(){
         RecipeStepsDB recipe_steps_db = new RecipeStepsDB();
         return recipe_steps_db.readAll();
     }
 
-    public static ResultSet getRecipeStepByRecipeIdResultSet(int recipe_id){
+    private static ResultSet getRecipeStepByRecipeIdResultSet(int recipe_id){
         RecipeStepsDB ingredients_db = new RecipeStepsDB();
         return ingredients_db.readByRecipeId(recipe_id);
     }
 
-    public static List<RecipeStep> getRecipeStepByResultSet(ResultSet rs) throws SQLException {
+    private static ResultSet getRecipeStepByIdResultSet(int id){
+        RecipeStepsDB ingredients_db = new RecipeStepsDB();
+        return ingredients_db.read(id);
+    }
+
+    private static List<RecipeStep> getRecipeStepsByResultSet(ResultSet rs) throws SQLException {
         List<RecipeStep> list = new LinkedList<>();
         while (rs.next()) {
             int id = rs.getInt("id");
@@ -61,16 +48,31 @@ public class RecipeStep {
         return list;
     }
 
+    public static List<RecipeStep> getAllRecipeSteps() throws SQLException {
+        return getRecipeStepsByResultSet(getAllRecipeStepsResultSet());
+    }
+
+    public static List<RecipeStep> getRecipeStepsByRecipeId(int recipe_id) throws SQLException {
+        return getRecipeStepsByResultSet(getRecipeStepByRecipeIdResultSet(recipe_id));
+    }
+
+    public static RecipeStep getRecipeStepById(int id) throws SQLException {
+        List<RecipeStep> rs1 = getRecipeStepsByResultSet(getRecipeStepByIdResultSet(id));
+        if (rs1.isEmpty()) return null;
+        return rs1.getFirst();
+    }
+
     public static RecipeStep addToDBAndGet(int recipe_id, String text, String img) throws SQLException {
-
+        // null - если не существует рецепта с rexipe_id
         RecipeStepsDB recipe_steps_db = new RecipeStepsDB();
-        recipe_steps_db.create(recipe_id, text, img);
+        boolean successful_operation = recipe_steps_db.create(recipe_id, text, img);
+        if (!successful_operation) return null;
 
-        List<RecipeStep> list_of_recipe_steps = RecipeStep.getRecipeStepByResultSet(RecipeStep.getAllRecipeStepsResultSet());
+        List<RecipeStep> list_of_recipe_steps = getRecipeStepsByRecipeId(recipe_id);
         return list_of_recipe_steps.getLast();
     }
 
-    public void updateInDB() {
+    private void updateInDB() {
         RecipeStepsDB recipe_steps_db = new RecipeStepsDB();
         recipe_steps_db.update(id, recipe_id, text, img);
     }
@@ -79,7 +81,46 @@ public class RecipeStep {
 //      удаляет шаг рецепта из бд
         RecipeStepsDB recipe_steps_db = new RecipeStepsDB();
         recipe_steps_db.delete(id);
+        id = -1;
+        recipe_id = -1;
+        text = "deleted";
+        img = "/deleted";
     }
 
 
+    public int getId() {
+        return id;
+    }
+
+    public int getRecipeId() {
+        return recipe_id;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+        this.updateInDB();
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+        this.updateInDB();
+    }
+
+    @Override
+    public String toString() {
+        return "RecipeStep{" +
+                "id=" + id +
+                ", recipe=" + recipe_id +
+                ", text='" + text + '\'' +
+                ", img='" + img + '\'' +
+                '}';
+    }
 }

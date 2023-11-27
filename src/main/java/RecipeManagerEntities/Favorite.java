@@ -56,8 +56,8 @@ public class Favorite {
     public static Favorite addToDBAndGet(int recipe_id) throws SQLException {
         if (checkIsInDB(recipe_id)) return null;
         FavoritesDB favorites_db = new FavoritesDB();
-        favorites_db.create(recipe_id);
-
+        boolean successful_operation = favorites_db.create(recipe_id);
+        if (!successful_operation) return null;
         return getFavoriteByRecipeId(recipe_id);
     }
 
