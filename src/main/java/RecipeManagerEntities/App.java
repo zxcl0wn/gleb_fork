@@ -7,20 +7,25 @@ import java.util.List;
 public class App {
 
     public static void main(String[] args) throws SQLException {
-       List<Favorite> list_of_f = Favorite.getAllFavoritesList();
+        RecipeIngredient ttr = RecipeIngredient.addToDBAndGet(33, 33, 9191919);
+        System.out.println(ttr);
+        System.out.println("---------");
 
-       System.out.println(list_of_f.size());
+        List<RecipeIngredient> rs1 = RecipeIngredient.getAllRecipesIngredientsList();
 
-        for (Favorite f1 : list_of_f) {
-            System.out.println(f1.toString());
+       for (RecipeIngredient r : rs1) {
+           System.out.println(r.toString());
+
+       }
+
+        System.out.println("---------");
+
+        List<Ingredient> i1 = Ingredient.getAllIngredientsList();
+
+        for (Ingredient i : i1) {
+            System.out.println(i.toString());
+
         }
-
-        System.out.println(Ingredient.addToDBAndGet("OO1", 55, 0, 0, 0));
-
-
-
-
-
 
 
     }

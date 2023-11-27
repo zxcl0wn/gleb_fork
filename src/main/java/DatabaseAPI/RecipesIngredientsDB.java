@@ -9,7 +9,7 @@ abstract class RecipesIngredientsDBAbstract extends DB_BaseAbstract {
         super(tableName);
     }
 
-    public abstract void create(int recipe_id, int ingredient_id, double quantity_of_ingredient);
+    public abstract boolean create(int recipe_id, int ingredient_id, double quantity_of_ingredient);
 
     public abstract void update(int id, double quantity_of_ingredient);
 
@@ -53,7 +53,7 @@ public class RecipesIngredientsDB extends RecipesIngredientsDBAbstract {
         this.createTableIfNotExists();
     }
 
-    public void create(int recipe_id, int ingredient_id, double quantity_of_ingredient) {
+    public boolean create(int recipe_id, int ingredient_id, double quantity_of_ingredient) {
         try (Connection connection = this.getConnection()) {
             String insertQuery = String.format(
                     "INSERT INTO %s (recipe_id, ingredient_id, quantity_of_ingredient) VALUES (?, ?, ?);",
@@ -64,10 +64,11 @@ public class RecipesIngredientsDB extends RecipesIngredientsDBAbstract {
             pstmt.setInt(2, ingredient_id);
             pstmt.setDouble(3, quantity_of_ingredient);
             pstmt.executeUpdate();
-
+            return true;
         } catch (SQLException e) {
             System.out.println("Error connecting to PostgreSQL database:");
             e.printStackTrace();
+            return false;
         }
 
     }

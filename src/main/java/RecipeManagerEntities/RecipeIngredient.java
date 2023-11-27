@@ -1,23 +1,25 @@
 package RecipeManagerEntities;
 
+import DatabaseAPI.IngredientDB;
 import DatabaseAPI.RecipesIngredientsDB;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 public class RecipeIngredient {
     private int id;
     private int recipe_id;
     private int ingredient_id;
-    private double quantityOfIngredient;
+    private double quantity_of_ingredient;
 
-    private RecipeIngredient(int id, int recipe_id, int ingredient_id, double quantityOfIngredient) {
+    private RecipeIngredient(int id, int recipe_id, int ingredient_id, double quantity_of_ingredient) {
         this.id = id;
         this.recipe_id = recipe_id;
         this.ingredient_id = ingredient_id;
-        this.quantityOfIngredient = quantityOfIngredient;
+        this.quantity_of_ingredient = quantity_of_ingredient;
     }
 
     private static ResultSet getAllRecipesIngredientsResultSet(){
@@ -51,8 +53,8 @@ public class RecipeIngredient {
             int id = rs.getInt("id");
             int recipe_id = rs.getInt("recipe_id");
             int ingredient_id = rs.getInt("ingredient_id");
-            double quantityOfIngredient = rs.getDouble("quantity_of_ingredient");
-            list.add(new RecipeIngredient(id, recipe_id, ingredient_id, quantityOfIngredient));
+            double quantity_of_ingredient = rs.getDouble("quantity_of_ingredient");
+            list.add(new RecipeIngredient(id, recipe_id, ingredient_id, quantity_of_ingredient));
         }
         return list;
     }
@@ -69,18 +71,52 @@ public class RecipeIngredient {
         return getRecipesIngredientsByResultSet(getRecipeIngredientByRecipeIdResultSet(recipe_id));
     }
 
-    public static RecipeIngredient getRecipeIngredientsById(int id) throws SQLException {
+    public static RecipeIngredient getRecipeIngredientById(int id) throws SQLException {
         List<RecipeIngredient> ri1 = getRecipesIngredientsByResultSet(getRecipeIngredientByIdResultSet(id));
         if (ri1.isEmpty()) return null;
         return ri1.getFirst();
     }
 
-    public static RecipeIngredient getRecipeIngredientsByRecipeIdAndIngredientId(int recipe_id, int ingredient_id) throws SQLException {
+    public static RecipeIngredient getRecipeIngredientByRecipeIdAndIngredientId(int recipe_id, int ingredient_id) throws SQLException {
         List<RecipeIngredient> ri1 = getRecipesIngredientsByResultSet(getRecipeIngredientByRecipeIdAndIngredientIdResultSet(recipe_id, ingredient_id));
         if (ri1.isEmpty()) return null;
         return ri1.getFirst();
     }
 
+    public static boolean checkIsInDB(int id) throws SQLException {
+        RecipeIngredient ri1 = getRecipeIngredientById(id);
+        return !Objects.isNull(ri1);
+    }
+
+    public static boolean checkIsInDB(int recipe_id, int ingredient_id) throws SQLException {
+        RecipeIngredient ri1 = getRecipeIngredientByRecipeIdAndIngredientId(recipe_id, ingredient_id);
+        return !Objects.isNull(ri1);
+    }
+
+    public static RecipeIngredient addToDBAndGet(int recipe_id, int ingredient_id, double quantity_of_ingredient) throws SQLException {
+//      если такая запись есть | нет рецерта или ингредиента, то возвращает null
+        if (checkIsInDB(recipe_id, ingredient_id)) return null;
+
+        RecipesIngredientsDB recipes_ingredients_db = new RecipesIngredientsDB();
+        boolean successful_operation = recipes_ingredients_db.create(recipe_id, ingredient_id, quantity_of_ingredient);
+        if (!successful_operation) return null;
+        return getAllRecipesIngredientsList().getLast();
+    }
+
+    private void updateInDB() {
+        RecipesIngredientsDB recipes_ingredients_db = new RecipesIngredientsDB();
+        recipes_ingredients_db.update(id, quantity_of_ingredient);
+    }
+
+    public void delete() {
+//      удаляет  из бд
+        RecipesIngredientsDB recipes_ingredients_db = new RecipesIngredientsDB();
+        recipes_ingredients_db.delete(id);
+        this.id = -1;
+        this.recipe_id = -1;
+        this.ingredient_id = -1;
+        this.quantity_of_ingredient = -1;
+    }
 
     @Override
     public String toString() {
@@ -88,7 +124,7 @@ public class RecipeIngredient {
                 "id=" + id +
                 ", recipe_id=" + recipe_id +
                 ", ingredient_id=" + ingredient_id +
-                ", quantityOfIngredient=" + quantityOfIngredient +
+                ", quantity_of_ingredient=" + quantity_of_ingredient +
                 '}';
     }
 
@@ -105,11 +141,12 @@ public class RecipeIngredient {
     }
 
     public double getQuantityOfIngredient() {
-        return quantityOfIngredient;
+        return quantity_of_ingredient;
     }
 
-    public void setQuantityOfIngredient(double quantityOfIngredient) {
-        this.quantityOfIngredient = quantityOfIngredient;
+    public void setQuantityOfIngredient(double quantity_of_ingredient) {
+        this.quantity_of_ingredient = quantity_of_ingredient;
+        this.updateInDB();
     }
 }
 
