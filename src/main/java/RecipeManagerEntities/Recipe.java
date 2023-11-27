@@ -10,6 +10,54 @@ import java.util.Objects;
 
 
 public class Recipe {
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+//        this.name = name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+//        this.category = category;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+//        this.img = img;
+    }
+
+    public String getCookingTime() {
+        return cookingTime;
+    }
+
+    public void setCookingTime(String cookingTime) {
+//        this.cookingTime = cookingTime;
+    }
+
+    public LevelOfDifficulty getDifficultyLevel() {
+        return difficulty_level;
+    }
+
+    public void setDifficultyLevel(LevelOfDifficulty difficulty_level) {
+//        this.difficulty_level = difficulty_level;
+    }
+
+    public List<IngredientWithQuantity> getIngredientsWithQuantity() {
+        return ingredients_with_quantity;
+    }
+
     private static class RecipeData {
         public int id;
         public String name;
