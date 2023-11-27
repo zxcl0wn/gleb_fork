@@ -4,10 +4,12 @@ import DatabaseAPI.RecipeDB;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
+
 public class Recipe {
-    private class RecipeData {
+    private static class RecipeData {
         public int id;
         public String name;
         public int category_id;
@@ -41,7 +43,7 @@ public class Recipe {
     private Category category;
     private String img;
     private String cookingTime;
-    private LevelOfDifficulty difficultyLevel;
+    private LevelOfDifficulty difficulty_level;
     private List<IngredientWithQuantity> ingredients_with_quantity;
 
 
@@ -64,7 +66,7 @@ public class Recipe {
                 ", category=" + category +
                 ", img='" + img + '\'' +
                 ", cookingTime='" + cookingTime + '\'' +
-                ", difficultyLevel=" + difficultyLevel +
+                ", difficultyLevel=" + difficulty_level +
                 ", ingredients_with_quantity=" + ingredients_with_quantity +
                 '}';
     }
@@ -75,9 +77,9 @@ public class Recipe {
         return recipe_db.readAll();
     }
 
-    private static ResultSet getIngredientByNameResultSet(String name){
+    private static ResultSet getRecipesByCategoryResultSet(Category category){
         RecipeDB recipe_db = new RecipeDB();
-        return recipe_db.readByName(name);
+        return recipe_db.readByCategory(category.getId());
     }
 
     private static ResultSet getRecipeByIdResultSet(int id){
@@ -85,9 +87,9 @@ public class Recipe {
         return recipe_db.readAll();
     }
 
-    private static ResultSet getRecipeByCategoryResultSet(Category category){
+    private static ResultSet getRecipeByNameResultSet(String name){
         RecipeDB recipe_db = new RecipeDB();
-        return recipe_db.readByCategory(category.getId());
+        return recipe_db.readByName(name);
     }
 
     private static ResultSet getRecipeByLevelOfDifficultyResultSet(LevelOfDifficulty level_of_difficulty){
@@ -95,8 +97,66 @@ public class Recipe {
         return recipe_db.readByCategory(level_of_difficulty.getId());
     }
 
+    private static List<RecipeData> getRecipeDataByResultSet(ResultSet rs) throws SQLException {
+        List<RecipeData> list = new LinkedList<>();
+        while (rs.next()) {
+            int id = rs.getInt("id");
+            String name = rs.getString("name");
+            int category = rs.getInt("category");
+            String img = rs.getString("img");
+            String cooking_time = rs.getString("cooking_time");
+            int difficulty_level = rs.getInt("difficulty_level");
 
+            list.add(new RecipeData(id, name, category, img, cooking_time, difficulty_level));
+        }
+        return list;
+    }
 
+    private Recipe(RecipeData recipe_data) throws SQLException {
+        this.id = recipe_data.id;
+        this.name = recipe_data.name;
+        this.category = getCategory(recipe_data.category_id);
+        this.img = recipe_data.img;
+        this.cookingTime = recipe_data.cookingTime;
+        this.difficulty_level = getLevelOfDifficulty(recipe_data.difficulty_level_id);
+        this.ingredients_with_quantity = getIngredientsWithQuantity(this.id);
+    }
+
+    public void updateIngredientsWithQuantity() throws SQLException {
+        this.ingredients_with_quantity = getIngredientsWithQuantity(this.id);
+    }
+
+    public static List<Recipe> getAllRecipes() throws SQLException {
+        List<RecipeData> recipe_data_list = getRecipeDataByResultSet(getAllRecipesResultSet());
+        List<Recipe> recipes_list = new LinkedList<>();
+
+        for (RecipeData recipe_data : recipe_data_list) {
+            recipes_list.add(new Recipe(recipe_data));
+        }
+        return recipes_list;
+    }
+
+    public static List<Recipe> getRecipesByCategory(Category category) throws SQLException {
+        List<RecipeData> recipe_data_list = getRecipeDataByResultSet(getRecipesByCategoryResultSet(category));
+        List<Recipe> recipes_list = new LinkedList<>();
+
+        for (RecipeData recipe_data : recipe_data_list) {
+            recipes_list.add(new Recipe(recipe_data));
+        }
+        return recipes_list;
+    }
+
+    public static Recipe getRecipeById(int id) throws SQLException {
+        List<RecipeData> recipe_data_list = getRecipeDataByResultSet(getRecipeByIdResultSet(id));
+        if (recipe_data_list.isEmpty()) return null;
+        return new Recipe(recipe_data_list.getFirst());
+    }
+
+    public static Recipe getRecipeByName(String name) throws SQLException {
+        List<RecipeData> recipe_data_list = getRecipeDataByResultSet(getRecipeByNameResultSet(name));
+        if (recipe_data_list.isEmpty()) return null;
+        return new Recipe(recipe_data_list.getFirst());
+    }
 
 
 
