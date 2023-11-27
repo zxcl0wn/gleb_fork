@@ -90,19 +90,19 @@ public class IngredientWithQuantity{
     }
 
     public double getCaloriesOfIngredientWithQuantity() {
-        return this.quantity * this.ingredient.getCalories();
+        return this.quantity * this.ingredient.getCalories() / 100;
     }
 
     public double getProteinOfIngredientWithQuantity() {
-        return this.quantity * this.ingredient.getProtein();
+        return this.quantity * this.ingredient.getProtein() / 100;
     }
 
     public double getFatsOfIngredientWithQuantity() {
-        return this.quantity * this.ingredient.getFats();
+        return this.quantity * this.ingredient.getFats() / 100;
     }
 
     public double getCarbsOfIngredientWithQuantity() {
-        return this.quantity * this.ingredient.getCarbs();
+        return this.quantity * this.ingredient.getCarbs() / 100;
     }
 
 }

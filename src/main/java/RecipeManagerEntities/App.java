@@ -17,10 +17,11 @@ public class App {
 
         System.out.println("()()()()()()()");
 
-        Recipe res1 = Recipe.getRecipeByName("Утка с грибами");
-        System.out.println(res1.setName("Грибы с сыром"));
-
+        Recipe res1 = Recipe.getRecipeById(9);
         System.out.println(res1);
+
+        System.out.println(res1.getCaloriesOfRecipe());
+        System.out.println(res1.getProteinOfRecipe());
 
 
 

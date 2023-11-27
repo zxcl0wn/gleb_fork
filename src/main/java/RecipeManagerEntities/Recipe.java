@@ -296,5 +296,37 @@ public class Recipe {
         this.updateIngredientsWithQuantity();
     }
 
+    public double getCaloriesOfRecipe() {
+        double calories = 0;
+        for (IngredientWithQuantity ingredient_with_quantity : this.ingredients_with_quantity) {
+            calories += ingredient_with_quantity.getCaloriesOfIngredientWithQuantity();
+        }
+        return calories;
+    }
+
+    public double getProteinOfRecipe() {
+        double protein = 0;
+        for (IngredientWithQuantity ingredient_with_quantity : this.ingredients_with_quantity) {
+            protein += ingredient_with_quantity.getProteinOfIngredientWithQuantity();
+        }
+        return protein;
+    }
+
+    public double getFatsOfRecipe() {
+        double fats = 0;
+        for (IngredientWithQuantity ingredient_with_quantity : this.ingredients_with_quantity) {
+            fats += ingredient_with_quantity.getFatsOfIngredientWithQuantity();
+        }
+        return fats;
+    }
+
+    public double getCarbsOfRecipe() {
+        double carbs = 0;
+        for (IngredientWithQuantity ingredient_with_quantity : this.ingredients_with_quantity) {
+            carbs += ingredient_with_quantity.getCarbsOfIngredientWithQuantity();
+        }
+        return carbs;
+    }
+
 }
 
