@@ -10,15 +10,11 @@ import java.util.List;
 
 public class LevelOfDifficulty {
     private final int id;
-    public String name;
+    private final String name;
 
     public LevelOfDifficulty(int id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
     }
 
     @Override
@@ -59,5 +55,13 @@ public class LevelOfDifficulty {
         return l1.getFirst();
     }
 
+
+    public String getName() {
+        return name;
+    }
+
+    public int getId() {
+        return id;
+    }
 
 }
