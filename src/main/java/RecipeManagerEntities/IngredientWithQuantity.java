@@ -6,8 +6,8 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 public class IngredientWithQuantity{
-    private final int recipe_id;
-    private final Ingredient ingredient;
+    private int recipe_id;
+    private Ingredient ingredient;
     private double quantity;
 
     private IngredientWithQuantity(int recipe_id, Ingredient ingredient, double quantity) {
@@ -43,8 +43,23 @@ public class IngredientWithQuantity{
         );
     }
 
+    public boolean delete() throws SQLException {
+//      удаляем запись из бд RecipeIngredients
+        RecipeIngredient recipe_ingredient = RecipeIngredient.getRecipeIngredientByRecipeIdAndIngredientId(recipe_id, ingredient.getId());
+        if (Objects.isNull(recipe_ingredient)) return false;
+        recipe_ingredient.delete();
+        recipe_id = -1;
+        ingredient = null;
+        quantity = -1;
+        return true;
+    }
 
-
+    private boolean updateQuantity(double new_quantity) throws SQLException {
+        RecipeIngredient recipe_ingredient = RecipeIngredient.getRecipeIngredientByRecipeIdAndIngredientId(recipe_id, ingredient.getId());
+        if (Objects.isNull(recipe_ingredient)) return false;
+        recipe_ingredient.setQuantityOfIngredient(new_quantity);
+        return true;
+    }
 
     @Override
     public String toString() {
@@ -67,7 +82,27 @@ public class IngredientWithQuantity{
         return quantity;
     }
 
-    public void setQuantity(double quantity) {
+    public boolean setQuantity(double quantity) throws SQLException {
+        boolean success = this.updateQuantity(quantity);
+        if (!success) return false;
         this.quantity = quantity;
+        return true;
     }
+
+    public double getCaloriesOfIngredientWithQuantity() {
+        return this.quantity * this.ingredient.getCalories();
+    }
+
+    public double getProteinOfIngredientWithQuantity() {
+        return this.quantity * this.ingredient.getProtein();
+    }
+
+    public double getFatsOfIngredientWithQuantity() {
+        return this.quantity * this.ingredient.getFats();
+    }
+
+    public double getCarbsOfIngredientWithQuantity() {
+        return this.quantity * this.ingredient.getCarbs();
+    }
+
 }

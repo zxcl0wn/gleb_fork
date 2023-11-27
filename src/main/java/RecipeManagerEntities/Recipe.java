@@ -5,18 +5,12 @@ import java.util.List;
 
 public class Recipe {
     private int id;
-
-    public int getId() {
-        return id;
-    }
-
     private String name;
     private Category category;
-    public String img;
-    private int cookingTime;
+    private String img;
+    private String cookingTime;
     private LevelOfDifficulty difficultyLevel;
-
-    private List<RecipeIngredient> recipeIngredients;
+    private List<IngredientWithQuantity> ingredients_with_quantity;
 
 
 //    private static Category getCategory(int category_id) throws SQLException {
