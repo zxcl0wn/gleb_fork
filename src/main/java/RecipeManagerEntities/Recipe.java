@@ -13,15 +13,30 @@ public class Recipe {
     private List<IngredientWithQuantity> ingredients_with_quantity;
 
 
-//    private static Category getCategory(int category_id) throws SQLException {
-//        return Category.getCategoriesByResultSet(Category.getCategoryByIdResultSet(category_id)).getLast();
-//    }
-//    public static boolean checkIsInDB(String name) throws SQLException {
-//        List<Ingredient> list_of_ingredients = Ingredient.getIngredientsByResultSet(Ingredient.getIngredientByNameResultSet(name));
-//        if (list_of_ingredients.size() == 1) {
-//            return true;
-//        }
-//        return false;
-//
-//    }
+    private static Category getCategory(int category_id) throws SQLException {
+        return Category.getCategoryById(category_id);
+    }
+
+    private static LevelOfDifficulty getLevelOfDifficulty(int level_of_difficulty_id) throws SQLException {
+        return LevelOfDifficulty.getLevelOfDifficultyById(level_of_difficulty_id);
+    }
+
+    private static List<IngredientWithQuantity> getIngredientsWithQuantity(int recipe_id) throws SQLException {
+        return IngredientWithQuantity.getIngredientsWithQuantityByRecipeId(recipe_id);
+    }
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category=" + category +
+                ", img='" + img + '\'' +
+                ", cookingTime='" + cookingTime + '\'' +
+                ", difficultyLevel=" + difficultyLevel +
+                ", ingredients_with_quantity=" + ingredients_with_quantity +
+                '}';
+    }
+
+
+
 }
