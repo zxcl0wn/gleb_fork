@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+
 public class RecipeIngredient {
     private int id;
     private int recipe_id;
@@ -47,53 +48,57 @@ public class RecipeIngredient {
         return recipes_ingredients_db.readByIngredientId(ingredient_id);
     }
 
-    private static List<RecipeIngredient> getRecipesIngredientsByResultSet(ResultSet rs) throws SQLException {
+    private static List<RecipeIngredient> getRecipesIngredientsByResultSet(ResultSet rs) {
         List<RecipeIngredient> list = new LinkedList<>();
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            int recipe_id = rs.getInt("recipe_id");
-            int ingredient_id = rs.getInt("ingredient_id");
-            double quantity_of_ingredient = rs.getDouble("quantity_of_ingredient");
-            list.add(new RecipeIngredient(id, recipe_id, ingredient_id, quantity_of_ingredient));
+        try {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int recipe_id = rs.getInt("recipe_id");
+                int ingredient_id = rs.getInt("ingredient_id");
+                double quantity_of_ingredient = rs.getDouble("quantity_of_ingredient");
+                list.add(new RecipeIngredient(id, recipe_id, ingredient_id, quantity_of_ingredient));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return list;
     }
 
-    public static List<RecipeIngredient> getAllRecipesIngredientsList() throws SQLException {
+    public static List<RecipeIngredient> getAllRecipesIngredientsList() {
         return getRecipesIngredientsByResultSet(getAllRecipesIngredientsResultSet());
     }
 
-    public static List<RecipeIngredient> getRecipesIngredientsByIngredientIdList(int ingredient_id) throws SQLException {
+    public static List<RecipeIngredient> getRecipesIngredientsByIngredientIdList(int ingredient_id) {
         return getRecipesIngredientsByResultSet(getRecipeIngredientByIngredientIdResultSet(ingredient_id));
     }
 
-    public static List<RecipeIngredient> getRecipeIngredientsByRecipeIdList(int recipe_id) throws SQLException {
+    public static List<RecipeIngredient> getRecipeIngredientsByRecipeIdList(int recipe_id) {
         return getRecipesIngredientsByResultSet(getRecipeIngredientByRecipeIdResultSet(recipe_id));
     }
 
-    public static RecipeIngredient getRecipeIngredientById(int id) throws SQLException {
+    public static RecipeIngredient getRecipeIngredientById(int id) {
         List<RecipeIngredient> ri1 = getRecipesIngredientsByResultSet(getRecipeIngredientByIdResultSet(id));
         if (ri1.isEmpty()) return null;
         return ri1.getFirst();
     }
 
-    public static RecipeIngredient getRecipeIngredientByRecipeIdAndIngredientId(int recipe_id, int ingredient_id) throws SQLException {
+    public static RecipeIngredient getRecipeIngredientByRecipeIdAndIngredientId(int recipe_id, int ingredient_id) {
         List<RecipeIngredient> ri1 = getRecipesIngredientsByResultSet(getRecipeIngredientByRecipeIdAndIngredientIdResultSet(recipe_id, ingredient_id));
         if (ri1.isEmpty()) return null;
         return ri1.getFirst();
     }
 
-    public static boolean checkIsInDB(int id) throws SQLException {
+    public static boolean checkIsInDB(int id) {
         RecipeIngredient ri1 = getRecipeIngredientById(id);
         return !Objects.isNull(ri1);
     }
 
-    public static boolean checkIsInDB(int recipe_id, int ingredient_id) throws SQLException {
+    public static boolean checkIsInDB(int recipe_id, int ingredient_id) {
         RecipeIngredient ri1 = getRecipeIngredientByRecipeIdAndIngredientId(recipe_id, ingredient_id);
         return !Objects.isNull(ri1);
     }
 
-    public static RecipeIngredient addToDBAndGet(int recipe_id, int ingredient_id, double quantity_of_ingredient) throws SQLException {
+    public static RecipeIngredient addToDBAndGet(int recipe_id, int ingredient_id, double quantity_of_ingredient) {
 //      если такая запись есть | нет рецерта или ингредиента, то возвращает null
         if (checkIsInDB(recipe_id, ingredient_id)) return null;
 
