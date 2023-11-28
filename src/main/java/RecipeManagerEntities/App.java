@@ -8,20 +8,24 @@ public class App {
 
     public static void main(String[] args) throws SQLException {
 
-        List<Recipe> r1 = Recipe.getAllRecipes();
+//        List<Recipe> r1 = Recipe.getAllRecipes();
+//
+//        for (Recipe r : r1){
+//            System.out.println(r.toString());
+//            System.out.println("---------");
+//        }
+//
+//        System.out.println("()()()()()()()");
+//
+//        Recipe res1 = Recipe.getRecipeById(9);
+//        System.out.println(res1);
+//
+//        System.out.println(res1.getCaloriesOfRecipe());
+//        System.out.println(res1.getProteinOfRecipe());
+//        System.out.println(res1.getProteinOfRecipe());
 
-        for (Recipe r : r1){
-            System.out.println(r.toString());
-            System.out.println("---------");
-        }
-
-        System.out.println("()()()()()()()");
-
-        Recipe res1 = Recipe.getRecipeById(9);
-        System.out.println(res1);
-
-        System.out.println(res1.getCaloriesOfRecipe());
-        System.out.println(res1.getProteinOfRecipe());
+        ShoppingCart.addIngredientsToShoppingCartByRecipe(Recipe.getRecipeById(6));
+        System.out.println(ShoppingCart.getIngredientsMap());
 
 
 

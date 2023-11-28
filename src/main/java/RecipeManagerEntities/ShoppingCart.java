@@ -12,6 +12,11 @@ public class ShoppingCart {
         return shopping_cart_db.readAll();
     }
 
+    private static ResultSet getShoppingCartItemByIdResultSet(int id){
+        ShoppingCartDB shopping_cart_db = new ShoppingCartDB();
+        return shopping_cart_db.read(id);
+    }
+
     private static List<Integer> getShoppingCartIdsByResultSet(ResultSet rs) throws SQLException {
         List<Integer> list = new LinkedList<>();
         while (rs.next()) {
@@ -26,6 +31,17 @@ public class ShoppingCart {
         return getShoppingCartIdsByResultSet(getShoppingCartIdsResultSet());
     }
 
+    private static List<Integer> getShoppingCartItemById(int id) throws SQLException {
+        // по первичному ключу в бд ShoppingCart
+        return getShoppingCartIdsByResultSet(getShoppingCartItemByIdResultSet(id));
+    }
+
+    public static boolean checkIsInDB(int recipe_ingredient_id) throws SQLException {
+        // по клонке recipe_ingredient_id в бд ShoppingCart
+        List<Integer> shopping_cart_items = getShoppingCartIds();
+        return shopping_cart_items.contains(recipe_ingredient_id);
+    }
+
     public static void addIngredientsToShoppingCartByRecipe(Recipe recipe) throws SQLException {
         List<IngredientWithQuantity> ingredients_with_quantity = recipe.getIngredientsWithQuantity();
         ShoppingCartDB shopping_cart_db = new ShoppingCartDB();
@@ -36,7 +52,10 @@ public class ShoppingCart {
                     ingredient_with_quantity.getIngredient().getId()
             );
             if (Objects.isNull(recipe_ingredient)) continue;
-            shopping_cart_db.create(recipe_ingredient.getId());
+//            System.out.println("-");
+//            System.out.println(recipe_ingredient);
+//            System.out.println(!checkIsInDB(recipe_ingredient.getId()));
+            if (!checkIsInDB(recipe_ingredient.getId())) shopping_cart_db.create(recipe_ingredient.getId());
         }
     }
 
