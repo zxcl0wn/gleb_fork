@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+
 public class Favorite {
     private int id;
     private int recipe_id;
@@ -27,33 +28,37 @@ public class Favorite {
         return favorites_db.readByRecipeId(recipe_id);
     }
 
-    private static List<Favorite> getFavoritesByResultSet(ResultSet rs) throws SQLException {
+    private static List<Favorite> getFavoritesByResultSet(ResultSet rs) {
         List<Favorite> list = new LinkedList<>();
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            int recipe_id = rs.getInt("recipe_id");
-
-            list.add(new Favorite(id, recipe_id));
+        try {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int recipe_id = rs.getInt("recipe_id");
+                list.add(new Favorite(id, recipe_id));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
         return list;
     }
 
-    public static List<Favorite> getAllFavoritesList() throws SQLException {
+    public static List<Favorite> getAllFavoritesList() {
         return Favorite.getFavoritesByResultSet(Favorite.getAllFavoritesResultSet());
     }
 
-    public static Favorite getFavoriteByRecipeId(int recipe_id) throws SQLException {
+    public static Favorite getFavoriteByRecipeId(int recipe_id) {
         List<Favorite> f1 = Favorite.getFavoritesByResultSet(Favorite.getAllFavoriteByRecipeIdResultSet(recipe_id));
         if (f1.isEmpty()) return null;
         return f1.getFirst();
     }
 
-    public static boolean checkIsInDB(int recipe_id) throws SQLException {
+    public static boolean checkIsInDB(int recipe_id) {
         Favorite f1 = getFavoriteByRecipeId(recipe_id);
         return !Objects.isNull(f1);
     }
 
-    public static Favorite addToDBAndGet(int recipe_id) throws SQLException {
+    public static Favorite addToDBAndGet(int recipe_id) {
         if (checkIsInDB(recipe_id)) return null;
         FavoritesDB favorites_db = new FavoritesDB();
         boolean successful_operation = favorites_db.create(recipe_id);
