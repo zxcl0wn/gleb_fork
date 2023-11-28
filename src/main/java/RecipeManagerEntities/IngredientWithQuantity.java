@@ -1,9 +1,9 @@
 package RecipeManagerEntities;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Objects;
+
 
 public class IngredientWithQuantity{
     private int recipe_id;
@@ -16,7 +16,7 @@ public class IngredientWithQuantity{
         this.quantity = quantity;
     }
 
-    public static List<IngredientWithQuantity> getIngredientsWithQuantityByRecipeId(int recipe_id) throws SQLException {
+    public static List<IngredientWithQuantity> getIngredientsWithQuantityByRecipeId(int recipe_id) {
         List<IngredientWithQuantity> list_of_ingredients_with_quantity = new LinkedList<>();
         List<RecipeIngredient> list_of_recipe_ingredients = RecipeIngredient.getRecipeIngredientsByRecipeIdList(recipe_id);
 
@@ -32,7 +32,7 @@ public class IngredientWithQuantity{
         return list_of_ingredients_with_quantity;
     }
 
-    public IngredientWithQuantity getIngredientsWithQuantityByRecipeIdAndIngredientId(int recipe_id, int ingredient_id) throws SQLException {
+    public IngredientWithQuantity getIngredientsWithQuantityByRecipeIdAndIngredientId(int recipe_id, int ingredient_id) {
         RecipeIngredient recipe_ingredient = RecipeIngredient.getRecipeIngredientByRecipeIdAndIngredientId(recipe_id, ingredient_id);
         if (Objects.isNull(recipe_ingredient)) return null;
 
@@ -43,7 +43,7 @@ public class IngredientWithQuantity{
         );
     }
 
-    public boolean delete() throws SQLException {
+    public boolean delete() {
 //      удаляем запись из бд RecipeIngredients
         RecipeIngredient recipe_ingredient = RecipeIngredient.getRecipeIngredientByRecipeIdAndIngredientId(recipe_id, ingredient.getId());
         if (Objects.isNull(recipe_ingredient)) return false;
@@ -54,7 +54,7 @@ public class IngredientWithQuantity{
         return true;
     }
 
-    private boolean updateQuantity(double new_quantity) throws SQLException {
+    private boolean updateQuantity(double new_quantity) {
         RecipeIngredient recipe_ingredient = RecipeIngredient.getRecipeIngredientByRecipeIdAndIngredientId(recipe_id, ingredient.getId());
         if (Objects.isNull(recipe_ingredient)) return false;
         recipe_ingredient.setQuantityOfIngredient(new_quantity);
@@ -82,7 +82,7 @@ public class IngredientWithQuantity{
         return quantity;
     }
 
-    public boolean setQuantity(double quantity) throws SQLException {
+    public boolean setQuantity(double quantity) {
         boolean success = this.updateQuantity(quantity);
         if (!success) return false;
         this.quantity = quantity;
