@@ -35,21 +35,25 @@ public class LevelOfDifficulty {
         return levels_of_difficulty_db.read(id);
     }
 
-    private static List<LevelOfDifficulty> getLevelsOfDifficultyByResultSet(ResultSet rs) throws SQLException {
+    private static List<LevelOfDifficulty> getLevelsOfDifficultyByResultSet(ResultSet rs) {
         List<LevelOfDifficulty> list = new LinkedList<>();
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String name = rs.getString("name");
-            list.add(new LevelOfDifficulty(id, name));
+        try {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                list.add(new LevelOfDifficulty(id, name));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return list;
     }
 
-    public static List<LevelOfDifficulty> getAllLevelsOfDifficulty() throws SQLException {
+    public static List<LevelOfDifficulty> getAllLevelsOfDifficulty() {
         return getLevelsOfDifficultyByResultSet(getAllLevelsOfDifficultyResultSet());
     }
 
-    public static LevelOfDifficulty getLevelOfDifficultyById(int id) throws SQLException {
+    public static LevelOfDifficulty getLevelOfDifficultyById(int id) {
         List<LevelOfDifficulty> l1 = getLevelsOfDifficultyByResultSet(getLevelOfDifficultyByIdResultSet(id));
         if (l1.isEmpty()) return null;
         return l1.getFirst();
