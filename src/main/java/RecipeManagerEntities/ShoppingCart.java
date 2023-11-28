@@ -82,7 +82,16 @@ public class ShoppingCart {
             }
         }
         return map;
-
-
     }
+
+    public static void deleteByIngredientId(int ingredient_id) {
+        List<RecipeIngredient> recipe_ingredients = RecipeIngredient.getRecipesIngredientsByIngredientIdList(ingredient_id);
+        ShoppingCartDB shopping_cart_db = new ShoppingCartDB();
+
+        for (RecipeIngredient recipe_ingredient : recipe_ingredients) {
+            shopping_cart_db.deleteByRecipeIngredientId(recipe_ingredient.getId());
+        }
+    }
+
+
 }

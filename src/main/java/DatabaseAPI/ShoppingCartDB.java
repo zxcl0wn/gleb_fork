@@ -11,6 +11,9 @@ abstract class ShoppingCartDBAbstract extends DB_BaseAbstract {
     public abstract void create(int recipe_ingredient_id);
 
     public abstract void update();
+
+    public abstract void deleteByRecipeIngredientId(int recipe_ingredient_id);
+
 }
 
 public class ShoppingCartDB extends ShoppingCartDBAbstract {
@@ -61,4 +64,15 @@ public class ShoppingCartDB extends ShoppingCartDBAbstract {
 
     public void update() {}
 
+    public void deleteByRecipeIngredientId(int recipe_ingredient_id){
+        try (Connection connection = this.getConnection()) {
+            String deleteQuery = String.format("DELETE FROM %s WHERE recipe_ingredient_id = ?", this.tableName);
+            PreparedStatement pstmt = connection.prepareStatement(deleteQuery);
+            pstmt.setInt(1, recipe_ingredient_id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database:");
+            e.printStackTrace();
+        }
+    }
 }

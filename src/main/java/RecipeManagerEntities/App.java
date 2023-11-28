@@ -27,6 +27,7 @@ public class App {
 //        System.out.println(res1.getProteinOfRecipe());
         System.out.println(IngredientWithQuantity.getIngredientsWithQuantityByRecipeId(6));
 
+        ShoppingCart.deleteByIngredientId(7);
 //        ShoppingCart.addIngredientsToShoppingCartByRecipe(Recipe.getRecipeById(6));
 //        System.out.println(ShoppingCart.getIngredientsMap());
 
