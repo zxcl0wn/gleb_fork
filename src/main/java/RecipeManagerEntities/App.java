@@ -1,6 +1,9 @@
 package RecipeManagerEntities;
 
 
+import DatabaseAPI.CategoriesDB;
+
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -20,13 +23,12 @@ public class App {
 //        Recipe res1 = Recipe.getRecipeById(9);
 //        System.out.println(res1);
 //
-//        System.out.println(res1.getCaloriesOfRecipe());
+        System.out.println(Category.getAllCategoriesList());
 //        System.out.println(res1.getProteinOfRecipe());
-//        System.out.println(res1.getProteinOfRecipe());
+        System.out.println(IngredientWithQuantity.getIngredientsWithQuantityByRecipeId(6));
 
-        ShoppingCart.addIngredientsToShoppingCartByRecipe(Recipe.getRecipeById(6));
-        System.out.println(ShoppingCart.getIngredientsMap());
-
+//        ShoppingCart.addIngredientsToShoppingCartByRecipe(Recipe.getRecipeById(6));
+//        System.out.println(ShoppingCart.getIngredientsMap());
 
 
 
