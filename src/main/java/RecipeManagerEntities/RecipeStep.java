@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+
 public class RecipeStep {
     private int id;
     private int recipe_id;
@@ -35,34 +36,37 @@ public class RecipeStep {
         return ingredients_db.read(id);
     }
 
-    private static List<RecipeStep> getRecipeStepsByResultSet(ResultSet rs) throws SQLException {
+    private static List<RecipeStep> getRecipeStepsByResultSet(ResultSet rs) {
         List<RecipeStep> list = new LinkedList<>();
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            int recipe_id = rs.getInt("recipe_id");
-            String text = rs.getString("text");
-            String protein = rs.getString("img");
-
-            list.add(new RecipeStep(id, recipe_id, text, protein));
+        try {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                int recipe_id = rs.getInt("recipe_id");
+                String text = rs.getString("text");
+                String protein = rs.getString("img");
+                list.add(new RecipeStep(id, recipe_id, text, protein));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return list;
     }
 
-    public static List<RecipeStep> getAllRecipeSteps() throws SQLException {
+    public static List<RecipeStep> getAllRecipeSteps() {
         return getRecipeStepsByResultSet(getAllRecipeStepsResultSet());
     }
 
-    public static List<RecipeStep> getRecipeStepsByRecipeId(int recipe_id) throws SQLException {
+    public static List<RecipeStep> getRecipeStepsByRecipeId(int recipe_id) {
         return getRecipeStepsByResultSet(getRecipeStepByRecipeIdResultSet(recipe_id));
     }
 
-    public static RecipeStep getRecipeStepById(int id) throws SQLException {
+    public static RecipeStep getRecipeStepById(int id) {
         List<RecipeStep> rs1 = getRecipeStepsByResultSet(getRecipeStepByIdResultSet(id));
         if (rs1.isEmpty()) return null;
         return rs1.getFirst();
     }
 
-    public static RecipeStep addToDBAndGet(int recipe_id, String text, String img) throws SQLException {
+    public static RecipeStep addToDBAndGet(int recipe_id, String text, String img) {
         // null - если не существует рецепта с rexipe_id
         RecipeStepsDB recipe_steps_db = new RecipeStepsDB();
         boolean successful_operation = recipe_steps_db.create(recipe_id, text, img);
@@ -124,3 +128,5 @@ public class RecipeStep {
                 '}';
     }
 }
+
+
