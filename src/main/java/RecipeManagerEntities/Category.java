@@ -35,43 +35,48 @@ public class Category {
     }
 
 
-    private static List<Category> getCategoriesByResultSet(ResultSet rs) throws SQLException {
+    private static List<Category> getCategoriesByResultSet(ResultSet rs) {
         List<Category> list = new LinkedList<>();
-        while (rs.next()) {
-            int id = rs.getInt("id");
-            String name = rs.getString("name");
-            list.add(new Category(id, name));
+        try {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                list.add(new Category(id, name));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+
         return list;
     }
 
-    public static List<Category> getAllCategoriesList() throws SQLException {
+    public static List<Category> getAllCategoriesList() {
         return Category.getCategoriesByResultSet(Category.getAllCategoriesResultSet());
     }
 
-    public static Category getCategoryById(int id) throws SQLException {
+    public static Category getCategoryById(int id) {
         List<Category> c1 =  Category.getCategoriesByResultSet(Category.getCategoryByIdResultSet(id));
         if (c1.isEmpty()) return null;
         return c1.getFirst();
     }
 
-    public static Category getCategoryByName(String name) throws SQLException {
+    public static Category getCategoryByName(String name) {
         List<Category> c1 =  Category.getCategoriesByResultSet(Category.getCategoryByNameResultSet(name));
         if (c1.isEmpty()) return null;
         return c1.getFirst();
     }
 
-    public static boolean checkIsInDB(int id) throws SQLException {
+    public static boolean checkIsInDB(int id) {
         Category c1 = getCategoryById(id);
         return !Objects.isNull(c1);
     }
 
-    public static boolean checkIsInDB(String name) throws SQLException {
+    public static boolean checkIsInDB(String name) {
         Category c1 = getCategoryByName(name);
         return !Objects.isNull(c1);
     }
 
-    public static Category addToDBAndGet(String name) throws SQLException {
+    public static Category addToDBAndGet(String name) {
         if (checkIsInDB(name)) return null;
 
         CategoriesDB categories_db = new CategoriesDB();
@@ -99,7 +104,7 @@ public class Category {
         return name;
     }
 
-    public boolean setName(String name) throws SQLException {
+    public boolean setName(String name) {
         if (checkIsInDB(name)) return false;
         this.name = name;
         this.updateInDB();
