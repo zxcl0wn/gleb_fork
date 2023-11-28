@@ -12,7 +12,7 @@ public class LevelOfDifficulty {
     private final int id;
     private final String name;
 
-    public LevelOfDifficulty(int id, String name) {
+    private LevelOfDifficulty(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -58,7 +58,6 @@ public class LevelOfDifficulty {
         if (l1.isEmpty()) return null;
         return l1.getFirst();
     }
-
 
     public String getName() {
         return name;
