@@ -16,32 +16,25 @@ import com.google.gson.Gson;
 public class Ingredient100Menu {
     public String name;
     public int quantity;
-
-    public double calories;
-    public double protein;
+    public double carbohydrates;
     public double fats;
-    public double carbs;
+    public double proteins;
+    public double calories;
 
-    public Ingredient100Menu(String name, int quantity){
+    public Ingredient100Menu(String name, int quantity, double carbohydrates, double fats, double proteins, double calories) {
         this.name = name;
         this.quantity = quantity;
-    }
-
-    //        TODO: Gleb
-    public Ingredient100Menu(String name, int quantity, double calories, double protein, double fats, double carbs){
-        this.name = name;
-        this.quantity = quantity;
-        this.calories = calories;
-        this.protein = protein;
+        this.carbohydrates = carbohydrates;
         this.fats = fats;
-        this.carbs = carbs;
+        this.proteins = proteins;
+        this.calories = calories;
     }
-
-
 
     @Override
     public String toString() {
-        return "name='" + name + "', quantity=" + quantity;
+        return String.format("name='%s', quantity=%d, carbohydrates=%.2f, fats=%.2f, proteins=%.2f, calories=%.2f",
+                name, quantity, carbohydrates, fats, proteins, calories / 1000.0);
     }
+
 
 }

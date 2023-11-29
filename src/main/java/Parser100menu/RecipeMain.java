@@ -1,24 +1,25 @@
 package Parser100menu;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.Vector;
 
 public class RecipeMain {
     public static void main(String[] args) throws IOException {
         String grill_meat = "https://1000.menu/cooking/37536-jarenoe-myaso-na-skovorode";
         String medovik = "https://1000.menu/cooking/53668-tort-medovik-zavarnoi-klassicheskii";
         String kimchi = "https://1000.menu/cooking/63146-kimchi-po-koreiski-iz-pekinskoi-kapusty";
-
-        RecipeParser parser1 = new RecipeParser(kimchi);
-//        System.out.println(parser1.name);
-//        System.out.println(parser1.category);
-//        System.out.println(parser1.img);
-//        System.out.println(parser1.cooking_time);
-//
-//        parser1.ParserIngredients();
-//        System.out.println(Arrays.toString(parser1.all_ingredients));
-//
-//        parser1.ParserSteps();
-//        System.out.println(Arrays.toString(parser1.all_steps));
+        String rice = "https://1000.menu/cooking/2493-postnye-rolly-s-risom-i-ogurcami";
+        String crispy_salty_cucumbers_for_winter_without_vinegar = "https://1000.menu/cooking/13467-xrustyashchie-solenye-ogurcy-na-zimu-bez-uksusa";
+        String sour_salty_cucumbers_for_winter_in_jars_without_vinegar ="https://1000.menu/cooking/48686-kislye-solenye-ogurcy-na-zimu-v-bankax-bez-uksusa";
+        String salate = "https://1000.menu/cooking/7637-kurinji-salat-s-pomidorom-i-sjrom";
+        RecipeParser parser1 = new RecipeParser(rice);
+//        Recipe100Menu recipe_by_url = parser1.getRecipeByUrl();
         System.out.println(parser1.getRecipeByUrl());
+//        System.out.println(recipe_by_url.img);
+//        AllCPFC t1 = new AllCPFC();
+//        System.out.println(t1.table_CPFC());
     }
 }

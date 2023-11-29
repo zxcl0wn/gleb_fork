@@ -1,5 +1,6 @@
 package Parser100menu;
 
+import com.google.gson.annotations.JsonAdapter;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,6 +14,14 @@ import java.util.Vector;
 
 public class AllCPFC {
     public Vector<Map> table_CPFC() throws IOException {
+//        Vector<String> all_tables = new Vector<>();
+//        Document all_tables_doc = Jsoup.connect("https://1000.menu/food-table").get();
+//        Elements all_tables_elements = all_tables_doc.select("a.as-tag");
+//        for (int i=0; i<all_tables_elements.size(); i++) {
+//            String one_element_table = all_tables_elements.get(i).attr("href");
+//            all_tables.add("https://1000.menu" + one_element_table);
+//        }
+
         List<String> all_tables = List.of(
                 "https://1000.menu/calories/yaitsa",
                 "https://1000.menu/calories/myaso-i-myasoproduktj",
