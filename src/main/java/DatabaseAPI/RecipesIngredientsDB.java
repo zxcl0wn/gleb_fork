@@ -9,9 +9,16 @@ abstract class RecipesIngredientsDBAbstract extends DB_BaseAbstract {
         super(tableName);
     }
 
-    public abstract void create(int recipe_id, int ingredient_id, double quantity_of_ingredient);
+    public abstract boolean create(int recipe_id, int ingredient_id, double quantity_of_ingredient);
 
     public abstract void update(int id, double quantity_of_ingredient);
+
+    public abstract ResultSet readByRecipeId(int recipe_id);
+
+    public abstract ResultSet readByIngredientId(int ingredient_id);
+
+    public abstract ResultSet readByRecipeIdAndIngredientId(int recipe_id, int ingredient_id);
+
 }
 
 public class RecipesIngredientsDB extends RecipesIngredientsDBAbstract {
@@ -46,7 +53,7 @@ public class RecipesIngredientsDB extends RecipesIngredientsDBAbstract {
         this.createTableIfNotExists();
     }
 
-    public void create(int recipe_id, int ingredient_id, double quantity_of_ingredient) {
+    public boolean create(int recipe_id, int ingredient_id, double quantity_of_ingredient) {
         try (Connection connection = this.getConnection()) {
             String insertQuery = String.format(
                     "INSERT INTO %s (recipe_id, ingredient_id, quantity_of_ingredient) VALUES (?, ?, ?);",
@@ -57,10 +64,11 @@ public class RecipesIngredientsDB extends RecipesIngredientsDBAbstract {
             pstmt.setInt(2, ingredient_id);
             pstmt.setDouble(3, quantity_of_ingredient);
             pstmt.executeUpdate();
-
+            return true;
         } catch (SQLException e) {
             System.out.println("Error connecting to PostgreSQL database:");
             e.printStackTrace();
+            return false;
         }
 
     }
@@ -79,6 +87,49 @@ public class RecipesIngredientsDB extends RecipesIngredientsDBAbstract {
             System.out.println("Error connecting to PostgreSQL database:");
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public ResultSet readByRecipeId(int recipe_id) {
+        try (Connection connection = this.getConnection()) {
+            String selectQuery = String.format("SELECT * FROM %s WHERE recipe_id = ?", this.tableName);
+            PreparedStatement pstmt = connection.prepareStatement(selectQuery);
+            pstmt.setInt(1, recipe_id);
+            return pstmt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database:");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ResultSet readByIngredientId(int ingredient_id) {
+        try (Connection connection = this.getConnection()) {
+            String selectQuery = String.format("SELECT * FROM %s WHERE ingredient_id = ?", this.tableName);
+            PreparedStatement pstmt = connection.prepareStatement(selectQuery);
+            pstmt.setInt(1, ingredient_id);
+            return pstmt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database:");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public ResultSet readByRecipeIdAndIngredientId(int recipe_id, int ingredient_id) {
+        try (Connection connection = this.getConnection()) {
+            String selectQuery = String.format("SELECT * FROM %s WHERE recipe_id = ? AND ingredient_id = ?", this.tableName);
+            PreparedStatement pstmt = connection.prepareStatement(selectQuery);
+            pstmt.setInt(1, recipe_id);
+            pstmt.setInt(2, ingredient_id);
+            return pstmt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database:");
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

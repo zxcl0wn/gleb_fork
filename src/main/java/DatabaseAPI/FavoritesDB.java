@@ -9,9 +9,12 @@ abstract class FavoritesDBAbstract extends DB_BaseAbstract {
         super(tableName);
     }
 
-    public abstract void create(int recipe_id);
+    public abstract boolean create(int recipe_id);
 
     public abstract void update();
+
+    public abstract ResultSet readByRecipeId(int recipe_id);
+
 }
 
 public class FavoritesDB extends FavoritesDBAbstract {
@@ -42,24 +45,39 @@ public class FavoritesDB extends FavoritesDBAbstract {
         this.createTableIfNotExists();
     }
 
-    public void create(int recipe_id) {
+    public boolean create(int recipe_id) {
         try (Connection connection = this.getConnection()) {
             String insertQuery = String.format(
                     "INSERT INTO %s (recipe_id) VALUES (?);",
                     this.tableName
             );
-
             PreparedStatement pstmt = connection.prepareStatement(insertQuery);
             pstmt.setInt(1, recipe_id);
             pstmt.executeUpdate();
-
+            return true;
         } catch (SQLException e) {
             System.out.println("Error connecting to PostgreSQL database:");
             e.printStackTrace();
+            return false;
         }
 
     }
 
     public void update() {}
+
+    @Override
+    public ResultSet readByRecipeId(int recipe_id) {
+        try (Connection connection = this.getConnection()) {
+            String selectQuery = String.format("SELECT * FROM %s WHERE recipe_id = ?", this.tableName);
+            PreparedStatement pstmt = connection.prepareStatement(selectQuery);
+            pstmt.setInt(1, recipe_id);
+            return pstmt.executeQuery();
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database:");
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

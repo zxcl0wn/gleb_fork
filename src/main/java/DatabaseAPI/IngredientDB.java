@@ -8,7 +8,9 @@ abstract class IngredientDBAbstract extends DB_BaseAbstract {
 
     public abstract void create(String name, double calories, double protein, double fats, double carbs);
 
-    public abstract void update(int id, String name, double calories, double protein, double fats, double carbs);
+    public abstract boolean update(int id, String name, double calories, double protein, double fats, double carbs);
+
+    public abstract ResultSet readByName(String name);
 }
 
 public class IngredientDB extends IngredientDBAbstract {
@@ -64,7 +66,7 @@ public class IngredientDB extends IngredientDBAbstract {
     }
 
     @Override
-    public void update(int id, String name, double calories, double protein, double fats, double carbs) {
+    public boolean update(int id, String name, double calories, double protein, double fats, double carbs) {
         try (Connection connection = this.getConnection()) {
             String updateQuery = String.format(
                     "UPDATE %s SET name = ?, calories = ?, protein = ?, fats = ?, carbs = ? WHERE id = ?;",
@@ -78,10 +80,26 @@ public class IngredientDB extends IngredientDBAbstract {
             pstmt.setDouble(5, carbs);
             pstmt.setInt(6, id);
             pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error connecting to PostgreSQL database:");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public ResultSet readByName(String name) {
+        try (Connection connection = this.getConnection()) {
+            String selectQuery = String.format("SELECT * FROM %s WHERE name = ?", this.tableName);
+            PreparedStatement pstmt = connection.prepareStatement(selectQuery);
+            pstmt.setString(1, name);
+            return pstmt.executeQuery();
         } catch (SQLException e) {
             System.out.println("Error connecting to PostgreSQL database:");
             e.printStackTrace();
         }
+        return null;
     }
 
 }
