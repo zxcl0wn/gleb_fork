@@ -29,11 +29,10 @@ public class Category {
         return categories_db.read(id);
     }
 
-    public static ResultSet getCategoryByNameResultSet(String name){
+    private static ResultSet getCategoryByNameResultSet(String name){
         CategoriesDB categories_db = new CategoriesDB();
         return categories_db.readByName(name);
     }
-
 
     private static List<Category> getCategoriesByResultSet(ResultSet rs) {
         List<Category> list = new LinkedList<>();

@@ -11,25 +11,21 @@ public class App {
 
     public static void main(String[] args) throws SQLException {
 
-//        List<Recipe> r1 = Recipe.getAllRecipes();
-//
-//        for (Recipe r : r1){
-//            System.out.println(r.toString());
-//            System.out.println("---------");
-//        }
-//
-//        System.out.println("()()()()()()()");
-//
-//        Recipe res1 = Recipe.getRecipeById(9);
-//        System.out.println(res1);
-//
         System.out.println(Category.getAllCategoriesList());
-//        System.out.println(res1.getProteinOfRecipe());
-        System.out.println(IngredientWithQuantity.getIngredientsWithQuantityByRecipeId(6));
 
-        ShoppingCart.deleteByIngredientId(7);
-//        ShoppingCart.addIngredientsToShoppingCartByRecipe(Recipe.getRecipeById(6));
-//        System.out.println(ShoppingCart.getIngredientsMap());
+        System.out.println("123");
+
+        System.out.println(Ingredient.getAllIngredientsList());
+
+
+        Recipe res1 = Recipe.getRecipeById(1);
+
+        Ingredient ing1 = Ingredient.getIngredientById(2);
+
+        res1.getIngredientsWithQuantity().getLast().setQuantity(209);
+
+//        System.out.println(res1.addNewIngredientWithQuantity(ing1, 1000000));
+        System.out.println(ShoppingCart.getIngredientsMap());
 
 
 

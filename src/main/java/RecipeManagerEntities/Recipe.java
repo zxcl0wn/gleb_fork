@@ -238,6 +238,7 @@ public class Recipe {
         Recipe r1 = getRecipeById(id);
         return !Objects.isNull(r1);
     }
+
     public static boolean checkIsInDB(String name) {
         Recipe r1 = getRecipeByName(name);
         return !Objects.isNull(r1);
