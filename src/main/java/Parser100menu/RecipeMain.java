@@ -1,7 +1,5 @@
 package Parser100menu;
 
-import RecipeManagementEntities.RecipeIngredient;
-
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Map;
