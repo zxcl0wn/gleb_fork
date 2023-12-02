@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.MainController">
+   <children>
+      <HBox layoutY="7.0" prefHeight="100.0" prefWidth="800.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <ComboBox prefHeight="58.0" prefWidth="129.0" promptText="Сортировка">
+               <HBox.margin>
+                  <Insets bottom="25.0" left="25.0" right="50.0" top="25.0" />
+               </HBox.margin>
+            </ComboBox>
+            <Button mnemonicParsing="false" onAction="#switch_ingredients" prefHeight="50.0" prefWidth="120.0" text="Ингредиенты">
+               <HBox.margin>
+                  <Insets bottom="25.0" right="50.0" top="25.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Фильтрация">
+               <HBox.margin>
+                  <Insets bottom="25.0" right="50.0" top="25.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Любимые">
+               <HBox.margin>
+                  <Insets bottom="25.0" right="50.0" top="25.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Корзина">
+               <HBox.margin>
+                  <Insets bottom="25.0" right="50.0" top="25.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <AnchorPane layoutY="99.0" prefHeight="300.0" prefWidth="170.0">
+         <children>
+            <ScrollPane prefHeight="321.0" prefWidth="170.0">
+               <content>
+                  <VBox prefHeight="444.0" prefWidth="151.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Button">
+                           <VBox.margin>
+                              <Insets left="15.0" top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Все">
+                           <VBox.margin>
+                              <Insets left="15.0" top="20.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <Button layoutX="14.0" layoutY="224.0" mnemonicParsing="false" onAction="#switch_add_category" prefHeight="50.0" prefWidth="120.0" text="Добавить категорию" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="155.0" layoutY="99.0" prefHeight="452.0" prefWidth="630.0">
+         <children>
+            <Button layoutX="50.0" layoutY="338.0" mnemonicParsing="false" onAction="#switch_import_recipe" prefHeight="58.0" prefWidth="145.0" text="Импортировать рецепт" />
+            <Button layoutX="382.0" layoutY="338.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="145.0" text="Добавить рецепт" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
