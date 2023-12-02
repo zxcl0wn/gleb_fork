@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.MainController">
+    <children>
+        <Button layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onAction="#switch_home" prefHeight="62.0" prefWidth="150.0" text="Назад" />
+      <HBox layoutY="87.0" prefHeight="100.0" prefWidth="800.0">
+         <children>
+            <ChoiceBox fx:id="choiceBoxLevel" prefHeight="26.0" prefWidth="185.0">
+               <HBox.margin>
+                  <Insets left="100.0" right="100.0" top="30.0" />
+               </HBox.margin>
+            </ChoiceBox>
+            <ChoiceBox fx:id="choiceBoxTime" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="185.0">
+               <HBox.margin>
+                  <Insets left="100.0" right="100.0" top="30.0" />
+               </HBox.margin>
+            </ChoiceBox>
+         </children>
+      </HBox>
+      <Button layoutX="325.0" layoutY="470.0" mnemonicParsing="false" onAction="#switch_home" prefHeight="54.0" prefWidth="150.0" text="Отфильтровать" />
+      <ScrollPane layoutX="14.0" layoutY="175.0" prefHeight="289.0" prefWidth="786.0">
+         <content>
+            <VBox prefHeight="297.0" prefWidth="786.0">
+               <children>
+                  <HBox prefHeight="34.0" prefWidth="786.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Твердый дым" wrappingWidth="131.887451171875">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100 калорий" wrappingWidth="131.887451171875">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="142.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Б" wrappingWidth="68.68743896484375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="295.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Ж" wrappingWidth="68.68743896484375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="374.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 У" wrappingWidth="68.68743896484375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <ToggleButton mnemonicParsing="false" prefHeight="33.0" prefWidth="97.0" text="Выбрать">
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </ToggleButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="34.0" prefWidth="786.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Жидкий дым" wrappingWidth="131.887451171875">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100 калорий" wrappingWidth="131.887451171875">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="142.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Б" wrappingWidth="68.68743896484375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="295.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Ж" wrappingWidth="68.68743896484375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="374.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 У" wrappingWidth="68.68743896484375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <ToggleButton mnemonicParsing="false" prefHeight="33.0" prefWidth="97.0" text="Выбрать">
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </ToggleButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="60.0" prefHeight="34.0" prefWidth="786.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Плотный дым" wrappingWidth="131.887451171875">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100 калорий" wrappingWidth="131.887451171875">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="142.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Б" wrappingWidth="68.68743896484375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="295.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Ж" wrappingWidth="68.68743896484375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="374.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 У" wrappingWidth="68.68743896484375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <ToggleButton mnemonicParsing="false" prefHeight="33.0" prefWidth="97.0" text="Выбрать">
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </ToggleButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="111.0" prefHeight="34.0" prefWidth="786.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Мягкий дым" wrappingWidth="131.887451171875">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100 калорий" wrappingWidth="131.887451171875">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="142.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Б" wrappingWidth="68.68743896484375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="295.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Ж" wrappingWidth="68.68743896484375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <Text layoutX="374.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 У" wrappingWidth="68.68743896484375">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </Text>
+                        <ToggleButton mnemonicParsing="false" prefHeight="33.0" prefWidth="97.0" text="Выбрать">
+                           <HBox.margin>
+                              <Insets right="35.0" />
+                           </HBox.margin>
+                        </ToggleButton>
+                     </children>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
+    </children>
+</AnchorPane>
