@@ -26,14 +26,14 @@ public class FilrtationController implements Initializable{
     private Parent root;
 
     @FXML
-    private ChoiceBox<String> ChoiceBoxTime;
+    private ComboBox<String> ComboBoxLevel;
     @FXML
-    private ChoiceBox<String> ChoiceBoxLevel;
-    private String[] types_of_sorting = {"1", "2", "3"};
+    private ComboBox<String> ComboBoxTime;
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        ChoiceBoxLevel.getItems().addAll(types_of_sorting);
+        ComboBoxLevel.getItems().addAll("Easy", "Medium", "Hard", "Unreal", "Super Unreal");
+        ComboBoxTime.getItems().addAll("До 1 часа", "1-3 часа", "3-5 часов", "5-15 часов", "15-23 часов", "24+ часов");
     }
 
     @FXML

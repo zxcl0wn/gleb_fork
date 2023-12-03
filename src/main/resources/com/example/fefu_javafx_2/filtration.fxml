@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToggleButton?>
@@ -17,19 +16,19 @@
         <Button layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onAction="#switch_home" prefHeight="62.0" prefWidth="150.0" text="Назад" />
       <HBox layoutY="87.0" prefHeight="100.0" prefWidth="800.0">
          <children>
-            <ChoiceBox fx:id="ChoiceBoxLevel" prefHeight="26.0" prefWidth="185.0">
+            <ComboBox fx:id="ComboBoxLevel" prefHeight="26.0" prefWidth="180.0" promptText="Сложность">
                <HBox.margin>
                   <Insets left="100.0" right="100.0" top="30.0" />
                </HBox.margin>
-            </ChoiceBox>
-            <ChoiceBox fx:id="ChoiceBoxTime" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="185.0">
+            </ComboBox>
+            <ComboBox fx:id="ComboBoxTime" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="180.0" promptText="Время приготовления">
                <HBox.margin>
                   <Insets left="100.0" right="100.0" top="30.0" />
                </HBox.margin>
-            </ChoiceBox>
+            </ComboBox>
          </children>
       </HBox>
-      <Button layoutX="325.0" layoutY="470.0" mnemonicParsing="false" onAction="#switch_home" prefHeight="54.0" prefWidth="150.0" text="Отфильтровать" />
+      <Button layoutX="325.0" layoutY="470.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="150.0" text="Отфильтровать" />
       <ScrollPane layoutX="14.0" layoutY="175.0" prefHeight="289.0" prefWidth="786.0">
          <content>
             <VBox prefHeight="297.0" prefWidth="786.0">
@@ -246,6 +245,5 @@
             </VBox>
          </content>
       </ScrollPane>
-      <ComboBox fx:id="ComboBoxTest" layoutX="304.0" layoutY="72.0" prefWidth="150.0" />
     </children>
 </AnchorPane>
