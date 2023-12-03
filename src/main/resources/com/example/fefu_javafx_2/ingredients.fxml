@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.IngredientsController">
     <children>
         <Button layoutX="38.0" layoutY="25.0" mnemonicParsing="false" onAction="#switch_home" prefHeight="62.0" prefWidth="150.0" text="Назад" />
         <AnchorPane layoutX="-1.0" layoutY="98.0" prefHeight="452.0" prefWidth="800.0">

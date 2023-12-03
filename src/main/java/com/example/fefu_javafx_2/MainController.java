@@ -10,15 +10,17 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -104,6 +106,10 @@ public class MainController {
         stage.show();
     }
 
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+//        ComboBoxSorting.getItems().addAll(types_of_sorting);
+    }
     @FXML
     public void switch_filtration(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("filtration.fxml"));
@@ -112,5 +118,6 @@ public class MainController {
         stage.setScene(scene);
         stage.show();
     }
+
 
 }
