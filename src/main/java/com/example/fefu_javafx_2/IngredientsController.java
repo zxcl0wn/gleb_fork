@@ -130,14 +130,15 @@ public class IngredientsController implements Initializable {
         editButton.setPrefWidth(102);
         editButton.setPrefHeight(34);
         HBox.setMargin(editButton, textInsets);
+
         editButton.setTextAlignment(TextAlignment.CENTER);
-        editButton.setOnAction(actionEvent -> {
-            try {
-                switch_change_ingredient(actionEvent);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
+//        editButton.setOnAction(actionEvent -> {
+//            try {
+//                switch_change_ingredient(actionEvent);
+//            } catch (IOException e) {
+//                throw new RuntimeException(e);
+//            }
+//        });
 
 
         hbox.getChildren().addAll(nameText, caloriesText, proteinText, fatsText, carbsText, deleteButton, editButton);
@@ -146,16 +147,29 @@ public class IngredientsController implements Initializable {
 
 
     private void onDeleteButtonClick(Ingredient ingredient) {
-        // Удаляем ингредиент из базы данных
         ingredient.delete();
-
-        // Удаляем соответствующий HBox из VBox на интерфейсе
         ingredientsVBox.getChildren().removeIf(node -> node instanceof HBox && ((HBox) node).getChildren().contains(ingredient));
-
         System.out.println("Ингредиент удален: " + ingredient.getName());
     }
 
     private void onEditButtonClick(Ingredient ingredient) {
-        // Реализуйте логику для редактирования ингредиента
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("change_ingredient.fxml"));
+            Parent root = loader.load();
+
+            // Получаем контроллер страницы изменения ингредиента
+            ChangeIngredientController changeIngredientController = loader.getController();
+
+            // Передаем данные выбранного ингредиента
+            changeIngredientController.setIngredient(ingredient);
+            System.out.println(ingredient);
+            stage = (Stage) ingredientsVBox.getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 }
