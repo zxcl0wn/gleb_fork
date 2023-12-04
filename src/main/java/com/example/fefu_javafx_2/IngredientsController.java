@@ -146,8 +146,13 @@ public class IngredientsController implements Initializable {
 
 
     private void onDeleteButtonClick(Ingredient ingredient) {
-        // Реализуйте удаление ингредиента из базы данных и обновление интерфейса
-        // (может потребоваться обновить VBox, например, вызвав ingredientsVBox.getChildren().remove(hbox))
+        // Удаляем ингредиент из базы данных
+        ingredient.delete();
+
+        // Удаляем соответствующий HBox из VBox на интерфейсе
+        ingredientsVBox.getChildren().removeIf(node -> node instanceof HBox && ((HBox) node).getChildren().contains(ingredient));
+
+        System.out.println("Ингредиент удален: " + ingredient.getName());
     }
 
     private void onEditButtonClick(Ingredient ingredient) {
