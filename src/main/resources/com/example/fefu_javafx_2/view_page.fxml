@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" vvalue="1.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.ViewPageController">
+   <content>
+      <VBox prefHeight="1594.0" prefWidth="800.0">
+         <children>
+            <AnchorPane prefHeight="97.0" prefWidth="800.0">
+               <children>
+                  <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#switch_home" prefHeight="64.0" prefWidth="130.0" text="Назад">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="633.0" layoutY="17.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="130.0" text="Удалить">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="353.0" prefWidth="800.0">
+               <children>
+                  <ImageView fitHeight="353.0" fitWidth="402.0" layoutX="384.0" pickOnBounds="true" preserveRatio="true" />
+                  <Label alignment="CENTER" layoutX="20.0" layoutY="14.0" prefHeight="30.0" prefWidth="370.0" text="Рис с курицей" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="7.0" layoutY="50.0" prefHeight="302.0" prefWidth="448.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Блюда с рисом" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1000 калорий" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 час 20 минут" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Easy" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Белков: 10 г" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Жиров: 20 г" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Углеводов: 30 г" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="360.0" prefWidth="800.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="338.0" layoutY="14.0" prefHeight="58.0" prefWidth="124.0" text="Ингредиенты">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutY="74.0" prefHeight="173.0" prefWidth="786.0">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Рис: 100 г">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="20.0" top="5.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text layoutX="30.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Курица: 100 г">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="20.0" top="5.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Мука: 100 г">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="20.0" top="5.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Зелень: 100 г">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="20.0" top="5.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text layoutX="10.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Масло: 100 г">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="20.0" top="5.0" />
+                           </VBox.margin>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <Button layoutX="606.0" layoutY="21.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="159.0" text="Изменить">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="326.0" layoutY="289.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="148.0" text="Добавить">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+               </children></AnchorPane>
+            <AnchorPane prefHeight="577.0" prefWidth="800.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="303.0" layoutY="27.0" text="Шаги приготовления">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="-1.0" layoutY="57.0" prefHeight="387.0" prefWidth="786.0">
+                     <children>
+                        <AnchorPane prefHeight="133.0" prefWidth="786.0">
+                           <children>
+                              <ImageView fitHeight="145.0" fitWidth="213.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text layoutX="214.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 1. Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem ">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <Button layoutX="674.0" layoutY="88.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="97.0" text="Изменить">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="133.0" prefWidth="786.0">
+                           <children>
+                              <ImageView fitHeight="145.0" fitWidth="213.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text layoutX="214.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 1. Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem ">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <Button layoutX="674.0" layoutY="88.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="97.0" text="Изменить">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane layoutX="10.0" layoutY="156.0" prefHeight="133.0" prefWidth="786.0">
+                           <children>
+                              <ImageView fitHeight="145.0" fitWidth="213.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
+                              <Text layoutX="214.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 1. Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem ">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Text>
+                              <Button layoutX="674.0" layoutY="88.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="97.0" text="Изменить">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+                  <Button layoutX="618.0" layoutY="20.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="136.0" text="Добавить шаг">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Button layoutX="295.0" layoutY="70.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="209.0" text="Добавить в корзину">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </content>
+</ScrollPane>

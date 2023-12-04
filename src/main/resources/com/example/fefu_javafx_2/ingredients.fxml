@@ -10,14 +10,14 @@
         <Button layoutX="38.0" layoutY="25.0" mnemonicParsing="false" onAction="#switch_home" prefHeight="62.0" prefWidth="150.0" text="Назад" />
         <AnchorPane layoutX="-1.0" layoutY="98.0" prefHeight="452.0" prefWidth="800.0">
             <children>
-                <Button layoutX="284.0" layoutY="251.0" mnemonicParsing="false" onAction="#switch_add_ingredient" prefHeight="70.0" prefWidth="232.0" text="Добавить ингредиент" />
-            <ScrollPane layoutX="13.0" layoutY="26.0" prefHeight="200.0" prefWidth="774.0">
+                <Button layoutX="284.0" layoutY="367.0" mnemonicParsing="false" onAction="#switch_add_ingredient" prefHeight="70.0" prefWidth="232.0" text="Добавить ингредиент" />
+            <ScrollPane layoutX="13.0" layoutY="26.0" prefHeight="320.0" prefWidth="774.0">
                <content>
-                  <VBox prefHeight="200.0" prefWidth="762.0">
+                  <VBox fx:id="ingredientsVBox" prefHeight="283.0" prefWidth="762.0">
                      <children>
-                        <HBox prefHeight="53.0" prefWidth="762.0">
+                        <HBox prefHeight="50.0" prefWidth="700.0">
                            <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Курица" textAlignment="CENTER" wrappingWidth="182.93673706054688">
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Курица" textAlignment="CENTER" wrappingWidth="183.73666381835938">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -57,61 +57,7 @@
                                     <Insets right="5.0" top="8.0" />
                                  </HBox.margin>
                               </Text>
-                              <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="102.0" text="Удалить">
-                                 <HBox.margin>
-                                    <Insets right="5.0" top="8.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button layoutX="532.0" layoutY="10.0" mnemonicParsing="false" onAction="#switch_change_ingredient" prefHeight="33.0" prefWidth="102.0" text="Изменить">
-                                 <HBox.margin>
-                                    <Insets right="5.0" top="8.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="53.0" prefWidth="762.0">
-                           <children>
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Рис" textAlignment="CENTER" wrappingWidth="182.93673706054688">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="5.0" top="8.0" />
-                                 </HBox.margin>
-                              </Text>
-                              <Text layoutX="10.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100 калорий" textAlignment="CENTER" wrappingWidth="144.53671264648438">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="5.0" top="8.0" />
-                                 </HBox.margin>
-                              </Text>
-                              <Text layoutX="193.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Б" textAlignment="CENTER" wrappingWidth="64.53670501708984">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="5.0" top="8.0" />
-                                 </HBox.margin>
-                              </Text>
-                              <Text layoutX="338.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 Ж" textAlignment="CENTER" wrappingWidth="64.53670501708984">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="5.0" top="8.0" />
-                                 </HBox.margin>
-                              </Text>
-                              <Text layoutX="569.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2 У" textAlignment="CENTER" wrappingWidth="64.53670501708984">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets right="5.0" top="8.0" />
-                                 </HBox.margin>
-                              </Text>
-                              <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="102.0" text="Удалить">
+                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="33.0" prefWidth="102.0" text="Удалить" textAlignment="CENTER">
                                  <HBox.margin>
                                     <Insets right="5.0" top="8.0" />
                                  </HBox.margin>

@@ -95,5 +95,13 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    public void switch_view(javafx.event.ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("view_page.fxml"));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
 }
