@@ -44,18 +44,14 @@
          <children>
             <ScrollPane prefHeight="346.0" prefWidth="154.0">
                <content>
-                  <VBox fx:id="vboxCategories" prefHeight="425.0" prefWidth="148.0">
+                  <VBox fx:id="vboxCategories" prefHeight="425.0" prefWidth="148.0" spacing="20.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="60.0" prefWidth="118.0" text="Категории">
+                        <Label alignment="CENTER" prefHeight="34.0" prefWidth="118.0" text="Категории">
                            <VBox.margin>
                               <Insets left="13.0" top="15.0" />
                            </VBox.margin>
                         </Label>
-                        <Button minHeight="90.0" minWidth="120.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="106.0" text="Все">
-                           <VBox.margin>
-                              <Insets left="13.0" top="15.0" />
-                           </VBox.margin>
-                        </Button>
+                        <VBox layoutX="10.0" layoutY="85.0" spacing="2.0" />
                      </children>
                   </VBox>
                </content></ScrollPane>

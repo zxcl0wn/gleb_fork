@@ -212,23 +212,49 @@ public class MainController implements Initializable {
     private void loadCategories() {
         List<Category> categories = Category.getAllCategoriesList();
 
-        for (Category category : categories) {
-            Button categoryButton  = createCategoryButton(category);
+        for (Category category: categories) {
+            VBox categoryBox = createCategoryBox(category);
 
-            vboxCategories.getChildren().add(categoryButton);
+            vboxCategories.getChildren().add(categoryBox);
         }
     }
 
-    private Button createCategoryButton(Category category) {
+        private VBox createCategoryBox(Category category) {
+//       Кнопка с названием категории
         Button categoryButton = new Button(category.getName());
         categoryButton.setOnAction(event -> onCategoryButtonClick(category));
-        categoryButton.setMinWidth(120);
-        categoryButton.setMaxWidth(90);
-        categoryButton.setMinHeight(100);
-        categoryButton.setMaxHeight(90);
         categoryButton.setAlignment(Pos.CENTER);
-        VBox.setMargin(categoryButton, new Insets(15.0, 0.0, 0.0, 13.0));
-        return categoryButton;
+        categoryButton.setMinHeight(60);
+        categoryButton.setMaxHeight(60);
+        categoryButton.setMinWidth(140);
+        categoryButton.setMaxWidth(140);
+
+
+//        Кнопка удаление категории
+        Button deleteButton = new Button("Удалить");
+        deleteButton.setOnAction(event -> onDeleteButtonClick(category));
+        deleteButton.setAlignment(Pos.CENTER);
+        deleteButton.setMinHeight(30);
+        deleteButton.setMaxHeight(30);
+        deleteButton.setMinWidth(140);
+        deleteButton.setMaxWidth(140);
+
+
+        VBox buttonAndDeleteVbox = new VBox(categoryButton, deleteButton);
+        buttonAndDeleteVbox.setSpacing(2);
+        vboxCategories.getChildren().add(buttonAndDeleteVbox);
+
+        VBox categoryBox = new VBox(buttonAndDeleteVbox);
+        vboxCategories.setSpacing(20);
+
+        return buttonAndDeleteVbox;
+    }
+
+
+    private void onDeleteButtonClick(Category category) {
+        if (category != null) {
+            category.delete();
+        }
     }
 
 //    private void loadRecipesByCategory(Category category) {
@@ -244,8 +270,7 @@ public class MainController implements Initializable {
 //    }
 
     private void onCategoryButtonClick(Category category) {
-//        System.out.println("Category clicked: " + category.getName());
-
+        System.out.println("Category clicked: " + category.getName());
     }
 
     @FXML
