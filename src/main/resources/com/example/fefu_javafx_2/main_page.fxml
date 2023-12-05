@@ -43,27 +43,26 @@
             </Button>
          </children>
       </HBox>
-      <AnchorPane layoutY="99.0" prefHeight="300.0" prefWidth="170.0">
+      <AnchorPane layoutY="99.0" prefHeight="452.0" prefWidth="170.0">
          <children>
-            <ScrollPane prefHeight="321.0" prefWidth="170.0">
+            <ScrollPane prefHeight="346.0" prefWidth="154.0">
                <content>
-                  <VBox prefHeight="444.0" prefWidth="151.0">
+                  <VBox fx:id="vboxCategories" prefHeight="425.0" prefWidth="148.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Button">
+                        <Label alignment="CENTER" prefHeight="60.0" prefWidth="118.0" text="Категории">
                            <VBox.margin>
-                              <Insets left="15.0" top="20.0" />
+                              <Insets left="13.0" top="15.0" />
                            </VBox.margin>
-                        </Button>
-                        <Button mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="Все">
+                        </Label>
+                        <Button minHeight="90.0" minWidth="120.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="106.0" text="Все">
                            <VBox.margin>
-                              <Insets left="15.0" top="20.0" />
+                              <Insets left="13.0" top="15.0" />
                            </VBox.margin>
                         </Button>
                      </children>
                   </VBox>
-               </content>
-            </ScrollPane>
-            <Button layoutX="14.0" layoutY="224.0" mnemonicParsing="false" onAction="#switch_add_category" prefHeight="50.0" prefWidth="120.0" text="Добавить категорию" />
+               </content></ScrollPane>
+            <Button layoutX="17.0" layoutY="367.0" mnemonicParsing="false" onAction="#switch_add_category" prefHeight="50.0" prefWidth="120.0" text="Добавить категорию" />
          </children>
       </AnchorPane>
       <AnchorPane layoutX="155.0" layoutY="99.0" prefHeight="452.0" prefWidth="630.0">
@@ -72,94 +71,140 @@
             <Button layoutX="382.0" layoutY="338.0" mnemonicParsing="false" onAction="#switch_add_recipe" prefHeight="58.0" prefWidth="145.0" text="Добавить рецепт" />
             <ScrollPane prefHeight="332.0" prefWidth="630.0">
                <content>
-                  <VBox prefHeight="556.0" prefWidth="630.0">
+                  <VBox fx:id="vboxRecipes" prefHeight="556.0" prefWidth="630.0">
                      <children>
-                        <AnchorPane prefHeight="270.0" prefWidth="630.0">
+                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="299.0" prefWidth="630.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="210.0" layoutY="14.0" prefHeight="60.0" prefWidth="160.0" text="Рис с курицей" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Text layoutX="66.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="120 калорий" textAlignment="CENTER" wrappingWidth="112.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Text>
-                              <Text layoutX="407.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 час 20 минут" textAlignment="CENTER" wrappingWidth="112.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Text>
-                              <Text layoutX="66.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Сложность: Easy" textAlignment="CENTER" wrappingWidth="112.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Text>
-                              <Text layoutX="407.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Курица" textAlignment="CENTER" wrappingWidth="112.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Text>
-                              <Button layoutX="84.0" layoutY="172.0" mnemonicParsing="false" text="Удалить">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Button>
-                              <ToggleButton layoutX="419.0" layoutY="172.0" mnemonicParsing="false" text="Любимое">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </ToggleButton>
-                              <Button layoutX="227.0" layoutY="203.0" mnemonicParsing="false" onAction="#switch_view" text="Посмотреть" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Button>
+                              <HBox alignment="CENTER" layoutY="-3.0" prefHeight="50.0" prefWidth="615.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="138.0" text="Рис с курицей" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutY="47.0" prefHeight="58.0" prefWidth="618.0" spacing="200.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="120 калорий" textAlignment="CENTER" wrappingWidth="112.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1 час 20 минут" textAlignment="CENTER" wrappingWidth="112.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="-4.0" layoutY="113.0" prefHeight="50.0" prefWidth="618.0" spacing="200.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Сложность: Easy" textAlignment="CENTER" wrappingWidth="112.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Курица" textAlignment="CENTER" wrappingWidth="112.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutY="167.0" prefHeight="50.0" prefWidth="618.0" spacing="250.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Удалить">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <ToggleButton mnemonicParsing="false" text="Любимое">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </ToggleButton>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="-2.0" layoutY="219.0" prefHeight="78.0" prefWidth="618.0">
+                                 <children>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#switch_view" prefHeight="43.0" prefWidth="154.0" text="Посмотреть" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="270.0" prefWidth="630.0">
+                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="299.0" prefWidth="630.0">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="210.0" layoutY="14.0" prefHeight="60.0" prefWidth="160.0" text="Рис с курицей" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                              <Text layoutX="66.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="120 калорий" textAlignment="CENTER" wrappingWidth="112.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Text>
-                              <Text layoutX="407.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1 час 20 минут" textAlignment="CENTER" wrappingWidth="112.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Text>
-                              <Text layoutX="66.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Сложность: Easy" textAlignment="CENTER" wrappingWidth="112.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Text>
-                              <Text layoutX="407.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Курица" textAlignment="CENTER" wrappingWidth="112.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Text>
-                              <Button layoutX="84.0" layoutY="172.0" mnemonicParsing="false" text="Удалить">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Button>
-                              <ToggleButton layoutX="419.0" layoutY="172.0" mnemonicParsing="false" text="Любимое">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </ToggleButton>
-                              <Button layoutX="227.0" layoutY="203.0" mnemonicParsing="false" onAction="#switch_view" text="Посмотреть" textAlignment="CENTER">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Button>
+                              <HBox alignment="CENTER" layoutY="-3.0" prefHeight="50.0" prefWidth="615.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="138.0" text="Рис с курицей" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutY="47.0" prefHeight="58.0" prefWidth="618.0" spacing="200.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="120 калорий" textAlignment="CENTER" wrappingWidth="112.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="1 час 20 минут" textAlignment="CENTER" wrappingWidth="112.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="-4.0" layoutY="113.0" prefHeight="50.0" prefWidth="618.0" spacing="200.0">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Сложность: Easy" textAlignment="CENTER" wrappingWidth="112.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Курица" textAlignment="CENTER" wrappingWidth="112.0">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Text>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutY="167.0" prefHeight="50.0" prefWidth="618.0" spacing="250.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Удалить">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </Button>
+                                    <ToggleButton mnemonicParsing="false" text="Любимое">
+                                       <font>
+                                          <Font size="15.0" />
+                                       </font>
+                                    </ToggleButton>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" layoutX="-2.0" layoutY="219.0" prefHeight="78.0" prefWidth="618.0">
+                                 <children>
+                                    <Button alignment="CENTER" mnemonicParsing="false" onAction="#switch_view" prefHeight="43.0" prefWidth="154.0" text="Посмотреть" textAlignment="CENTER">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
                            </children>
                         </AnchorPane>
                      </children>
