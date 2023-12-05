@@ -141,7 +141,7 @@ public class MainController implements Initializable {
 
 
         caloriesText.setFont(new Font(15.0));
-        Text timeText = new Text(recipe.getCookingTime() + " минут");
+        Text timeText = new Text(recipe.getCookingTime());
         timeText.setFont(new Font(15.0));
         infoHBox.getChildren().addAll(caloriesText, timeText);
 
@@ -244,7 +244,8 @@ public class MainController implements Initializable {
 //    }
 
     private void onCategoryButtonClick(Category category) {
-        System.out.println("Category clicked: " + category.getName());
+//        System.out.println("Category clicked: " + category.getName());
+
     }
 
     @FXML
