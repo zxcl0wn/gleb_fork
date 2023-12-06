@@ -44,8 +44,7 @@ public class ChangeIngredientController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Вы можете получить доступ к полям с аннотацией @FXML здесь, после того как они были внедрены.
-        // Используйте этот метод для любой логики инициализации.
+
 //        nameTextField.setPromptText("!!!");
     }
 

@@ -38,6 +38,7 @@ public class MainController implements Initializable {
     @FXML
     VBox vboxRecipes;
 
+
     @FXML
     public void switch_add_category(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("add_category.fxml"));
@@ -198,6 +199,13 @@ public class MainController implements Initializable {
         viewButtonHBox.setMinWidth(615);
         viewButtonHBox.setAlignment(Pos.CENTER);
         Button viewButton = new Button("Посмотреть");
+        viewButton.setOnAction(actionEvent -> {
+            try {
+                switch_view(recipe);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         viewButton.setPrefWidth(150);
         viewButton.setPrefHeight(40);
         viewButton.setFont(Font.font(20));
@@ -283,12 +291,20 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void switch_view(javafx.event.ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("view_page.fxml"));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    public void switch_view(Recipe recipe) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("view_page.fxml"));
+            Parent root = loader.load();
+            ViewPageController controller = loader.getController();
+
+            controller.setRecipe(recipe);
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
