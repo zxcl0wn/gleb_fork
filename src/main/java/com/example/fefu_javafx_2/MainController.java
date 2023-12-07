@@ -1,6 +1,7 @@
 package com.example.fefu_javafx_2;
 
 import RecipeManagerEntities.Category;
+import RecipeManagerEntities.Favorite;
 import RecipeManagerEntities.Ingredient;
 import RecipeManagerEntities.Recipe;
 import javafx.collections.FXCollections;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+    public CheckBox FavoriteButton;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -196,6 +198,23 @@ public class MainController implements Initializable {
         favoriteButton.setPrefWidth(100);
         favoriteButton.setPrefHeight(30);
         favoriteButton.setFont(Font.font(15));
+
+        Favorite favorite = Favorite.getFavoriteByRecipeId(recipe.getId());
+        if (favorite != null) {
+            favoriteButton.setSelected(true);
+        }
+
+        favoriteButton.setOnAction(actionEvent -> {
+            if (favoriteButton.isSelected()) {
+                Favorite.addToDBAndGet(recipe.getId());
+            } else {
+                Favorite favoriteToRemove = Favorite.getFavoriteByRecipeId(recipe.getId());
+                if (favoriteToRemove != null) {
+                    favoriteToRemove.delete();
+                }
+            }
+        });
+
 
         buttonsHBox.getChildren().addAll(deleteButton, favoriteButton);
         AnchorPane.setTopAnchor(buttonsHBox, 150.0);
