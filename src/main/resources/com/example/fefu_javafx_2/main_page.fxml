@@ -35,7 +35,7 @@
                   <Insets bottom="25.0" right="50.0" top="25.0" />
                </HBox.margin>
             </Button>
-            <CheckBox fx:id="FavoriteButton" mnemonicParsing="false" prefHeight="65.0" prefWidth="158.0" text="Любимые">
+            <CheckBox fx:id="FavoriteCheckBox" mnemonicParsing="false" prefHeight="65.0" prefWidth="158.0" text="Любимые">
                <HBox.margin>
                   <Insets bottom="25.0" right="50.0" top="25.0" />
                </HBox.margin>

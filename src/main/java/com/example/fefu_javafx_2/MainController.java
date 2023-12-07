@@ -2,16 +2,12 @@ package com.example.fefu_javafx_2;
 
 import RecipeManagerEntities.Category;
 import RecipeManagerEntities.Favorite;
-import RecipeManagerEntities.Ingredient;
 import RecipeManagerEntities.Recipe;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -22,17 +18,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
-    public CheckBox FavoriteButton;
+    public CheckBox FavoriteCheckBox;
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -105,17 +100,53 @@ public class MainController implements Initializable {
         ComboBoxSorting.getItems().addAll("По умолчанию", "По алфавиту: от А до Я", "По алфавиту: от Я до А", "По возрастанию Ккал", "По убыванию Ккал", "По возрастанию Б", "По убыванию Б", "По возрастанию Ж", "По убыванию Ж", "По возрастанию У", "По убыванию У", "По возрастанию сложности", "По убыванию сложности");
         loadCategories();
         loadRecipes();
+
+        FavoriteCheckBox.setOnAction(this::handleFavoriteCheckBox);
+
+
     }
     // Метод для загрузки рецептов
     private void loadRecipes() {
+//        if (selectedCategory == null) {
+//            List<Recipe> recipes = Recipe.getAllRecipes();
+//            displayRecipes(recipes);
+//        } else {
+//            List<Recipe> recipes = Recipe.getRecipesByCategory(selectedCategory);
+//            displayRecipes(recipes);
+//        }
+
+        List<Recipe> recipes;
+
         if (selectedCategory == null) {
-            List<Recipe> recipes = Recipe.getAllRecipes();
-            displayRecipes(recipes);
+            recipes = Recipe.getAllRecipes();
         } else {
-            List<Recipe> recipes = Recipe.getRecipesByCategory(selectedCategory);
-            displayRecipes(recipes);
+            recipes = Recipe.getRecipesByCategory(selectedCategory);
         }
+
+        if (FavoriteCheckBox.isSelected()) {
+            recipes = filterFavoriteRecipes(recipes);
+        }
+
+        displayRecipes(recipes);
+
     }
+    private List<Recipe> filterFavoriteRecipes(List<Recipe> recipes) {
+        List<Recipe> favoriteRecipes = new ArrayList<>();
+
+        for (Recipe recipe : recipes) {
+            Favorite favorite = Favorite.getFavoriteByRecipeId(recipe.getId());
+            if (favorite != null) {
+                favoriteRecipes.add(recipe);
+            }
+        }
+
+        return favoriteRecipes;
+    }
+
+    private void handleFavoriteCheckBox(ActionEvent event) {
+        loadRecipes(); // Перезагрузите рецепты при изменении состояния чекбокса
+    }
+
     private void displayRecipes(List<Recipe> recipes) {
         vboxRecipes.getChildren().clear();
 
@@ -257,7 +288,7 @@ public class MainController implements Initializable {
         }
     }
 
-        private VBox createCategoryBox(Category category) {
+    private VBox createCategoryBox(Category category) {
 //       Кнопка с названием категории
         Button categoryButton = new Button(category.getName());
         categoryButton.setOnAction(event -> onCategoryButtonClick(category));
