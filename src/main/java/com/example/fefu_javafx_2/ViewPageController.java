@@ -3,6 +3,8 @@ package com.example.fefu_javafx_2;
 import RecipeManagerEntities.IngredientWithQuantity;
 import RecipeManagerEntities.Recipe;
 import RecipeManagerEntities.RecipeStep;
+import RecipeManagerEntities.ShoppingCart;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
@@ -237,4 +239,13 @@ public class ViewPageController implements Initializable{
         }
     }
 
+    public void add_to_cart(ActionEvent event) {
+        ShoppingCart.addIngredientsToShoppingCartByRecipe(selectedRecipe);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Успех");
+        alert.setHeaderText(null);
+        alert.setContentText("Ингредиенты успешно добавлены в корзину покупок!");
+        alert.showAndWait();
+    }
 }

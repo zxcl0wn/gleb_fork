@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" vvalue="0.62" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.ViewPageController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" vvalue="1.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.ViewPageController">
    <content>
-      <VBox prefHeight="1594.0" prefWidth="800.0">
+      <VBox prefHeight="1132.0" prefWidth="800.0">
          <children>
             <AnchorPane prefHeight="97.0" prefWidth="800.0">
                <children>
@@ -184,72 +184,19 @@
                      </children>
                   </VBox>
                </children></AnchorPane>
-            <AnchorPane prefHeight="577.0" prefWidth="800.0">
+            <AnchorPane prefHeight="96.0" prefWidth="800.0">
                <children>
                   <Label alignment="CENTER" layoutX="303.0" layoutY="27.0" text="Шаги приготовления">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <VBox fx:id="VboxSteps" layoutX="-1.0" layoutY="57.0" prefHeight="387.0" prefWidth="786.0">
-                     <children>
-                        <AnchorPane prefHeight="133.0" prefWidth="786.0">
-                           <children>
-                              <ImageView fitHeight="145.0" fitWidth="213.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text layoutX="214.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 1. Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem ">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                              <Button layoutX="674.0" layoutY="88.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="97.0" text="Изменить">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="133.0" prefWidth="786.0">
-                           <children>
-                              <ImageView fitHeight="145.0" fitWidth="213.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text layoutX="214.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 1. Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem ">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                              <Button layoutX="674.0" layoutY="88.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="97.0" text="Изменить">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                        <AnchorPane layoutX="10.0" layoutY="156.0" prefHeight="133.0" prefWidth="786.0">
-                           <children>
-                              <ImageView fitHeight="145.0" fitWidth="213.0" layoutX="1.0" pickOnBounds="true" preserveRatio="true" />
-                              <Text layoutX="214.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Шаг 1. Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem Lorem ">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Text>
-                              <Button layoutX="674.0" layoutY="88.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="97.0" text="Изменить">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                     </children>
-                  </VBox>
-                  <Button layoutX="618.0" layoutY="20.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="136.0" text="Добавить шаг">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
+                  <VBox fx:id="VboxSteps" layoutX="-1.0" layoutY="57.0" prefHeight="141.0" prefWidth="786.0" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane prefHeight="83.0" prefWidth="800.0">
                <children>
-                  <Button layoutX="295.0" layoutY="70.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="209.0" text="Добавить в корзину">
+                  <Button layoutX="295.0" layoutY="35.0" mnemonicParsing="false" onAction="#add_to_cart" prefHeight="59.0" prefWidth="209.0" text="Добавить в корзину">
                      <font>
                         <Font size="17.0" />
                      </font>
