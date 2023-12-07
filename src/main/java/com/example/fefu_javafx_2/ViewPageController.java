@@ -5,10 +5,12 @@ import RecipeManagerEntities.IngredientWithQuantity;
 import RecipeManagerEntities.Recipe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -68,6 +70,20 @@ public class ViewPageController implements Initializable{
             HBox ingredientHBox = createIngredientHBox(ingredientWithQuantity);
             VboxIngredients.getChildren().add(ingredientHBox);
         }
+
+        HBox buttonHbox = new HBox(30);
+        buttonHbox.setAlignment(Pos.CENTER);
+        Button switchAddIngredientButton = new Button("Добавить");
+        switchAddIngredientButton.setFont(new Font(23));
+        buttonHbox.getChildren().add(switchAddIngredientButton);
+        switchAddIngredientButton.setOnAction(event -> {
+            try {
+                switch_add_ingredient_in_recipe(selectedRecipe);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        VboxIngredients.getChildren().add(buttonHbox);
     }
     private HBox createIngredientHBox(IngredientWithQuantity ingredientWithQuantity) {
         HBox ingredientHBox = new HBox(30);
@@ -80,7 +96,6 @@ public class ViewPageController implements Initializable{
 
         Button changeButton = new Button("Изменить");
         changeButton.setOnAction(event -> onChangeButtonClick(ingredientWithQuantity));
-
         ingredientHBox.getChildren().addAll(ingredientText, deleteButton, changeButton);
 
         return ingredientHBox;
@@ -109,6 +124,7 @@ public class ViewPageController implements Initializable{
         }
     }
 
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
 //        recipeNameLabel.setText(selectedRecipe.getName());
@@ -122,4 +138,22 @@ public class ViewPageController implements Initializable{
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    public void switch_add_ingredient_in_recipe(Recipe recipe) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("add_ingredient_in_recipe.fxml"));
+            Parent root = loader.load();
+            addIngredientInRecipe controller = loader.getController();
+
+            controller.setSelectedRecipe(recipe);
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
