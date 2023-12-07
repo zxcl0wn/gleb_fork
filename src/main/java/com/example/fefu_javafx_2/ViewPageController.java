@@ -13,6 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -61,16 +62,30 @@ public class ViewPageController implements Initializable{
 
     private void setIngredients(List<IngredientWithQuantity> ingredientsWithQuantities) {
         VboxIngredients.getChildren().clear();
-        VboxIngredients.setSpacing(10);
+        VboxIngredients.setSpacing(20);
+
         for (IngredientWithQuantity ingredientWithQuantity : ingredientsWithQuantities) {
-            Text ingredientText = new Text(ingredientWithQuantity.getIngredient().getName() + ": " + ingredientWithQuantity.getQuantity() + " грамм");
-
-            ingredientText.setFont(new Font(20));
-//            ingredientText.setWrappingWidth(400);
-
-            VboxIngredients.getChildren().add(ingredientText);
+            HBox ingredientHBox = createIngredientHBox(ingredientWithQuantity);
+            VboxIngredients.getChildren().add(ingredientHBox);
         }
+    }
+    private HBox createIngredientHBox(IngredientWithQuantity ingredientWithQuantity) {
+        HBox ingredientHBox = new HBox(30);
 
+        Text ingredientText = new Text(ingredientWithQuantity.getIngredient().getName() + ": " + ingredientWithQuantity.getQuantity() + " грамм");
+        ingredientText.setFont(new Font(22));
+
+        Button deleteButton = new Button("Удалить");
+        deleteButton.setOnAction(event -> onDeleteButtonClick(ingredientWithQuantity));
+
+        ingredientHBox.getChildren().addAll(ingredientText, deleteButton);
+
+        return ingredientHBox;
+    }
+
+    private void onDeleteButtonClick(IngredientWithQuantity ingredientWithQuantity) {
+//        System.out.println("Deleting Ingredient: " + ingredientWithQuantity.getIngredient().getName());
+        ingredientWithQuantity.delete();
     }
 
     @Override
