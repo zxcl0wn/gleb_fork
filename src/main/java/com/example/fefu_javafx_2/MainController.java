@@ -291,6 +291,7 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+
     @FXML
     public void switch_view(Recipe recipe) throws IOException {
         try {
@@ -311,5 +312,6 @@ public class MainController implements Initializable {
     public void all_recipes(ActionEvent event) {
         selectedCategory = null;
         loadRecipes();
+//        qwewqe
     }
 }
