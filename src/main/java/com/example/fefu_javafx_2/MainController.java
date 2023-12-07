@@ -2,6 +2,7 @@ package com.example.fefu_javafx_2;
 
 import RecipeManagerEntities.Category;
 import RecipeManagerEntities.Favorite;
+import RecipeManagerEntities.Ingredient;
 import RecipeManagerEntities.Recipe;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -103,18 +104,13 @@ public class MainController implements Initializable {
 
         FavoriteCheckBox.setOnAction(this::handleFavoriteCheckBox);
 
-
+        selectedDifficulty = null;
+        selectedTime = null;
+        selectedIngredients = new ArrayList<>();
+        instance = this;
     }
     // Метод для загрузки рецептов
     private void loadRecipes() {
-//        if (selectedCategory == null) {
-//            List<Recipe> recipes = Recipe.getAllRecipes();
-//            displayRecipes(recipes);
-//        } else {
-//            List<Recipe> recipes = Recipe.getRecipesByCategory(selectedCategory);
-//            displayRecipes(recipes);
-//        }
-
         List<Recipe> recipes;
 
         if (selectedCategory == null) {
@@ -146,6 +142,10 @@ public class MainController implements Initializable {
     private void handleFavoriteCheckBox(ActionEvent event) {
         loadRecipes(); // Перезагрузите рецепты при изменении состояния чекбокса
     }
+    private String selectedDifficulty;
+    private String selectedTime;
+    private List<String> selectedIngredients;
+    private static MainController instance;
 
     private void displayRecipes(List<Recipe> recipes) {
         vboxRecipes.getChildren().clear();
@@ -156,6 +156,18 @@ public class MainController implements Initializable {
         }
     }
 
+    public static void updateFilterParams(String difficulty, String time, List<String> ingredients) {
+        if (instance != null) {
+            instance.selectedDifficulty = difficulty;
+            instance.selectedTime = time;
+            instance.selectedIngredients = ingredients;
+            instance.loadRecipes();
+
+            System.out.println(instance.selectedDifficulty);
+            System.out.println(instance.selectedTime);
+            System.out.println(instance.selectedIngredients);
+        }
+    }
     private AnchorPane createRecipeAnchorPane(Recipe recipe) {
         AnchorPane recipeAnchorPane = new AnchorPane();
         recipeAnchorPane.setMinHeight(300);
