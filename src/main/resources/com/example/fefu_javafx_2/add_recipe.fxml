@@ -8,12 +8,13 @@
         <Button layoutX="34.0" layoutY="30.0" mnemonicParsing="false" onAction="#switch_home" prefHeight="62.0" prefWidth="150.0" text="Назад" />
         <AnchorPane layoutX="-1.0" layoutY="96.0" prefHeight="454.0" prefWidth="800.0">
             <children>
-                <Button layoutX="284.0" layoutY="354.0" mnemonicParsing="false" onAction="#switch_home" prefHeight="70.0" prefWidth="232.0" text="Добавить" />
-            <TextField layoutX="226.0" layoutY="53.0" prefHeight="34.0" prefWidth="330.0" promptText="Название" />
-            <TextField layoutX="226.0" layoutY="109.0" prefHeight="34.0" prefWidth="330.0" promptText="Ссылка на изображение" />
-            <TextField layoutX="226.0" layoutY="165.0" prefHeight="34.0" prefWidth="330.0" promptText="Категория" />
-            <TextField layoutX="226.0" layoutY="227.0" prefHeight="34.0" prefWidth="330.0" promptText="Время приготовления" />
-            <TextField layoutX="226.0" layoutY="291.0" prefHeight="34.0" prefWidth="330.0" promptText="Уровень сложности" />
+                <Button layoutX="286.0" layoutY="377.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="62.0" prefWidth="228.0" text="Готово" />
+            <TextField fx:id="nameTextField" layoutX="235.0" layoutY="14.0" prefHeight="34.0" prefWidth="330.0" promptText="Название" />
+            <TextField fx:id="imageTextField" layoutX="235.0" layoutY="70.0" prefHeight="34.0" prefWidth="330.0" promptText="Ссылка на изображение" />
+            <TextField fx:id="categoryTextField" layoutX="235.0" layoutY="126.0" prefHeight="34.0" prefWidth="330.0" promptText="Категория" />
+            <TextField fx:id="cookingTimeTextField" layoutX="235.0" layoutY="188.0" prefHeight="34.0" prefWidth="330.0" promptText="Время приготовления" />
+            <ComboBox fx:id="LevelComboBox" layoutX="235.0" layoutY="251.0" prefHeight="34.0" prefWidth="330.0" promptText="Уровень сложности" />
+            <Button layoutX="289.0" layoutY="314.0" mnemonicParsing="false" onAction="#AddStepButton" prefHeight="43.0" prefWidth="222.0" text="Добавить шаг" />
             </children>
         </AnchorPane>
     </children>

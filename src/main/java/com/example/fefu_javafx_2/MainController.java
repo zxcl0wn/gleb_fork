@@ -5,6 +5,7 @@ import RecipeManagerEntities.Ingredient;
 import RecipeManagerEntities.Recipe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
@@ -37,6 +38,7 @@ public class MainController implements Initializable {
     VBox vboxCategories;
     @FXML
     VBox vboxRecipes;
+    private Category selectedCategory;
 
 
     @FXML
@@ -104,7 +106,16 @@ public class MainController implements Initializable {
     }
     // Метод для загрузки рецептов
     private void loadRecipes() {
-        List<Recipe> recipes = Recipe.getAllRecipes();
+        if (selectedCategory == null) {
+            List<Recipe> recipes = Recipe.getAllRecipes();
+            displayRecipes(recipes);
+        } else {
+            List<Recipe> recipes = Recipe.getRecipesByCategory(selectedCategory);
+            displayRecipes(recipes);
+        }
+    }
+    private void displayRecipes(List<Recipe> recipes) {
+        vboxRecipes.getChildren().clear();
 
         for (Recipe recipe : recipes) {
             AnchorPane recipePane = createRecipeAnchorPane(recipe);
@@ -265,20 +276,10 @@ public class MainController implements Initializable {
         }
     }
 
-//    private void loadRecipesByCategory(Category category) {
-//        System.out.println("Отображаем рецепты для категории: " + category.getName());
-//
-//        // Получаем список рецептов по выбранной категории
-//        List<Recipe> recipes = Recipe.getRecipesByCategory(category);
-//
-//        // Выводим названия рецептов в консоль
-//        for (Recipe recipe : recipes) {
-//            System.out.println(recipe.getName());
-//        }
-//    }
-
     private void onCategoryButtonClick(Category category) {
         System.out.println("Category clicked: " + category.getName());
+        selectedCategory = category; // Set the selected category
+        loadRecipes();
     }
 
     @FXML
@@ -307,4 +308,8 @@ public class MainController implements Initializable {
         }
     }
 
+    public void all_recipes(ActionEvent event) {
+        selectedCategory = null;
+        loadRecipes();
+    }
 }

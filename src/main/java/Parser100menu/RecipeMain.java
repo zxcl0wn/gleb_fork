@@ -19,27 +19,11 @@ public class RecipeMain {
         String crispy_salty_cucumbers_for_winter_without_vinegar = "https://1000.menu/cooking/13467-xrustyashchie-solenye-ogurcy-na-zimu-bez-uksusa";
         String sour_salty_cucumbers_for_winter_in_jars_without_vinegar ="https://1000.menu/cooking/48686-kislye-solenye-ogurcy-na-zimu-v-bankax-bez-uksusa";
         String salate = "https://1000.menu/cooking/7637-kurinji-salat-s-pomidorom-i-sjrom";
-        RecipeParser parser1 = new RecipeParser(rice);
+        String turkey = "https://1000.menu/cooking/18877-bedro-indeiki-v-folge-v-duxovke-zapechennoe";
+
+        RecipeParser parser1 = new RecipeParser(turkey);
 //        Recipe100Menu recipe_by_url = parser1.getRecipeByUrl();
         System.out.println(parser1.getRecipeByUrl());
-//        System.out.println(recipe_by_url.img);
-//
-//        IngredientDB qq = new IngredientDB();
-//        qq.createTableIfNotExists();
-//
-//        AllCPFC t1 = new AllCPFC();
-//        Vector<Map> all_ingrid = t1.table_CPFC();
-//
-////        System.out.println(all_ingrid);
-//        for (int i=0; i<all_ingrid.size(); i++) {
-//            String i_name = all_ingrid.get(i).get("name").toString();
-//            Double i_calories = Double.valueOf((String) all_ingrid.get(i).get("calories"));
-//            Double i_proteins = Double.valueOf((String) all_ingrid.get(i).get("proteins"));
-//            Double i_fats = Double.valueOf((String) all_ingrid.get(i).get("fats"));
-//            Double i_carbohydrates = Double.valueOf((String) all_ingrid.get(i).get("carbohydrates"));
-//
-//            System.out.println(Ingredient.addToDBAndGet(i_name, i_calories, i_proteins, i_fats, i_carbohydrates));
-//        }
-//        System.out.println(all_ingrid.size());
+;
     }
 }

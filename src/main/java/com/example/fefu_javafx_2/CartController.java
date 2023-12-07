@@ -73,20 +73,8 @@ public class CartController implements Initializable {
 
     private void onDeleteButtonClick(String ingredientName) {
         Ingredient ingredient = Ingredient.getIngredientByName(ingredientName);
-
-        if (ingredient != null) {
-            // Получаем список RecipeIngredient, связанных с данным ингредиентом
-            List<RecipeIngredient> recipeIngredients = RecipeIngredient.getRecipesIngredientsByIngredientIdList(ingredient.getId());
-
-            // Удаляем соответствующие записи из корзины
-//            for (RecipeIngredient recipeIngredient : recipeIngredients) {
             ShoppingCart.deleteByIngredientId(ingredient.getId());
-
-
-            // Обновляем отображение ингредиентов в корзине
-//            loadIngredientsFromCart();
         }
-    }
 
 
 }
