@@ -1,14 +1,9 @@
 package com.example.fefu_javafx_2;
 
-import RecipeManagerEntities.Category;
 import RecipeManagerEntities.Ingredient;
-import RecipeManagerEntities.IngredientWithQuantity;
 import RecipeManagerEntities.Recipe;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,7 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -24,14 +18,11 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class addIngredientInRecipe implements Initializable{
+public class addIngredientInRecipeController implements Initializable{
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -42,10 +33,10 @@ public class addIngredientInRecipe implements Initializable{
 
 
     public void closeButton(javafx.event.ActionEvent event) {
-        Stage stageToClose = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
-        // Закрываем окно
-        stageToClose.close();
+//        Stage stageToClose = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//
+//        // Закрываем окно
+//        stageToClose.close();
     }
 
     public void setSelectedRecipe(Recipe selectedRecipe) {

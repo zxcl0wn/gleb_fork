@@ -1,11 +1,8 @@
 package com.example.fefu_javafx_2;
 
-import RecipeManagerEntities.Ingredient;
 import RecipeManagerEntities.IngredientWithQuantity;
 import RecipeManagerEntities.Recipe;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import RecipeManagerEntities.RecipeStep;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
@@ -21,7 +18,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -39,6 +35,7 @@ public class ViewPageController implements Initializable{
     public Text textCarbs;
     public VBox recipeVbox;
     public VBox VboxIngredients;
+    public VBox VboxSteps;
     private Recipe selectedRecipe;
 
 
@@ -60,6 +57,7 @@ public class ViewPageController implements Initializable{
         textCarbs.setText(Double.toString(selectedRecipe.getCarbsOfRecipe()) + " углеводов");
 
         setIngredients(recipe.getIngredientsWithQuantity());
+        setRecipeSteps(recipe.getId());
     }
 
     private void setIngredients(List<IngredientWithQuantity> ingredientsWithQuantities) {
@@ -144,13 +142,96 @@ public class ViewPageController implements Initializable{
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("add_ingredient_in_recipe.fxml"));
             Parent root = loader.load();
-            addIngredientInRecipe controller = loader.getController();
+            addIngredientInRecipeController controller = loader.getController();
 
             controller.setSelectedRecipe(recipe);
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void switch_add_step(Recipe recipe) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("add_step.fxml"));
+            Parent root = loader.load();
+            AddStepController controller = loader.getController();
+
+            controller.setRecipe(recipe);
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setRecipeSteps(int recipeId) {
+        VboxSteps.getChildren().clear();
+        VboxSteps.setSpacing(20);
+
+        List<RecipeStep> recipeSteps = RecipeStep.getRecipeStepsByRecipeId(recipeId);
+
+        for (RecipeStep recipeStep : recipeSteps) {
+            HBox stepHBox = createStepHBox(recipeStep);
+            VboxSteps.getChildren().add(stepHBox);
+        }
+
+        HBox stepHbox = new HBox(30);
+        stepHbox.setAlignment(Pos.CENTER);
+        Button addStepButton = new Button("Добавить шаг");
+        addStepButton.setFont(new Font(23));
+        stepHbox.getChildren().add(addStepButton);
+        addStepButton.setOnAction(event -> {
+            try {
+                switch_add_step(selectedRecipe);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        VboxSteps.getChildren().add(stepHbox);
+
+    }
+
+    private HBox createStepHBox(RecipeStep recipeStep) {
+        HBox stepHBox = new HBox(30);
+
+        Text stepText = new Text(recipeStep.getText());
+        stepText.setFont(new Font(22));
+
+        Button deleteButton = new Button("Удалить");
+        deleteButton.setOnAction(event -> onDeleteStepButtonClick(recipeStep));
+
+        Button changeStepButton = new Button("Изменить шаг");
+        changeStepButton.setOnAction(event -> onChangeStepButtonClick(recipeStep));
+
+
+        stepHBox.getChildren().addAll(stepText, deleteButton, changeStepButton);
+
+        return stepHBox;
+    }
+    private void onDeleteStepButtonClick(RecipeStep recipeStep) {
+        recipeStep.delete();
+        setRecipeSteps(selectedRecipe.getId());
+    }
+
+    private void onChangeStepButtonClick(RecipeStep recipeStep) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("change_step.fxml"));
+            Parent root = loader.load();
+
+            ChangeStepController changeStepController = loader.getController();
+            stage = new Stage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+            changeStepController.setStep(recipeStep);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" vvalue="0.53" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.ViewPageController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" vvalue="0.62" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.ViewPageController">
    <content>
       <VBox prefHeight="1594.0" prefWidth="800.0">
          <children>
@@ -191,7 +191,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <VBox layoutX="-1.0" layoutY="57.0" prefHeight="387.0" prefWidth="786.0">
+                  <VBox fx:id="VboxSteps" layoutX="-1.0" layoutY="57.0" prefHeight="387.0" prefWidth="786.0">
                      <children>
                         <AnchorPane prefHeight="133.0" prefWidth="786.0">
                            <children>
