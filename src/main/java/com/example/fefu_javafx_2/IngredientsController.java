@@ -157,12 +157,10 @@ public class IngredientsController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("change_ingredient.fxml"));
             Parent root = loader.load();
 
-            // Получаем контроллер страницы изменения ингредиента
             ChangeIngredientController changeIngredientController = loader.getController();
 
-            // Передаем данные выбранного ингредиента
             changeIngredientController.setIngredient(ingredient);
-            System.out.println(ingredient);
+//            System.out.println(ingredient);
             stage = (Stage) ingredientsVBox.getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);

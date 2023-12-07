@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" vvalue="0.51" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.ViewPageController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" vvalue="0.39" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.ViewPageController">
    <content>
       <VBox prefHeight="1594.0" prefWidth="800.0">
          <children>
@@ -116,6 +116,7 @@
                                  </font>
                               </Text>
                               <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="Удалить" />
+                              <Button layoutX="172.0" layoutY="10.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="Изменить" />
                            </children>
                            <padding>
                               <Insets left="10.0" />
@@ -129,6 +130,7 @@
                                  </font>
                               </Text>
                               <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="Удалить" />
+                              <Button layoutX="172.0" layoutY="10.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="Изменить" />
                            </children>
                            <padding>
                               <Insets left="10.0" />
@@ -142,6 +144,7 @@
                                  </font>
                               </Text>
                               <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="Удалить" />
+                              <Button layoutX="172.0" layoutY="10.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="Изменить" />
                            </children>
                            <padding>
                               <Insets left="10.0" />
@@ -155,6 +158,7 @@
                                  </font>
                               </Text>
                               <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="Удалить" />
+                              <Button layoutX="172.0" layoutY="10.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="Изменить" />
                            </children>
                            <padding>
                               <Insets left="10.0" />
@@ -168,6 +172,7 @@
                                  </font>
                               </Text>
                               <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="Удалить" />
+                              <Button layoutX="172.0" layoutY="10.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="98.0" text="Изменить" />
                            </children>
                            <padding>
                               <Insets left="10.0" />

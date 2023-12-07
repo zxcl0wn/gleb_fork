@@ -78,7 +78,10 @@ public class ViewPageController implements Initializable{
         Button deleteButton = new Button("Удалить");
         deleteButton.setOnAction(event -> onDeleteButtonClick(ingredientWithQuantity));
 
-        ingredientHBox.getChildren().addAll(ingredientText, deleteButton);
+        Button changeButton = new Button("Изменить");
+        changeButton.setOnAction(event -> onChangeButtonClick(ingredientWithQuantity));
+
+        ingredientHBox.getChildren().addAll(ingredientText, deleteButton, changeButton);
 
         return ingredientHBox;
     }
@@ -86,6 +89,24 @@ public class ViewPageController implements Initializable{
     private void onDeleteButtonClick(IngredientWithQuantity ingredientWithQuantity) {
 //        System.out.println("Deleting Ingredient: " + ingredientWithQuantity.getIngredient().getName());
         ingredientWithQuantity.delete();
+    }
+
+    public void onChangeButtonClick(IngredientWithQuantity ingredientWithQuantity) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("change_quantity_ingredient.fxml"));
+            Parent root = loader.load();
+
+            ChangeQuantityIngredientController changeQuantityIngredientController = loader.getController();
+
+            changeQuantityIngredientController.setIngredient(ingredientWithQuantity);
+//            System.out.println(ingredientWithQuantity);
+            stage = new Stage();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
