@@ -44,6 +44,7 @@ public class FilrtationController implements Initializable{
     private ComboBox<String> ComboBoxTime;
     private Recipe selectedRecipe;
     private static MainController instance;
+
     List<String> selectedIngredients = new ArrayList<>();
 
     public void setSelectedRecipe(Recipe selectedRecipe) {
@@ -56,8 +57,8 @@ public class FilrtationController implements Initializable{
         String selectedTime = ComboBoxTime.getValue();
         MainController.updateFilterParams(selectedDifficulty, selectedTime, selectedIngredients);
 
-        instance.filterRecipes();
-        instance.refreshRecipes();
+        instance.loadRecipes();
+//        instance.refreshRecipes();
         switch_home(event);
 
     }
@@ -142,9 +143,18 @@ public class FilrtationController implements Initializable{
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
 
+    @FXML
+    public void switch_home_from_back(javafx.event.ActionEvent actionEvent) throws IOException {
+        MainController.updateFilterParams(null, null, new ArrayList<>());
 
+        Parent root = FXMLLoader.load(getClass().getResource("main_page.fxml"));
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
 
 }
