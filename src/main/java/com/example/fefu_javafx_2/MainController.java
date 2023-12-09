@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Comparator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MainController implements Initializable {
@@ -169,9 +171,14 @@ public class MainController implements Initializable {
                 recipes = sortByDifficultyDescending(recipes);
                 break;
         }
-
+        System.out.println("recipes: " + recipes);
         displayRecipes(recipes);
     }
+
+    public void refreshRecipes() {
+        loadRecipes();
+    }
+
     private List<Recipe> sortByDifficultyAscending(List<Recipe> recipes) {
         List<Recipe> sortedRecipes = new ArrayList<>();
         for (int i = 1; i <= 5; i++) {
@@ -195,6 +202,7 @@ public class MainController implements Initializable {
         }
         return sortedRecipes;
     }
+
     private List<Recipe> filterFavoriteRecipes(List<Recipe> recipes) {
         List<Recipe> favoriteRecipes = new ArrayList<>();
 
@@ -211,13 +219,15 @@ public class MainController implements Initializable {
     private void handleFavoriteCheckBox(ActionEvent event) {
         loadRecipes(); // Перезагрузите рецепты при изменении состояния чекбокса
     }
+
     private String selectedDifficulty;
     private String selectedTime;
-    private List<Ingredient> selectedIngredients;
+    private List<String> selectedIngredients;
     private static MainController instance;
 
     private void displayRecipes(List<Recipe> recipes) {
         vboxRecipes.getChildren().clear();
+        System.out.println("recipes.size: " + recipes.size());
 
         for (Recipe recipe : recipes) {
             AnchorPane recipePane = createRecipeAnchorPane(recipe);
@@ -225,17 +235,18 @@ public class MainController implements Initializable {
         }
     }
 
-    public static void updateFilterParams(String difficulty, String time, List<Ingredient> ingredients) {
-        if (instance != null) {
-            instance.selectedDifficulty = difficulty;
-            instance.selectedTime = time;
-            instance.selectedIngredients = ingredients;
-            instance.loadRecipes();
-
-            System.out.println(instance.selectedDifficulty);
-            System.out.println(instance.selectedTime);
-            System.out.println(instance.selectedIngredients);
+    public static void updateFilterParams(String difficulty, String time, List<String> ingredients) {
+        if (instance == null) {
+            return;
         }
+        instance.selectedDifficulty = difficulty;
+        instance.selectedTime = time;
+        instance.selectedIngredients = ingredients;
+        instance.loadRecipes();
+
+        System.out.println(instance.selectedDifficulty);
+        System.out.println(instance.selectedTime);
+        System.out.println(instance.selectedIngredients);
     }
     private AnchorPane createRecipeAnchorPane(Recipe recipe) {
         AnchorPane recipeAnchorPane = new AnchorPane();
@@ -422,7 +433,6 @@ public class MainController implements Initializable {
         stage.setScene(scene);
         stage.show();
 //        filterRecipes();
-        System.out.println("!");
     }
 
 
@@ -455,30 +465,90 @@ public class MainController implements Initializable {
         List<Recipe> filteredRecipes = new ArrayList<>();
 
         for (Recipe recipe : allRecipes) {
-//            boolean difficultyMatch = selectedDifficulty == null || selectedDifficulty.equals(recipe.getDifficultyLevel().getName());
-//            boolean timeMatch = selectedTime == null || selectedTime.equals(recipe.getCookingTime());
+            boolean difficultyMatch = (selectedDifficulty == null || selectedDifficulty.equals(recipe.getDifficultyLevel().getName()));
+            boolean timeMatch = selectedTime == null || time_comparison(recipe.getCookingTime());
             boolean ingredientsMatch = selectedIngredients.isEmpty() || recipeContainsSelectedIngredients(recipe);
 
-            if (ingredientsMatch) {
+            System.out.println("difficultyMatch: " + difficultyMatch + ". selectedDifficulty: " + selectedDifficulty);
+            System.out.println("timeMatch: " + timeMatch + ". selectedTime: " + selectedTime);
+            System.out.println("time_comparison: " + time_comparison(recipe.getCookingTime()));
+            System.out.println("ingredientsMatch: " + ingredientsMatch + ". selectedIngredients: " + selectedIngredients);
+            System.out.println("\n");
+
+            if (ingredientsMatch && difficultyMatch && timeMatch) {
                 filteredRecipes.add(recipe);
+//                System.out.println("filteredRecipes1: " + filteredRecipes);
             }
         }
+        System.out.println("filteredRecipes.size: " + filteredRecipes.size());
 
         displayRecipes(filteredRecipes);
         System.out.println("filteredRecipes: " + filteredRecipes);
     }
 
+    public boolean time_comparison(String recipe_time) {
+        int int_recipe_time = time_convert(recipe_time);
+
+        if (selectedTime.equals("До 1 часа"))
+            return int_recipe_time < 60;
+
+        if (selectedTime.equals("1-3 часа"))
+            return int_recipe_time >= 60 && int_recipe_time < 180;
+
+        if (selectedTime.equals("3-5 часов"))
+            return int_recipe_time >= 180 && int_recipe_time < 300;
+
+        if (selectedTime.equals("5-15 часов"))
+            return int_recipe_time >= 300 && int_recipe_time < 900;
+
+        if (selectedTime.equals("15-24 часов"))
+            return int_recipe_time >= 900 && int_recipe_time < 1440;
+
+        if (selectedTime.equals("24+ часов"))
+            return int_recipe_time >= 1440;
+
+        return true;
+    }
+
+
+
+    public int time_convert(String cooking_time) {
+        int totalMinutes = 0;
+        Pattern pattern = Pattern.compile("(\\d+) ?(д|мин|ч)");
+        Matcher matcher = pattern.matcher(cooking_time);
+
+        while (matcher.find()) {
+            int value = Integer.parseInt(matcher.group(1));
+            String unit = matcher.group(2);
+
+            switch (unit) {
+                case "д":
+                    totalMinutes += value * 24 * 60; // день в минутах
+                    break;
+                case "ч":
+                    totalMinutes += value * 60; // час в минутах
+                    break;
+                case "мин":
+                    totalMinutes += value; // минута
+                    break;
+            }
+        }
+        return totalMinutes;
+    }
+
     private boolean recipeContainsSelectedIngredients(Recipe recipe) {
         List<IngredientWithQuantity> recipeIngredients = recipe.getIngredientsWithQuantity();
 
+        // Получаем список ингредиентов из рецепта
+        List<String> recipeIngredientList = new ArrayList<>();
         for (IngredientWithQuantity ingredientWithQuantity : recipeIngredients) {
-            Ingredient ingredient = ingredientWithQuantity.getIngredient();
-            if (selectedIngredients.contains(ingredient)) {
-                return true;
-            }
+            recipeIngredientList.add(ingredientWithQuantity.getIngredient().getName());
         }
 
-        return false;
+        System.out.println("recipeIngredientList: " + recipeIngredientList);
+
+        // Проверяем, содержит ли рецепт все выбранные ингредиенты
+        return recipeIngredientList.containsAll(selectedIngredients);
     }
 
 }

@@ -44,7 +44,7 @@ public class FilrtationController implements Initializable{
     private ComboBox<String> ComboBoxTime;
     private Recipe selectedRecipe;
     private static MainController instance;
-    List<Ingredient> selectedIngredients = new ArrayList<>();
+    List<String> selectedIngredients = new ArrayList<>();
 
     public void setSelectedRecipe(Recipe selectedRecipe) {
         this.selectedRecipe = selectedRecipe;
@@ -56,14 +56,17 @@ public class FilrtationController implements Initializable{
         String selectedTime = ComboBoxTime.getValue();
         MainController.updateFilterParams(selectedDifficulty, selectedTime, selectedIngredients);
 
+        instance.filterRecipes();
+        instance.refreshRecipes();
         switch_home(event);
+
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         loadIngredients();
         ComboBoxLevel.getItems().addAll("Easy", "Medium", "Hard", "Unreal", "Super Unreal");
-        ComboBoxTime.getItems().addAll("До 1 часа", "1-3 часа", "3-5 часов", "5-15 часов", "15-23 часов", "24+ часов");
+        ComboBoxTime.getItems().addAll("До 1 часа", "1-3 часа", "3-5 часов", "5-15 часов", "15-24 часов", "24+ часов");
     }
     private void loadIngredients() {
         List<Ingredient> ingredients = Ingredient.getAllIngredientsList();
@@ -124,7 +127,8 @@ public class FilrtationController implements Initializable{
     }
 
     private void onChooseButtonClick(Ingredient ingredient) {
-        selectedIngredients.add(ingredient);
+//        System.out.println(ingredient);
+        selectedIngredients.add(ingredient.getName());
     }
 
     public static void setInstance(MainController mainController) {
@@ -139,7 +143,6 @@ public class FilrtationController implements Initializable{
         stage.setScene(scene);
         stage.show();
 
-        instance.filterRecipes();
     }
 
 
