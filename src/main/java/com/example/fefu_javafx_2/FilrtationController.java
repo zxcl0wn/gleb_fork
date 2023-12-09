@@ -44,7 +44,7 @@ public class FilrtationController implements Initializable{
     private ComboBox<String> ComboBoxTime;
     private Recipe selectedRecipe;
     private static MainController instance;
-    List<String> selectedIngredients = new ArrayList<>();
+    List<Ingredient> selectedIngredients = new ArrayList<>();
 
     public void setSelectedRecipe(Recipe selectedRecipe) {
         this.selectedRecipe = selectedRecipe;
@@ -124,9 +124,12 @@ public class FilrtationController implements Initializable{
     }
 
     private void onChooseButtonClick(Ingredient ingredient) {
-        selectedIngredients.add(ingredient.getName());
+        selectedIngredients.add(ingredient);
     }
 
+    public static void setInstance(MainController mainController) {
+        instance = mainController;
+    }
 
     @FXML
     public void switch_home(javafx.event.ActionEvent actionEvent) throws IOException {
@@ -135,6 +138,8 @@ public class FilrtationController implements Initializable{
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+        instance.filterRecipes();
     }
 
 

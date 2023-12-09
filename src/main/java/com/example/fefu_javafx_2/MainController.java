@@ -1,9 +1,6 @@
 package com.example.fefu_javafx_2;
 
-import RecipeManagerEntities.Category;
-import RecipeManagerEntities.Favorite;
-import RecipeManagerEntities.Ingredient;
-import RecipeManagerEntities.Recipe;
+import RecipeManagerEntities.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -26,6 +23,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Comparator;
+
 
 public class MainController implements Initializable {
     public CheckBox FavoriteCheckBox;
@@ -99,6 +98,9 @@ public class MainController implements Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         ComboBoxSorting.getItems().addAll("По умолчанию", "По алфавиту: от А до Я", "По алфавиту: от Я до А", "По возрастанию Ккал", "По убыванию Ккал", "По возрастанию Б", "По убыванию Б", "По возрастанию Ж", "По убыванию Ж", "По возрастанию У", "По убыванию У", "По возрастанию сложности", "По убыванию сложности");
+        ComboBoxSorting.setValue("По умолчанию");
+        ComboBoxSorting.setOnAction(event -> handleSortingChange());
+
         loadCategories();
         loadRecipes();
 
@@ -109,10 +111,13 @@ public class MainController implements Initializable {
         selectedIngredients = new ArrayList<>();
         instance = this;
     }
+    private void handleSortingChange() {
+        loadRecipes();
+    }
+
     // Метод для загрузки рецептов
     private void loadRecipes() {
         List<Recipe> recipes;
-
         if (selectedCategory == null) {
             recipes = Recipe.getAllRecipes();
         } else {
@@ -123,8 +128,72 @@ public class MainController implements Initializable {
             recipes = filterFavoriteRecipes(recipes);
         }
 
-        displayRecipes(recipes);
+        switch (ComboBoxSorting.getValue()) {
+            case "По умолчанию":
+                recipes.sort(Comparator.comparing(Recipe::getId));
+                break;
+            case "По алфавиту: от А до Я":
+                recipes.sort(Comparator.comparing(Recipe::getName));
+                break;
+            case "По алфавиту: от Я до А":
+                recipes.sort(Comparator.comparing(Recipe::getName).reversed());
+                break;
+            case "По возрастанию Ккал":
+                recipes.sort(Comparator.comparingDouble(Recipe::getCaloriesOfRecipe));
+                break;
+            case "По убыванию Ккал":
+                recipes.sort(Comparator.comparingDouble(Recipe::getCaloriesOfRecipe).reversed());
+                break;
+            case "По возрастанию Б":
+                recipes.sort(Comparator.comparingDouble(Recipe::getProteinOfRecipe));
+                break;
+            case "По убыванию Б":
+                recipes.sort(Comparator.comparingDouble(Recipe::getProteinOfRecipe).reversed());
+                break;
+            case "По возрастанию Ж":
+                recipes.sort(Comparator.comparingDouble(Recipe::getFatsOfRecipe));
+                break;
+            case "По убыванию Ж":
+                recipes.sort(Comparator.comparingDouble(Recipe::getFatsOfRecipe).reversed());
+                break;
+            case "По возрастанию У":
+                recipes.sort(Comparator.comparingDouble(Recipe::getCarbsOfRecipe));
+                break;
+            case "По убыванию У":
+                recipes.sort(Comparator.comparingDouble(Recipe::getCarbsOfRecipe).reversed());
+                break;
+            case "По возрастанию сложности":
+                recipes = sortByDifficultyAscending(recipes);
+                break;
+            case "По убыванию сложности":
+                recipes = sortByDifficultyDescending(recipes);
+                break;
+        }
 
+        displayRecipes(recipes);
+    }
+    private List<Recipe> sortByDifficultyAscending(List<Recipe> recipes) {
+        List<Recipe> sortedRecipes = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            for (Recipe recipe : recipes) {
+                if (recipe.getDifficultyLevel().getId() == i) {
+                    sortedRecipes.add(recipe);
+                }
+            }
+        }
+        return sortedRecipes;
+    }
+
+    private List<Recipe> sortByDifficultyDescending(List<Recipe> recipes) {
+        List<Recipe> sortedRecipes = new ArrayList<>();
+        for (int i = 5; i >= 1; i--) {
+            for (Recipe recipe : recipes) {
+                if (recipe.getDifficultyLevel().getId() == i) {
+                    sortedRecipes.add(recipe);
+                }
+            }
+        }
+        return sortedRecipes;
     }
     private List<Recipe> filterFavoriteRecipes(List<Recipe> recipes) {
         List<Recipe> favoriteRecipes = new ArrayList<>();
@@ -144,7 +213,7 @@ public class MainController implements Initializable {
     }
     private String selectedDifficulty;
     private String selectedTime;
-    private List<String> selectedIngredients;
+    private List<Ingredient> selectedIngredients;
     private static MainController instance;
 
     private void displayRecipes(List<Recipe> recipes) {
@@ -156,7 +225,7 @@ public class MainController implements Initializable {
         }
     }
 
-    public static void updateFilterParams(String difficulty, String time, List<String> ingredients) {
+    public static void updateFilterParams(String difficulty, String time, List<Ingredient> ingredients) {
         if (instance != null) {
             instance.selectedDifficulty = difficulty;
             instance.selectedTime = time;
@@ -347,10 +416,13 @@ public class MainController implements Initializable {
     @FXML
     public void switch_filtration(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("filtration.fxml"));
+        FilrtationController.setInstance(this);
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+//        filterRecipes();
+        System.out.println("!");
     }
 
 
@@ -374,6 +446,39 @@ public class MainController implements Initializable {
     public void all_recipes(ActionEvent event) {
         selectedCategory = null;
         loadRecipes();
-//        qwewqe
     }
+//    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+    public void filterRecipes() {
+        List<Recipe> allRecipes = Recipe.getAllRecipes();
+
+        List<Recipe> filteredRecipes = new ArrayList<>();
+
+        for (Recipe recipe : allRecipes) {
+//            boolean difficultyMatch = selectedDifficulty == null || selectedDifficulty.equals(recipe.getDifficultyLevel().getName());
+//            boolean timeMatch = selectedTime == null || selectedTime.equals(recipe.getCookingTime());
+            boolean ingredientsMatch = selectedIngredients.isEmpty() || recipeContainsSelectedIngredients(recipe);
+
+            if (ingredientsMatch) {
+                filteredRecipes.add(recipe);
+            }
+        }
+
+        displayRecipes(filteredRecipes);
+        System.out.println("filteredRecipes: " + filteredRecipes);
+    }
+
+    private boolean recipeContainsSelectedIngredients(Recipe recipe) {
+        List<IngredientWithQuantity> recipeIngredients = recipe.getIngredientsWithQuantity();
+
+        for (IngredientWithQuantity ingredientWithQuantity : recipeIngredients) {
+            Ingredient ingredient = ingredientWithQuantity.getIngredient();
+            if (selectedIngredients.contains(ingredient)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }

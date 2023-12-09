@@ -10,6 +10,7 @@ import java.util.Objects;
 
 
 public class Recipe {
+
     public int getId() {
         return id;
     }
