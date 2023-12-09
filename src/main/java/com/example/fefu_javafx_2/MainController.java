@@ -99,26 +99,68 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        System.out.println("поврожуду инитлизцию NIT!!!");
         ComboBoxSorting.getItems().addAll("По умолчанию", "По алфавиту: от А до Я", "По алфавиту: от Я до А", "По возрастанию Ккал", "По убыванию Ккал", "По возрастанию Б", "По убыванию Б", "По возрастанию Ж", "По убыванию Ж", "По возрастанию У", "По убыванию У", "По возрастанию сложности", "По убыванию сложности");
         ComboBoxSorting.setValue("По умолчанию");
-        ComboBoxSorting.setOnAction(event -> handleSortingChange());
+        ComboBoxSorting.setOnAction(event -> loadRecipes());
+        if (selectedIngredients == null) {
+            selectedIngredients = new ArrayList<>();
+        }
+//        instance = this;
+        if (instance == null) {
+            System.out.println("нови интснус");
+            instance = this;
+        }
+
+
+        System.out.println("diff: " + instance.selectedDifficulty);
+        System.out.println("time: " + instance.selectedTime);
+//        selectedDifficulty = null;
+//        selectedTime = null;
+//        selectedIngredients = new ArrayList<>(); // Инициализация selectedIngredients здесь
+//        instance = this;
 
         loadCategories();
         loadRecipes();
 
         FavoriteCheckBox.setOnAction(this::handleFavoriteCheckBox);
 
-        selectedDifficulty = null;
-        selectedTime = null;
-        selectedIngredients = new ArrayList<>();
-        instance = this;
+
     }
-    private void handleSortingChange() {
-        loadRecipes();
+//    private void handleSortingChange() {
+//        loadRecipes();
+//    }
+
+    public List<Recipe> filterRecipes(List<Recipe> allRecipes) {
+//        List<Recipe> allRecipes = Recipe.getAllRecipes();
+
+        List<Recipe> filteredRecipes = new ArrayList<>();
+
+        for (Recipe recipe : allRecipes) {
+            boolean difficultyMatch = (instance.selectedDifficulty == null || instance.selectedDifficulty.equals(recipe.getDifficultyLevel().getName()));
+            boolean timeMatch = instance.selectedTime == null || time_comparison(recipe.getCookingTime());
+            boolean ingredientsMatch = instance.selectedIngredients.isEmpty() || recipeContainsSelectedIngredients(recipe);
+
+            System.out.println("difficultyMatch: " + difficultyMatch + ". selectedDifficulty: " + instance.selectedDifficulty);
+            System.out.println("timeMatch: " + timeMatch + ". selectedTime: " + instance.selectedTime);
+            System.out.println("time_comparison: " + time_comparison(recipe.getCookingTime()));
+            System.out.println("ingredientsMatch: " + ingredientsMatch + ". selectedIngredients: " + instance.selectedIngredients);
+            System.out.println("\n");
+
+            if (ingredientsMatch && difficultyMatch && timeMatch) {
+                filteredRecipes.add(recipe);
+//                System.out.println("filteredRecipes1: " + filteredRecipes);
+            }
+        }
+        System.out.println("filteredRecipes.size: " + filteredRecipes.size());
+
+//        displayRecipes(filteredRecipes);
+        return filteredRecipes;
+//        System.out.println("filteredRecipes: " + filteredRecipes);
     }
 
     // Метод для загрузки рецептов
-    private void loadRecipes() {
+    public void loadRecipes() {
         List<Recipe> recipes;
         if (selectedCategory == null) {
             recipes = Recipe.getAllRecipes();
@@ -171,13 +213,17 @@ public class MainController implements Initializable {
                 recipes = sortByDifficultyDescending(recipes);
                 break;
         }
+        System.out.println("тут это до фильтрации типо: " + recipes.size());
+        recipes = filterRecipes(recipes);
+        System.out.println("тут это после фильтрации типо: " + recipes.size());
+
         System.out.println("recipes: " + recipes);
         displayRecipes(recipes);
     }
 
-    public void refreshRecipes() {
-        loadRecipes();
-    }
+//    public void refreshRecipes() {
+//        loadRecipes();
+//    }
 
     private List<Recipe> sortByDifficultyAscending(List<Recipe> recipes) {
         List<Recipe> sortedRecipes = new ArrayList<>();
@@ -227,7 +273,7 @@ public class MainController implements Initializable {
 
     private void displayRecipes(List<Recipe> recipes) {
         vboxRecipes.getChildren().clear();
-        System.out.println("recipes.size: " + recipes.size());
+        System.out.println("рендерю тут да: " + recipes.size());
 
         for (Recipe recipe : recipes) {
             AnchorPane recipePane = createRecipeAnchorPane(recipe);
@@ -242,6 +288,7 @@ public class MainController implements Initializable {
         instance.selectedDifficulty = difficulty;
         instance.selectedTime = time;
         instance.selectedIngredients = ingredients;
+
         instance.loadRecipes();
 
         System.out.println(instance.selectedDifficulty);
@@ -459,52 +506,30 @@ public class MainController implements Initializable {
     }
 //    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-    public void filterRecipes() {
-        List<Recipe> allRecipes = Recipe.getAllRecipes();
 
-        List<Recipe> filteredRecipes = new ArrayList<>();
-
-        for (Recipe recipe : allRecipes) {
-            boolean difficultyMatch = (selectedDifficulty == null || selectedDifficulty.equals(recipe.getDifficultyLevel().getName()));
-            boolean timeMatch = selectedTime == null || time_comparison(recipe.getCookingTime());
-            boolean ingredientsMatch = selectedIngredients.isEmpty() || recipeContainsSelectedIngredients(recipe);
-
-            System.out.println("difficultyMatch: " + difficultyMatch + ". selectedDifficulty: " + selectedDifficulty);
-            System.out.println("timeMatch: " + timeMatch + ". selectedTime: " + selectedTime);
-            System.out.println("time_comparison: " + time_comparison(recipe.getCookingTime()));
-            System.out.println("ingredientsMatch: " + ingredientsMatch + ". selectedIngredients: " + selectedIngredients);
-            System.out.println("\n");
-
-            if (ingredientsMatch && difficultyMatch && timeMatch) {
-                filteredRecipes.add(recipe);
-//                System.out.println("filteredRecipes1: " + filteredRecipes);
-            }
-        }
-        System.out.println("filteredRecipes.size: " + filteredRecipes.size());
-
-        displayRecipes(filteredRecipes);
-        System.out.println("filteredRecipes: " + filteredRecipes);
-    }
 
     public boolean time_comparison(String recipe_time) {
         int int_recipe_time = time_convert(recipe_time);
+        if (instance.selectedTime == null) {
+            return false;
+        }
 
-        if (selectedTime.equals("До 1 часа"))
+        if (instance.selectedTime.equals("До 1 часа"))
             return int_recipe_time < 60;
 
-        if (selectedTime.equals("1-3 часа"))
+        if (instance.selectedTime.equals("1-3 часа"))
             return int_recipe_time >= 60 && int_recipe_time < 180;
 
-        if (selectedTime.equals("3-5 часов"))
+        if (instance.selectedTime.equals("3-5 часов"))
             return int_recipe_time >= 180 && int_recipe_time < 300;
 
-        if (selectedTime.equals("5-15 часов"))
+        if (instance.selectedTime.equals("5-15 часов"))
             return int_recipe_time >= 300 && int_recipe_time < 900;
 
-        if (selectedTime.equals("15-24 часов"))
+        if (instance.selectedTime.equals("15-24 часов"))
             return int_recipe_time >= 900 && int_recipe_time < 1440;
 
-        if (selectedTime.equals("24+ часов"))
+        if (instance.selectedTime.equals("24+ часов"))
             return int_recipe_time >= 1440;
 
         return true;
@@ -548,7 +573,8 @@ public class MainController implements Initializable {
         System.out.println("recipeIngredientList: " + recipeIngredientList);
 
         // Проверяем, содержит ли рецепт все выбранные ингредиенты
-        return recipeIngredientList.containsAll(selectedIngredients);
+        return recipeIngredientList.containsAll(instance.selectedIngredients);
     }
+
 
 }
