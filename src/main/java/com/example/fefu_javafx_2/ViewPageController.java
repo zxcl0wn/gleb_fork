@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -76,7 +77,7 @@ public class ViewPageController implements Initializable{
 
     private void setIngredients(List<IngredientWithQuantity> ingredientsWithQuantities) {
         VboxIngredients.getChildren().clear();
-        VboxIngredients.setSpacing(20);
+        VboxIngredients.setSpacing(50);
 
         for (IngredientWithQuantity ingredientWithQuantity : ingredientsWithQuantities) {
             HBox ingredientHBox = createIngredientHBox(ingredientWithQuantity);
@@ -195,7 +196,8 @@ public class ViewPageController implements Initializable{
 
     private void setRecipeSteps(int recipeId) {
         VboxSteps.getChildren().clear();
-        VboxSteps.setSpacing(20);
+        VboxSteps.setSpacing(10);
+        VboxSteps.setPadding(new Insets(20));
 
         List<RecipeStep> recipeSteps = RecipeStep.getRecipeStepsByRecipeId(recipeId);
 
@@ -222,7 +224,11 @@ public class ViewPageController implements Initializable{
     }
 
     private HBox createStepHBox(RecipeStep recipeStep) {
-        HBox stepHBox = new HBox(30);
+        HBox stepHBox = new HBox(150);
+        stepHBox.setSpacing(50);
+        ImageView stepImage = new ImageView("file:///" + recipeStep.getImg());
+        stepImage.setFitHeight(150);
+        stepImage.setFitWidth(150);
 
         Text stepText = new Text(recipeStep.getText());
         stepText.setFont(new Font(22));
@@ -233,11 +239,11 @@ public class ViewPageController implements Initializable{
         Button changeStepButton = new Button("Изменить шаг");
         changeStepButton.setOnAction(event -> onChangeStepButtonClick(recipeStep));
 
-
-        stepHBox.getChildren().addAll(stepText, deleteButton, changeStepButton);
+        stepHBox.getChildren().addAll(stepImage, stepText, deleteButton, changeStepButton);
 
         return stepHBox;
     }
+
     private void onDeleteStepButtonClick(RecipeStep recipeStep) {
         recipeStep.delete();
 //        System.out.println("УДАЛЕНИЕ РЕЦ");

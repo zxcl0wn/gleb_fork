@@ -16,17 +16,14 @@ public class ChangeImgController {
     }
 
     public void addChangeButton(ActionEvent event) {
-//        if (imageLink != null && !imageLink.isEmpty()) {
-//            Image image = new Image("file:" + imageLink);
-//            main_img.setImage(image);
-//        }
         String newImgageLink = imageLink.getText();
 
         if (!newImgageLink.isEmpty()) {
-//            recipeStep.setText(newImgageLink);
             selectedRecipe.setImg(newImgageLink);
+            closeButton(event);
             System.out.println("Изображение успешно изменено: " + newImgageLink);
         } else {
+            closeButton(event);
             System.out.println("Ошибка");
         }
     }
