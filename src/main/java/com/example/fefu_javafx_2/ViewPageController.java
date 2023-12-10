@@ -120,12 +120,11 @@ public class ViewPageController implements Initializable{
     private void onDeleteButtonClick(IngredientWithQuantity ingredientWithQuantity) {
 //        System.out.println("Deleting Ingredient: " + ingredientWithQuantity.getIngredient().getName());
         ingredientWithQuantity.delete();
+        updateRecipeSteps();
 //        refreshView();
     }
 
-    public void refreshView() {
-        setRecipe(selectedRecipe);
-    }
+
 
     public void onChangeButtonClick(IngredientWithQuantity ingredientWithQuantity) {
         try {
@@ -151,8 +150,7 @@ public class ViewPageController implements Initializable{
     public Recipe getSelectedRecipe() {
         return selectedRecipe;
     }
-    @FXML
-    private ViewPageController viewPageController;
+
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         switchChangeImgButton.setOnAction(event -> {
@@ -162,7 +160,6 @@ public class ViewPageController implements Initializable{
                 throw new RuntimeException(e);
             }
         });
-
     }
 
     @FXML
@@ -209,10 +206,14 @@ public class ViewPageController implements Initializable{
             e.printStackTrace();
         }
     }
-
+    public void updateRecipeSteps() {
+        if (selectedRecipe != null) {
+            setRecipeSteps(selectedRecipe.getId());
+        }
+    }
     private void setRecipeSteps(int recipeId) {
         VboxSteps.getChildren().clear();
-        VboxSteps.setSpacing(10);
+        VboxSteps.setSpacing(50);
         VboxSteps.setPadding(new Insets(20));
 
         List<RecipeStep> recipeSteps = RecipeStep.getRecipeStepsByRecipeId(recipeId);
@@ -241,20 +242,27 @@ public class ViewPageController implements Initializable{
 
     private HBox createStepHBox(RecipeStep recipeStep) {
         HBox stepHBox = new HBox(150);
-        stepHBox.setSpacing(50);
-//        ImageView stepImage = new ImageView("file:///" + recipeStep.getImg());
-                ImageView stepImage = new ImageView("file:///" + recipeStep.getImg());
+        stepHBox.setSpacing(30);
+        stepHBox.setPrefHeight(200);
+        ImageView stepImage = new ImageView("file:///" + recipeStep.getImg());
         stepImage.setFitHeight(150);
         stepImage.setFitWidth(150);
 
         Text stepText = new Text(recipeStep.getText());
-        stepText.setFont(new Font(22));
+        stepText.setFont(new Font(15));
+        stepText.maxHeight(200);
+        stepText.setWrappingWidth(300);
+
 
         Button deleteButton = new Button("Удалить");
         deleteButton.setOnAction(event -> onDeleteStepButtonClick(recipeStep));
+        Tooltip tooltip1 = new Tooltip(deleteButton.getText());
+        deleteButton.setTooltip(tooltip1);
 
         Button changeStepButton = new Button("Изменить шаг");
         changeStepButton.setOnAction(event -> onChangeStepButtonClick(recipeStep));
+        Tooltip tooltip2 = new Tooltip(changeStepButton.getText());
+        changeStepButton.setTooltip(tooltip2);
 
         stepHBox.getChildren().addAll(stepImage, stepText, deleteButton, changeStepButton);
 

@@ -83,7 +83,14 @@ public class RecipeCategoryAndLevelController implements Initializable{
 //        Добавление ингредиентов
         for (int i=0; i<recipe.ingredients.length; i++) {
             Ingredient100Menu one_ingredient = recipe.getIngredient(i);
-            Recipe.getRecipeByName(recipe.name).addNewIngredientWithQuantity(Ingredient.getIngredientByName(one_ingredient.name), one_ingredient.quantity);
+//            Recipe.getRecipeByName(recipe.name).addNewIngredientWithQuantity(Ingredient.getIngredientByName(one_ingredient.name), one_ingredient.quantity);
+            if (one_ingredient != null) {
+                Recipe.getRecipeByName(recipe.name).addNewIngredientWithQuantity(Ingredient.getIngredientByName(one_ingredient.name), one_ingredient.quantity);
+            } else {
+                // Обработка ситуации, когда one_ingredient равен null
+                // Например, вы можете вывести какое-то сообщение об ошибке или просто пропустить этот ингредиент
+                System.out.println("Ошибка: Ингредиент не найден для шага " + (i+1));
+            }
         }
 
 

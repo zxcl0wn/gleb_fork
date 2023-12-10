@@ -35,6 +35,7 @@ public class AddStepController {
     private Recipe selectedRecipe;
     public TextField imageLink;
     public TextField description;
+    private ViewPageController viewPageController;
 
     public void closeButton(javafx.event.ActionEvent event) {
         Stage stageToClose = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -56,6 +57,14 @@ public class AddStepController {
                 System.out.println("Шаг успешно добавлен: " + newStep.getText());
 
 
+                ViewPageController viewPageController = getParentController();
+
+                // Обновляем шаги на странице просмотра рецепта
+                viewPageController.updateRecipeSteps();
+
+
+
+
                 closeButton(event);
             } else {
                 System.out.println("Ошибка при добавлении шага");
@@ -63,5 +72,19 @@ public class AddStepController {
         } else {
             System.out.println("Шаг не может быть пустым");
         }
+    }
+
+
+    public void setViewPageController(ViewPageController viewPageController) {
+        this.viewPageController = viewPageController;
+    }
+    private ViewPageController getParentController() {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("view_page.fxml"));
+        try {
+            loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return loader.getController();
     }
 }
