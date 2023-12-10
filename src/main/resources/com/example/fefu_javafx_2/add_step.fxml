@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.AddStepController">
+    <children>
+          <Button layoutX="283.0" layoutY="465.0" mnemonicParsing="false" onAction="#addStepButton" prefHeight="70.0" prefWidth="232.0" text="Готово" />
+      <TextField fx:id="imageLink" layoutX="54.0" layoutY="105.0" prefHeight="47.0" prefWidth="246.0" promptText="Ссылка на изображение" />
+      <TextField fx:id="description" layoutX="54.0" layoutY="184.0" prefHeight="47.0" prefWidth="246.0" promptText="Описание" />
+    </children>
+</AnchorPane>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.FilrtationController">
+    <children>
+        <Button layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onAction="#switch_home_from_back" prefHeight="62.0" prefWidth="150.0" text="Назад" />
+      <HBox layoutY="87.0" prefHeight="100.0" prefWidth="800.0">
+         <children>
+            <ComboBox fx:id="ComboBoxLevel" prefHeight="26.0" prefWidth="180.0" promptText="Сложность">
+               <HBox.margin>
+                  <Insets left="100.0" right="100.0" top="30.0" />
+               </HBox.margin>
+            </ComboBox>
+            <ComboBox fx:id="ComboBoxTime" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="180.0" promptText="Время приготовления">
+               <HBox.margin>
+                  <Insets left="100.0" right="100.0" top="30.0" />
+               </HBox.margin>
+            </ComboBox>
+         </children>
+      </HBox>
+      <Button layoutX="325.0" layoutY="470.0" mnemonicParsing="false" onAction="#filterButton" prefHeight="54.0" prefWidth="150.0" text="Отфильтровать" />
+      <ScrollPane layoutX="14.0" layoutY="175.0" prefHeight="289.0" prefWidth="786.0">
+         <content>
+            <VBox fx:id="ingredientsVBox" prefHeight="297.0" prefWidth="786.0" />
+         </content>
+      </ScrollPane>
+    </children>
+</AnchorPane>

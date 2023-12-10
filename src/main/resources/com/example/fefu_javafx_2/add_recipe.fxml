@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.AddRecipeController">
+    <children>
+        <Button layoutX="34.0" layoutY="30.0" mnemonicParsing="false" onAction="#switch_home" prefHeight="62.0" prefWidth="150.0" text="Назад" />
+        <AnchorPane layoutX="-1.0" layoutY="96.0" prefHeight="454.0" prefWidth="800.0">
+            <children>
+                <Button layoutX="286.0" layoutY="377.0" mnemonicParsing="false" onAction="#onAddButtonClick" prefHeight="62.0" prefWidth="228.0" text="Готово" />
+            <TextField fx:id="nameTextField" layoutX="235.0" layoutY="36.0" prefHeight="34.0" prefWidth="330.0" promptText="Название" />
+            <TextField fx:id="imageTextField" layoutX="235.0" layoutY="92.0" prefHeight="34.0" prefWidth="330.0" promptText="Ссылка на изображение" />
+            <TextField fx:id="categoryTextField" layoutX="235.0" layoutY="148.0" prefHeight="34.0" prefWidth="330.0" promptText="Категория" />
+            <TextField fx:id="cookingTimeTextField" layoutX="235.0" layoutY="210.0" prefHeight="34.0" prefWidth="330.0" promptText="Время приготовления" />
+            <ComboBox fx:id="LevelComboBox" layoutX="235.0" layoutY="273.0" prefHeight="34.0" prefWidth="330.0" promptText="Уровень сложности" />
+            </children>
+        </AnchorPane>
+    </children>
+</AnchorPane>

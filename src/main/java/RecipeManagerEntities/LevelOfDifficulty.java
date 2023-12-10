@@ -17,6 +17,7 @@ public class LevelOfDifficulty {
         this.name = name;
     }
 
+
     @Override
     public String toString() {
         return "LevelOfDifficulty{" +

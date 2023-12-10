@@ -101,7 +101,7 @@ public class RecipeParser {
 
             for (int j = 0; j < table_CPFC.size(); j++) {
                 if (Objects.equals(table_CPFC.get(j).get("name").toString().trim(), IngredientsName.trim())) {
-                    System.out.println(table_CPFC.get(j));
+//                    System.out.println(table_CPFC.get(j));
                     int IngredientsWeight = ((Number) result).intValue();  // Масса каждого ингредиента
                     Ingredient100Menu local_ingredients = new Ingredient100Menu(IngredientsName, IngredientsWeight, Double.parseDouble(table_CPFC.get(j).get("carbohydrates").toString()), Double.parseDouble(table_CPFC.get(j).get("fats").toString()), Double.parseDouble(table_CPFC.get(j).get("proteins").toString()), Double.parseDouble(table_CPFC.get(j).get("calories").toString()));
                     ingredients_array[i] = new Ingredient100Menu(local_ingredients.name, local_ingredients.quantity, local_ingredients.carbohydrates, local_ingredients.fats, local_ingredients.proteins, local_ingredients.calories);

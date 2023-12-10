@@ -9,4 +9,5 @@ module com.example.fefu_javafx_2 {
 
     opens com.example.fefu_javafx_2 to javafx.fxml;
     exports com.example.fefu_javafx_2;
+//    opens com.example.fefu_javafx_2 to javafx.fxml;
 }
