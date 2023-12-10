@@ -45,7 +45,6 @@ public class ChangeQuantityIngredientController {
 
             Stage stage = (Stage) changeButton.getScene().getWindow();
             stage.close();
-
         } catch (NumberFormatException e) {
             e.printStackTrace();
         }

@@ -362,7 +362,11 @@ public class MainController implements Initializable {
         deleteButton.setPrefWidth(100);
         deleteButton.setPrefHeight(30);
         deleteButton.setFont(Font.font(15));
-        deleteButton.setOnAction(actionEvent -> recipe.delete());
+//        deleteButton.setOnAction(actionEvent -> recipe.delete());
+        deleteButton.setOnAction(actionEvent -> {
+            recipe.delete();
+            loadRecipes(); // Обновление страницы после удаления
+        });
 
         ToggleButton favoriteButton = new ToggleButton("Любимое");
         favoriteButton.setPrefWidth(100);

@@ -16,6 +16,7 @@ public class IngredientWithQuantity{
         this.quantity = quantity;
     }
 
+
     public static List<IngredientWithQuantity> getIngredientsWithQuantityByRecipeId(int recipe_id) {
         List<IngredientWithQuantity> list_of_ingredients_with_quantity = new LinkedList<>();
         List<RecipeIngredient> list_of_recipe_ingredients = RecipeIngredient.getRecipeIngredientsByRecipeIdList(recipe_id);

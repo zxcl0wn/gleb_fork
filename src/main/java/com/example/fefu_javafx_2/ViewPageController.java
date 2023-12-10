@@ -116,9 +116,15 @@ public class ViewPageController implements Initializable{
         return ingredientHBox;
     }
 
+
     private void onDeleteButtonClick(IngredientWithQuantity ingredientWithQuantity) {
 //        System.out.println("Deleting Ingredient: " + ingredientWithQuantity.getIngredient().getName());
         ingredientWithQuantity.delete();
+//        refreshView();
+    }
+
+    public void refreshView() {
+        setRecipe(selectedRecipe);
     }
 
     public void onChangeButtonClick(IngredientWithQuantity ingredientWithQuantity) {
