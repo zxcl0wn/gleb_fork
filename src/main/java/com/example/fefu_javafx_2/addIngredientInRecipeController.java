@@ -30,13 +30,17 @@ public class addIngredientInRecipeController implements Initializable{
     @FXML
     private VBox ingredientsVBox;
     private Recipe selectedRecipe;
+    private ViewPageController viewPageController;
+
+    public void setViewPageController(ViewPageController viewPageController) {
+        this.viewPageController = viewPageController;
+    }
 
 
     public void closeButton(javafx.event.ActionEvent event) {
-//        Stage stageToClose = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//
-//        // Закрываем окно
-//        stageToClose.close();
+        Stage stageToClose = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        stageToClose.close();
     }
 
     public void setSelectedRecipe(Recipe selectedRecipe) {
@@ -118,6 +122,8 @@ public class addIngredientInRecipeController implements Initializable{
 
         if (success) {
             System.out.println(ingredient.getName() + " был добавлен в " + selectedRecipe.getName());
+
+            viewPageController.setRecipe(selectedRecipe);
         } else {
             // Обработка ошибки (например, ингредиент уже добавлен в рецепт)
             System.out.println("Ошибка при добавлении ингредиента в рецепт");

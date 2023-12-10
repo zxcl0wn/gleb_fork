@@ -167,6 +167,8 @@ public class ViewPageController implements Initializable{
             Parent root = loader.load();
             addIngredientInRecipeController controller = loader.getController();
 
+            controller.setViewPageController(this);
+
             controller.setSelectedRecipe(recipe);
             Stage stage = new Stage();
             Scene scene = new Scene(root);
@@ -283,23 +285,6 @@ public class ViewPageController implements Initializable{
         stage.close();
     }
 
-//    @FXML
-//    public void switch_change_img(Recipe recipe) throws IOException {
-//        try {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("change_img.fxml"));
-//            Parent root = loader.load();
-//            ChangeImgController controller = loader.getController();
-//
-//            controller.setRecipe(recipe);
-//
-//            Stage stage = new Stage();
-//            Scene scene = new Scene(root);
-//            stage.setScene(scene);
-//            stage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
     @FXML
     public void switch_change_img(Recipe recipe) throws IOException {
         try {
@@ -320,15 +305,5 @@ public class ViewPageController implements Initializable{
         }
     }
 
-//    @FXML
-//    public void switch_filtration(javafx.event.ActionEvent actionEvent) throws IOException {
-//        Parent root = FXMLLoader.load(getClass().getResource("filtration.fxml"));
-//        FilrtationController.setInstance(this);
-//        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-//        scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-////        filterRecipes();
-//    }
 
 }
