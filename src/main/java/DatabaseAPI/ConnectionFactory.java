@@ -21,7 +21,7 @@ class ConnectionSingleton implements ConnectionFactory {
     }
 
     public static synchronized Connection getConnection() throws SQLException {
-        if (connection == null) {
+        if (connection == null || connection.isClosed()) {
             new ConnectionSingleton();
         }
         return connection;
