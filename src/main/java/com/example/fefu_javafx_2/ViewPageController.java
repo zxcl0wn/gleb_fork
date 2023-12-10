@@ -128,8 +128,11 @@ public class ViewPageController implements Initializable{
 
             ChangeQuantityIngredientController changeQuantityIngredientController = loader.getController();
 
+            // Передаем ссылку на ViewPageController
+            changeQuantityIngredientController.setViewPageController(this);
+
             changeQuantityIngredientController.setIngredient(ingredientWithQuantity);
-//            System.out.println(ingredientWithQuantity);
+
             stage = new Stage();
             scene = new Scene(root);
             stage.setScene(scene);
@@ -139,6 +142,9 @@ public class ViewPageController implements Initializable{
         }
     }
 
+    public Recipe getSelectedRecipe() {
+        return selectedRecipe;
+    }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {

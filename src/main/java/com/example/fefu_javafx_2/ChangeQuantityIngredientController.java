@@ -21,6 +21,11 @@ public class ChangeQuantityIngredientController {
     private Scene scene;
     private Parent root;
     private IngredientWithQuantity ingredientWithQuantity;
+    private ViewPageController viewPageController;
+
+    public void setViewPageController(ViewPageController viewPageController) {
+        this.viewPageController = viewPageController;
+    }
 
     public void setIngredient(IngredientWithQuantity ingredientWithQuantity) {
         this.ingredientWithQuantity = ingredientWithQuantity;
@@ -34,8 +39,9 @@ public class ChangeQuantityIngredientController {
     public void changeQuantityAndClose() {
         try {
             double newQuantity = Double.parseDouble(quantityTextField.getText());
-
             ingredientWithQuantity.setQuantity(newQuantity);
+
+            viewPageController.setRecipe(viewPageController.getSelectedRecipe());
 
             Stage stage = (Stage) changeButton.getScene().getWindow();
             stage.close();
