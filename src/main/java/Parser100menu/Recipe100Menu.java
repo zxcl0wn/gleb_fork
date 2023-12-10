@@ -7,7 +7,6 @@ public class Recipe100Menu {
     public String category;
     public String img;
     public int cooking_time;
-
     public Ingredient100Menu[] ingredients;
     public RecipeStep100Menu[] recipe_steps;
 
@@ -31,6 +30,23 @@ public class Recipe100Menu {
                 ", recipe_steps=" + Arrays.toString(recipe_steps) +
                 '}';
     }
+
+    public RecipeStep100Menu getRecipeStep(int index) {
+        if (index >= 0 && index < recipe_steps.length) {
+            return recipe_steps[index];
+        } else {
+            throw new IndexOutOfBoundsException("Invalid index for recipe_steps: " + index);
+        }
+    }
+
+    public Ingredient100Menu getIngredient(int index) {
+        if (index >= 0 && index < ingredients.length) {
+            return ingredients[index];
+        } else {
+            throw new IndexOutOfBoundsException("Invalid index for ingredients: " + index);
+        }
+    }
+
 
 }
 

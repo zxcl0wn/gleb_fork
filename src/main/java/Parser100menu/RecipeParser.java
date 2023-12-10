@@ -1,4 +1,5 @@
 package Parser100menu;
+import RecipeManagerEntities.Ingredient;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -21,13 +22,9 @@ public class RecipeParser {
     public String cooking_time;
     public Ingredient100Menu[] all_ingredients;
     public RecipeStep100Menu[] all_steps;
-    public AllCPFC table_CPFC_parse = new AllCPFC();
-    public Vector<Map> table_CPFC = table_CPFC_parse.table_CPFC();
-
-//    public int carbohydrates;
-//    public int fats;
-//    public int proteins;
-//    public int calories;
+//    public AllCPFC table_CPFC_parse = new AllCPFC();
+//    public Vector<Map> table_CPFC = table_CPFC_parse.table_CPFC();
+    public List<Ingredient> table_CPFC = Ingredient.getAllIngredientsList();
 
     public RecipeParser(String link) throws IOException {
         this.Jsoupdocument = Jsoup.connect(link).get();
@@ -49,7 +46,6 @@ public class RecipeParser {
             }
         }
     }
-
 
     public void ParserIngredients() {
         Elements elements_ingredients = Jsoupdocument.select("form#recept-list a[href*=catalog]");
@@ -88,7 +84,7 @@ public class RecipeParser {
 
 
             String IngredientsName = (String) JsonIngredients.get(i).get("food_name");  // Название ингредиента
-            System.out.println(IngredientsName);
+//            System.out.println(IngredientsName);
             double quantityDouble = ((Number) JsonIngredients.get(i).get("quantity")).doubleValue();
             double conversionDouble = ((Number) conversion).doubleValue();
 
@@ -99,15 +95,22 @@ public class RecipeParser {
                 result = gramsInCupDouble / 200 * result;
             }
 
+//            for (int j = 0; j < table_CPFC.size(); j++) {
+//                if (Objects.equals(table_CPFC.get(j).get("name").toString().trim(), IngredientsName.trim())) {
+////                    System.out.println(table_CPFC.get(j));
+//                    int IngredientsWeight = ((Number) result).intValue();  // Масса каждого ингредиента
+//                    Ingredient100Menu local_ingredients = new Ingredient100Menu(IngredientsName, IngredientsWeight, Double.parseDouble(table_CPFC.get(j).get("carbohydrates").toString()), Double.parseDouble(table_CPFC.get(j).get("fats").toString()), Double.parseDouble(table_CPFC.get(j).get("proteins").toString()), Double.parseDouble(table_CPFC.get(j).get("calories").toString()));
+//                    ingredients_array[i] = new Ingredient100Menu(local_ingredients.name, local_ingredients.quantity, local_ingredients.carbohydrates, local_ingredients.fats, local_ingredients.proteins, local_ingredients.calories);
+//                }
+//            }
             for (int j = 0; j < table_CPFC.size(); j++) {
-                if (Objects.equals(table_CPFC.get(j).get("name").toString().trim(), IngredientsName.trim())) {
+                if (Objects.equals(table_CPFC.get(j).getName().trim(), IngredientsName.trim())) {
 //                    System.out.println(table_CPFC.get(j));
                     int IngredientsWeight = ((Number) result).intValue();  // Масса каждого ингредиента
-                    Ingredient100Menu local_ingredients = new Ingredient100Menu(IngredientsName, IngredientsWeight, Double.parseDouble(table_CPFC.get(j).get("carbohydrates").toString()), Double.parseDouble(table_CPFC.get(j).get("fats").toString()), Double.parseDouble(table_CPFC.get(j).get("proteins").toString()), Double.parseDouble(table_CPFC.get(j).get("calories").toString()));
+                    Ingredient100Menu local_ingredients = new Ingredient100Menu(IngredientsName, IngredientsWeight, table_CPFC.get(j).getCarbs(), table_CPFC.get(j).getFats(), table_CPFC.get(j).getProtein(), table_CPFC.get(j).getCalories());
                     ingredients_array[i] = new Ingredient100Menu(local_ingredients.name, local_ingredients.quantity, local_ingredients.carbohydrates, local_ingredients.fats, local_ingredients.proteins, local_ingredients.calories);
                 }
             }
-
 
         }
         this.all_ingredients = ingredients_array;
@@ -123,7 +126,7 @@ public class RecipeParser {
             one_step[0] = steps.get(i).select("p.instruction").text();
             one_step[1] = steps.get(i).select("a[href]").attr("href");
 //            one_step[1] = this.name + " шаг " + (i+1);
-            System.out.println(one_step[1]);
+//            System.out.println(one_step[1]);
             if (!one_step[0].isEmpty() && !one_step[1].isEmpty()) {
                 RecipeStep100Menu local_step = new RecipeStep100Menu(one_step[0], one_step[1]);
                 steps_array[local_index] = local_step;
@@ -198,9 +201,7 @@ public class RecipeParser {
             String stepsFolderName = "steps";
             String stepsFolderPath = Paths.get(recipeFolderPath, stepsFolderName).toString();
             Path stepsFolder = Paths.get(stepsFolderPath);
-//            Files.createDirectories(stepsFolder); // Создаем папку для шагов, если ее нет
 
-            // Создаем массив для изображений каждого шага
             String[] stepImages = new String[all_steps.length];
 
             // Скачиваем и сохраняем изображения для каждого шага в папке шагов

@@ -2,6 +2,8 @@ package RecipeManagerEntities;
 
 
 import DatabaseAPI.CategoriesDB;
+import Parser100menu.AllCPFC;
+import Parser100menu.RecipeParser;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,6 +31,7 @@ public class App {
 
 
 //        List<Ingredient> all_ing = Ingredient.getAllIngredientsList();
+//        System.out.println(Ingredient.getAllIngredientsList());
 //        System.out.println(Ingredient.getAllIngredientsList());
 
 

@@ -226,7 +226,8 @@ public class ViewPageController implements Initializable{
     private HBox createStepHBox(RecipeStep recipeStep) {
         HBox stepHBox = new HBox(150);
         stepHBox.setSpacing(50);
-        ImageView stepImage = new ImageView("file:///" + recipeStep.getImg());
+//        ImageView stepImage = new ImageView("file:///" + recipeStep.getImg());
+                ImageView stepImage = new ImageView("file:///" + recipeStep.getImg());
         stepImage.setFitHeight(150);
         stepImage.setFitWidth(150);
 
@@ -282,6 +283,23 @@ public class ViewPageController implements Initializable{
         stage.close();
     }
 
+//    @FXML
+//    public void switch_change_img(Recipe recipe) throws IOException {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("change_img.fxml"));
+//            Parent root = loader.load();
+//            ChangeImgController controller = loader.getController();
+//
+//            controller.setRecipe(recipe);
+//
+//            Stage stage = new Stage();
+//            Scene scene = new Scene(root);
+//            stage.setScene(scene);
+//            stage.show();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
     @FXML
     public void switch_change_img(Recipe recipe) throws IOException {
         try {
@@ -289,7 +307,10 @@ public class ViewPageController implements Initializable{
             Parent root = loader.load();
             ChangeImgController controller = loader.getController();
 
+            controller.setViewPageController(this);
+
             controller.setRecipe(recipe);
+
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -298,5 +319,16 @@ public class ViewPageController implements Initializable{
             e.printStackTrace();
         }
     }
+
+//    @FXML
+//    public void switch_filtration(javafx.event.ActionEvent actionEvent) throws IOException {
+//        Parent root = FXMLLoader.load(getClass().getResource("filtration.fxml"));
+//        FilrtationController.setInstance(this);
+//        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+//        scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+////        filterRecipes();
+//    }
 
 }

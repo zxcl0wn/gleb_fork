@@ -21,9 +21,12 @@ public class RecipeMain {
         String salate = "https://1000.menu/cooking/7637-kurinji-salat-s-pomidorom-i-sjrom";
         String turkey = "https://1000.menu/cooking/18877-bedro-indeiki-v-folge-v-duxovke-zapechennoe";
 
-        RecipeParser parser1 = new RecipeParser(turkey);
+//        RecipeParser parser1 = new RecipeParser(grill_meat);
 //        Recipe100Menu recipe_by_url = parser1.getRecipeByUrl();
-        System.out.println(parser1.getRecipeByUrl());
-;
+//        System.out.println(parser1.table_CPFC);
+        RecipeParser recipeParser = new RecipeParser(medovik);
+        System.out.println("recipeParser: " + recipeParser);
+        System.out.println("recipeParser.getRecipeByUrl(): " + recipeParser.getRecipeByUrl());
+//        Recipe100Menu recipe100Menu = new Recipe100Menu()
     }
 }

@@ -8,11 +8,16 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class ChangeImgController {
-    public TextField imageLink;
     private Recipe selectedRecipe;
+    private ViewPageController viewPageController;
+
+    public TextField imageLink;
     public void closeButton(javafx.event.ActionEvent event) {
         Stage stageToClose = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stageToClose.close();
+    }
+    public void setViewPageController(ViewPageController viewPageController) {
+        this.viewPageController = viewPageController;
     }
 
     public void addChangeButton(ActionEvent event) {
@@ -20,6 +25,9 @@ public class ChangeImgController {
 
         if (!newImgageLink.isEmpty()) {
             selectedRecipe.setImg(newImgageLink);
+
+            viewPageController.setRecipe(selectedRecipe);
+
             closeButton(event);
             System.out.println("Изображение успешно изменено: " + newImgageLink);
         } else {
