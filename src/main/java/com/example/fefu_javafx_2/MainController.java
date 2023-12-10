@@ -120,6 +120,7 @@ public class MainController implements Initializable {
 //        selectedIngredients = new ArrayList<>(); // Инициализация selectedIngredients здесь
 //        instance = this;
 
+
         loadCategories();
         loadRecipes();
 
@@ -423,6 +424,25 @@ public class MainController implements Initializable {
 
     private void loadCategories() {
         List<Category> categories = Category.getAllCategoriesList();
+        Label categoryLabel = new Label("Категории");
+        categoryLabel.setFont(new Font(18));
+        categoryLabel.setMinHeight(60);
+        categoryLabel.setMaxHeight(60);
+        categoryLabel.setMinWidth(140);
+        categoryLabel.setMaxWidth(140);
+        categoryLabel.setAlignment(Pos.CENTER);
+        vboxCategories.getChildren().add(categoryLabel);
+
+
+        Button allButton = new Button("Все");
+        allButton.setMinHeight(60);
+        allButton.setMaxHeight(60);
+        allButton.setMinWidth(140);
+        allButton.setMaxWidth(140);
+        allButton.setOnAction(this::all_recipes);
+        vboxCategories.setAlignment(Pos.CENTER);
+        vboxCategories.getChildren().add(allButton);
+
 
         for (Category category: categories) {
             VBox categoryBox = createCategoryBox(category);
@@ -458,7 +478,7 @@ public class MainController implements Initializable {
 
         VBox categoryBox = new VBox(buttonAndDeleteVbox);
         vboxCategories.setSpacing(20);
-
+//        vboxCategories.getChildren().add(categoryBox);
         return buttonAndDeleteVbox;
     }
 
@@ -466,6 +486,9 @@ public class MainController implements Initializable {
     private void onDeleteButtonClick(Category category) {
         if (category != null) {
             category.delete();
+            vboxCategories.getChildren().clear();
+            loadCategories();
+            loadRecipes();
         }
     }
 

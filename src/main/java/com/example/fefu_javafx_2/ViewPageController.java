@@ -151,7 +151,8 @@ public class ViewPageController implements Initializable{
     public Recipe getSelectedRecipe() {
         return selectedRecipe;
     }
-
+    @FXML
+    private ViewPageController viewPageController;
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         switchChangeImgButton.setOnAction(event -> {
@@ -161,6 +162,7 @@ public class ViewPageController implements Initializable{
                 throw new RuntimeException(e);
             }
         });
+
     }
 
     @FXML

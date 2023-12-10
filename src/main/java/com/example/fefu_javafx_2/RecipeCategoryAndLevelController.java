@@ -75,9 +75,9 @@ public class RecipeCategoryAndLevelController implements Initializable{
         System.out.println("TIME!!!    " + reverse_time_convert(recipe.cooking_time));
 //        Добавление рецепта
         if (Category.getCategoryByName(recipe.category) == null) {
-            Recipe.addToDBAndGet(recipe.name, Category.addToDBAndGet(recipe.category), image_link, String.valueOf(recipe.cooking_time) + "м", LevelOfDifficulty.getLevelOfDifficultyById(level_id));
+            Recipe.addToDBAndGet(recipe.name, Category.addToDBAndGet(recipe.category), image_link, reverse_time_convert(recipe.cooking_time), LevelOfDifficulty.getLevelOfDifficultyById(level_id));
         } else {
-            Recipe.addToDBAndGet(recipe.name, Category.getCategoryByName(recipe.category), image_link, String.valueOf(recipe.cooking_time) + "м", LevelOfDifficulty.getLevelOfDifficultyById(level_id));
+            Recipe.addToDBAndGet(recipe.name, Category.getCategoryByName(recipe.category), image_link, reverse_time_convert(recipe.cooking_time), LevelOfDifficulty.getLevelOfDifficultyById(level_id));
         }
 
 //        Добавление ингредиентов

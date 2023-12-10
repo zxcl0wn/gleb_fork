@@ -33,6 +33,11 @@ public class AddCategoryController {
         String categoryName = categoryNameField.getText();
         Category newCategory = Category.addToDBAndGet(categoryName);
 
+//        Stage currentStage = (Stage) categoryNameField.getScene().getWindow();
+
+        // Закрываем текущее окно
+        switch_home(actionEvent);
+
         if (newCategory != null) {
             System.out.println("Категория успешно добавлена: " + newCategory.getName());
         } else {

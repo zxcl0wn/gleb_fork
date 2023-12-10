@@ -54,6 +54,8 @@ public class AddStepController {
             RecipeStep newStep = RecipeStep.addToDBAndGet(selectedRecipe.getId(), stepText, stepImg);
             if (newStep != null) {
                 System.out.println("Шаг успешно добавлен: " + newStep.getText());
+
+
                 closeButton(event);
             } else {
                 System.out.println("Ошибка при добавлении шага");
