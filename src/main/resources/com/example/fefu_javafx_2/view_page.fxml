@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" vvalue="1.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.ViewPageController">
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.fefu_javafx_2.ViewPageController">
    <content>
       <VBox prefHeight="1132.0" prefWidth="800.0">
          <children>
@@ -17,7 +17,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button layoutX="633.0" layoutY="17.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="130.0" text="Удалить">
+                  <Button layoutX="633.0" layoutY="17.0" mnemonicParsing="false" onAction="#DeleteRecipe" prefHeight="64.0" prefWidth="130.0" text="Удалить">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -26,7 +26,7 @@
             </AnchorPane>
             <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="353.0" prefWidth="800.0">
                <children>
-                  <ImageView fitHeight="353.0" fitWidth="402.0" layoutX="384.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="main_img" fitHeight="293.0" fitWidth="402.0" layoutX="384.0" pickOnBounds="true" preserveRatio="true" />
                   <Label fx:id="recipeNameLabel" alignment="CENTER" layoutX="20.0" layoutY="14.0" prefHeight="30.0" prefWidth="370.0" textAlignment="CENTER" wrapText="true">
                      <font>
                         <Font size="20.0" />
@@ -92,6 +92,11 @@
                         </Text>
                      </children>
                   </VBox>
+                  <Button fx:id="switchChangeImgButton" layoutX="506.0" layoutY="296.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="158.0" text="Изменить">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
                </children>
             </AnchorPane>
             <AnchorPane prefHeight="360.0" prefWidth="800.0">

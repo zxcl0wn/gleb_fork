@@ -39,7 +39,6 @@ public class AddStepController {
     public void closeButton(javafx.event.ActionEvent event) {
         Stage stageToClose = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-        // Закрываем окно
         stageToClose.close();
     }
 

@@ -14,6 +14,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -21,6 +23,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -38,6 +41,8 @@ public class ViewPageController implements Initializable{
     public VBox recipeVbox;
     public VBox VboxIngredients;
     public VBox VboxSteps;
+    public ImageView main_img;
+    public Button switchChangeImgButton;
     private Recipe selectedRecipe;
 
 
@@ -46,6 +51,7 @@ public class ViewPageController implements Initializable{
     private Parent root;
 
     public void setRecipe(Recipe recipe) {
+        System.out.println("SET RECIPE!");
         this.selectedRecipe = recipe;
         System.out.println(this.selectedRecipe);
 
@@ -57,6 +63,12 @@ public class ViewPageController implements Initializable{
         textProtein.setText(Double.toString(selectedRecipe.getProteinOfRecipe()) + " белков");
         textFats.setText(Double.toString(selectedRecipe.getFatsOfRecipe()) + " жиров");
         textCarbs.setText(Double.toString(selectedRecipe.getCarbsOfRecipe()) + " углеводов");
+
+        String imagePath = recipe.getImg();
+        if (imagePath != null && !imagePath.isEmpty()) {
+            Image image = new Image("file:" + imagePath);
+            main_img.setImage(image);
+        }
 
         setIngredients(recipe.getIngredientsWithQuantity());
         setRecipeSteps(recipe.getId());
@@ -83,6 +95,8 @@ public class ViewPageController implements Initializable{
                 throw new RuntimeException(e);
             }
         });
+
+
         VboxIngredients.getChildren().add(buttonHbox);
     }
     private HBox createIngredientHBox(IngredientWithQuantity ingredientWithQuantity) {
@@ -127,7 +141,13 @@ public class ViewPageController implements Initializable{
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-//        recipeNameLabel.setText(selectedRecipe.getName());
+        switchChangeImgButton.setOnAction(event -> {
+            try {
+                switch_change_img(selectedRecipe);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     @FXML
@@ -220,6 +240,7 @@ public class ViewPageController implements Initializable{
     }
     private void onDeleteStepButtonClick(RecipeStep recipeStep) {
         recipeStep.delete();
+//        System.out.println("УДАЛЕНИЕ РЕЦ");
         setRecipeSteps(selectedRecipe.getId());
     }
 
@@ -248,4 +269,28 @@ public class ViewPageController implements Initializable{
         alert.setContentText("Ингредиенты успешно добавлены в корзину покупок!");
         alert.showAndWait();
     }
+
+    public void DeleteRecipe(ActionEvent event) {
+        this.selectedRecipe.delete();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    public void switch_change_img(Recipe recipe) throws IOException {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("change_img.fxml"));
+            Parent root = loader.load();
+            ChangeImgController controller = loader.getController();
+
+            controller.setRecipe(recipe);
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
