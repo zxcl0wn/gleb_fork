@@ -19,7 +19,8 @@ public class LevelsOfDifficultyDB extends LevelsOfDifficultyDBAbstract {
     }
 
     public void createTableIfNotExists() {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String createTableQuery = String.format("CREATE TABLE IF NOT EXISTS %s (" +
                     "id SERIAL PRIMARY KEY," +
                     "name TEXT UNIQUE" +
@@ -40,7 +41,8 @@ public class LevelsOfDifficultyDB extends LevelsOfDifficultyDBAbstract {
 
     @Override
     public void create(String name) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String insertQuery = String.format(
                     "INSERT INTO %s (name) VALUES (?);",
                     this.tableName
@@ -59,7 +61,8 @@ public class LevelsOfDifficultyDB extends LevelsOfDifficultyDBAbstract {
 
     @Override
     public void update(int id, String name) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String updateQuery = String.format(
                     "UPDATE %s SET name = ? WHERE id = ?;",
                     this.tableName

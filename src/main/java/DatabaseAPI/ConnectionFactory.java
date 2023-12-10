@@ -12,3 +12,20 @@ public interface ConnectionFactory {
     }
 
 }
+
+class ConnectionSingleton implements ConnectionFactory {
+    private static Connection connection;
+
+    private ConnectionSingleton() throws SQLException {
+        connection = DriverManager.getConnection(DBConfig.url, DBConfig.username, DBConfig.password);
+    }
+
+    public static synchronized Connection getConnection() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            new ConnectionSingleton();
+        }
+        return connection;
+    }
+}
+
+

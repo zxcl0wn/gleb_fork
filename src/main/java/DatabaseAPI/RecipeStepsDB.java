@@ -21,7 +21,8 @@ public class RecipeStepsDB extends RecipeStepsDBAbstract {
     }
 
     public void createTableIfNotExists() {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String createTableQuery = String.format("CREATE TABLE IF NOT EXISTS %s (" +
                     "id SERIAL PRIMARY KEY," +
                     "recipe_id INTEGER REFERENCES Recipe (id) ON DELETE CASCADE," +
@@ -46,7 +47,8 @@ public class RecipeStepsDB extends RecipeStepsDBAbstract {
     }
 
     public boolean create(int recipe_id, String text, String img) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String insertQuery = String.format(
                     "INSERT INTO %s (recipe_id, text, img) VALUES (?, ?, ?);",
                     this.tableName
@@ -67,7 +69,8 @@ public class RecipeStepsDB extends RecipeStepsDBAbstract {
     }
 
     public void update(int id, int recipe_id, String text, String img) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String updateQuery = String.format(
                     "UPDATE %s SET recipe_id = ?, text = ?, img = ? WHERE id = ?;",
                     this.tableName
@@ -86,7 +89,8 @@ public class RecipeStepsDB extends RecipeStepsDBAbstract {
 
     @Override
     public ResultSet readByRecipeId(int id) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String selectQuery = String.format("SELECT * FROM %s WHERE recipe_id = ?", this.tableName);
             PreparedStatement pstmt = connection.prepareStatement(selectQuery);
             pstmt.setInt(1, id);

@@ -21,7 +21,8 @@ public class CategoriesDB extends CategoriesDBAbstract {
     }
 
     public void createTableIfNotExists() {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String createTableQuery = String.format("CREATE TABLE IF NOT EXISTS %s (" +
                     "id SERIAL PRIMARY KEY," +
                     "name TEXT UNIQUE" +
@@ -42,7 +43,8 @@ public class CategoriesDB extends CategoriesDBAbstract {
 
     @Override
     public void create(String name) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String insertQuery = String.format(
                     "INSERT INTO %s (name) VALUES (?);",
                     this.tableName
@@ -61,7 +63,8 @@ public class CategoriesDB extends CategoriesDBAbstract {
 
     @Override
     public void update(int id, String name) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String updateQuery = String.format(
                     "UPDATE %s SET name = ? WHERE id = ?;",
                     this.tableName
@@ -79,7 +82,8 @@ public class CategoriesDB extends CategoriesDBAbstract {
 
     @Override
     public ResultSet readByName(String name) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String selectQuery = String.format("SELECT * FROM %s WHERE name = ?", this.tableName);
             PreparedStatement pstmt = connection.prepareStatement(selectQuery);
             pstmt.setString(1, name);
