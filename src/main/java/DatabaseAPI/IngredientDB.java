@@ -19,7 +19,8 @@ public class IngredientDB extends IngredientDBAbstract {
     }
 
     public void createTableIfNotExists() {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String createTableQuery = String.format("CREATE TABLE IF NOT EXISTS %s (" +
                     "id SERIAL PRIMARY KEY," +
                     "name TEXT UNIQUE," +
@@ -44,7 +45,8 @@ public class IngredientDB extends IngredientDBAbstract {
 
     @Override
     public void create(String name, double calories, double protein, double fats, double carbs) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String insertQuery = String.format(
                 "INSERT INTO %s (name, calories, protein, fats, carbs) VALUES (?, ?, ?, ?, ?);",
                 this.tableName
@@ -67,7 +69,8 @@ public class IngredientDB extends IngredientDBAbstract {
 
     @Override
     public boolean update(int id, String name, double calories, double protein, double fats, double carbs) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String updateQuery = String.format(
                     "UPDATE %s SET name = ?, calories = ?, protein = ?, fats = ?, carbs = ? WHERE id = ?;",
                     this.tableName
@@ -90,7 +93,8 @@ public class IngredientDB extends IngredientDBAbstract {
 
     @Override
     public ResultSet readByName(String name) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String selectQuery = String.format("SELECT * FROM %s WHERE name = ?", this.tableName);
             PreparedStatement pstmt = connection.prepareStatement(selectQuery);
             pstmt.setString(1, name);

@@ -22,7 +22,8 @@ public class ShoppingCartDB extends ShoppingCartDBAbstract {
     }
 
     public void createTableIfNotExists() {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String createTableQuery = String.format("CREATE TABLE IF NOT EXISTS %s (" +
                     "id SERIAL PRIMARY KEY," +
                     "recipe_ingredient_id INTEGER UNIQUE REFERENCES RecipesIngredients (id) ON DELETE CASCADE" +
@@ -45,7 +46,8 @@ public class ShoppingCartDB extends ShoppingCartDBAbstract {
     }
 
     public void create(int recipe_ingredient_id) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String insertQuery = String.format(
                     "INSERT INTO %s (recipe_ingredient_id) VALUES (?);",
                     this.tableName
@@ -65,7 +67,8 @@ public class ShoppingCartDB extends ShoppingCartDBAbstract {
     public void update() {}
 
     public void deleteByRecipeIngredientId(int recipe_ingredient_id){
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String deleteQuery = String.format("DELETE FROM %s WHERE recipe_ingredient_id = ?", this.tableName);
             PreparedStatement pstmt = connection.prepareStatement(deleteQuery);
             pstmt.setInt(1, recipe_ingredient_id);

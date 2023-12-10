@@ -23,7 +23,8 @@ public class FavoritesDB extends FavoritesDBAbstract {
     }
 
     public void createTableIfNotExists() {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String createTableQuery = String.format("CREATE TABLE IF NOT EXISTS %s (" +
                     "id SERIAL PRIMARY KEY," +
                     "recipe_id INTEGER UNIQUE REFERENCES Recipe (id) ON DELETE CASCADE" +
@@ -46,7 +47,8 @@ public class FavoritesDB extends FavoritesDBAbstract {
     }
 
     public boolean create(int recipe_id) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String insertQuery = String.format(
                     "INSERT INTO %s (recipe_id) VALUES (?);",
                     this.tableName
@@ -67,7 +69,8 @@ public class FavoritesDB extends FavoritesDBAbstract {
 
     @Override
     public ResultSet readByRecipeId(int recipe_id) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String selectQuery = String.format("SELECT * FROM %s WHERE recipe_id = ?", this.tableName);
             PreparedStatement pstmt = connection.prepareStatement(selectQuery);
             pstmt.setInt(1, recipe_id);

@@ -27,7 +27,8 @@ public class RecipesIngredientsDB extends RecipesIngredientsDBAbstract {
     }
 
     public void createTableIfNotExists() {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String createTableQuery = String.format("CREATE TABLE IF NOT EXISTS %s (" +
                     "id SERIAL PRIMARY KEY," +
                     "recipe_id INTEGER REFERENCES Recipe (id) ON DELETE CASCADE," +
@@ -54,7 +55,8 @@ public class RecipesIngredientsDB extends RecipesIngredientsDBAbstract {
     }
 
     public boolean create(int recipe_id, int ingredient_id, double quantity_of_ingredient) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String insertQuery = String.format(
                     "INSERT INTO %s (recipe_id, ingredient_id, quantity_of_ingredient) VALUES (?, ?, ?);",
                     this.tableName
@@ -74,7 +76,8 @@ public class RecipesIngredientsDB extends RecipesIngredientsDBAbstract {
     }
 
     public void update(int id, double quantity_of_ingredient) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String updateQuery = String.format(
                     "UPDATE %s SET quantity_of_ingredient = ? WHERE id = ?;",
                     this.tableName
@@ -91,7 +94,8 @@ public class RecipesIngredientsDB extends RecipesIngredientsDBAbstract {
 
     @Override
     public ResultSet readByRecipeId(int recipe_id) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String selectQuery = String.format("SELECT * FROM %s WHERE recipe_id = ?", this.tableName);
             PreparedStatement pstmt = connection.prepareStatement(selectQuery);
             pstmt.setInt(1, recipe_id);
@@ -105,7 +109,8 @@ public class RecipesIngredientsDB extends RecipesIngredientsDBAbstract {
 
     @Override
     public ResultSet readByIngredientId(int ingredient_id) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String selectQuery = String.format("SELECT * FROM %s WHERE ingredient_id = ?", this.tableName);
             PreparedStatement pstmt = connection.prepareStatement(selectQuery);
             pstmt.setInt(1, ingredient_id);
@@ -119,7 +124,8 @@ public class RecipesIngredientsDB extends RecipesIngredientsDBAbstract {
 
     @Override
     public ResultSet readByRecipeIdAndIngredientId(int recipe_id, int ingredient_id) {
-        try (Connection connection = this.getConnection()) {
+        try {
+            Connection connection = this.getConnection();
             String selectQuery = String.format("SELECT * FROM %s WHERE recipe_id = ? AND ingredient_id = ?", this.tableName);
             PreparedStatement pstmt = connection.prepareStatement(selectQuery);
             pstmt.setInt(1, recipe_id);
