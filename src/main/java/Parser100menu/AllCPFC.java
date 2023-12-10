@@ -14,40 +14,41 @@ import java.util.Vector;
 
 public class AllCPFC {
     public Vector<Map> table_CPFC() throws IOException {
-//        Vector<String> all_tables = new Vector<>();
-//        Document all_tables_doc = Jsoup.connect("https://1000.menu/food-table").get();
-//        Elements all_tables_elements = all_tables_doc.select("a.as-tag");
-//        for (int i=0; i<all_tables_elements.size(); i++) {
-//            String one_element_table = all_tables_elements.get(i).attr("href");
-//            all_tables.add("https://1000.menu" + one_element_table);
-//        }
+        Vector<String> all_tables = new Vector<>();
+        Document all_tables_doc = Jsoup.connect("https://1000.menu/food-table").get();
+        Elements all_tables_elements = all_tables_doc.select("a.as-tag");
+        for (int i=0; i<all_tables_elements.size(); i++) {
+            String one_element_table = all_tables_elements.get(i).attr("href");
+            all_tables.add("https://1000.menu" + one_element_table);
+        }
 
-        List<String> all_tables = List.of(
-                "https://1000.menu/calories/yaitsa",
-                "https://1000.menu/calories/myaso-i-myasoproduktj",
-                "https://1000.menu/calories/polufabrikatj",
-                "https://1000.menu/calories/rjba-i-moreproduktj",
-                "https://1000.menu/calories/moreproduktj",
-                "https://1000.menu/calories/sjr",
-                "https://1000.menu/calories/molochnje-produktj",
-                "https://1000.menu/calories/gribj",
-                "https://1000.menu/calories/ovoshchi",
-                "https://1000.menu/calories/muka",
-                "https://1000.menu/calories/fruktj-yagodj",
-                "https://1000.menu/calories/iz-suxofruktov",
-                "https://1000.menu/calories/jagodi",
-                "https://1000.menu/calories/orexi",
-                "https://1000.menu/calories/sladkoe",
-                "https://1000.menu/calories/krupa-i-krupyanje-izdeliya",
-                "https://1000.menu/calories/makaronnje-izdeliya",
-                "https://1000.menu/calories/bobovje",
-                "https://1000.menu/calories/xlebobulochnje-izdeliya",
-                "https://1000.menu/calories/spetsii-pripravj-pryanosti",
-                "https://1000.menu/calories/listya-tsvetki-korenya",
-                "https://1000.menu/calories/zhirj-i-masla",
-                "https://1000.menu/calories/alkogol",
-                "https://1000.menu/calories/drugoe"
-        );
+//        List<String> all_tables = List.of(
+//                "https://1000.menu/calories/yaitsa",
+//                "https://1000.menu/calories/myaso-i-myasoproduktj",
+//                "https://1000.menu/calories/polufabrikatj",
+//                "https://1000.menu/calories/rjba-i-moreproduktj",
+//                "https://1000.menu/calories/moreproduktj",
+//                "https://1000.menu/calories/sjr",
+//                "https://1000.menu/calories/molochnje-produktj",
+//                "https://1000.menu/calories/gribj",
+//                "https://1000.menu/calories/ovoshchi",
+//                "https://1000.menu/calories/muka",
+//                "https://1000.menu/calories/fruktj-yagodj",
+//                "https://1000.menu/calories/iz-suxofruktov",
+//                "https://1000.menu/calories/jagodi",
+//                "https://1000.menu/calories/orexi",
+//                "https://1000.menu/calories/sladkoe",
+//                "https://1000.menu/calories/krupa-i-krupyanje-izdeliya",
+//                "https://1000.menu/calories/makaronnje-izdeliya",
+//                "https://1000.menu/calories/bobovje",
+//                "https://1000.menu/calories/xlebobulochnje-izdeliya",
+//                "https://1000.menu/calories/spetsii-pripravj-pryanosti",
+//                "https://1000.menu/calories/listya-tsvetki-korenya",
+//                "https://1000.menu/calories/zhirj-i-masla",
+//                "https://1000.menu/calories/alkogol",
+//                "https://1000.menu/calories/drugoe"
+//        );
+
         Vector<Map> CPFC = new Vector<>();
 
 //    Цикл по всем ссылкам
