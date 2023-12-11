@@ -103,16 +103,32 @@ public class ViewPageController implements Initializable{
     private HBox createIngredientHBox(IngredientWithQuantity ingredientWithQuantity) {
         HBox ingredientHBox = new HBox(30);
 
-        Text ingredientText = new Text(ingredientWithQuantity.getIngredient().getName() + ": " + ingredientWithQuantity.getQuantity() + " грамм");
-        ingredientText.setFont(new Font(22));
+//        Text ingredientText = new Text(ingredientWithQuantity.getIngredient().getName() + ": " + ingredientWithQuantity.getQuantity() + " грамм");
+//        ingredientText.setFont(new Font(22));
+//
+//        Button deleteButton = new Button("Удалить");
+//        deleteButton.setOnAction(event -> onDeleteButtonClick(ingredientWithQuantity));
+//
+//        Button changeButton = new Button("Изменить");
+//        changeButton.setOnAction(event -> onChangeButtonClick(ingredientWithQuantity));
+//        ingredientHBox.getChildren().addAll(ingredientText, deleteButton, changeButton);
+        if (ingredientWithQuantity.getIngredient() != null) {
+            Text ingredientText = new Text(ingredientWithQuantity.getIngredient().getName() + ": " + ingredientWithQuantity.getQuantity() + " грамм");
+            ingredientText.setFont(new Font(22));
 
-        Button deleteButton = new Button("Удалить");
-        deleteButton.setOnAction(event -> onDeleteButtonClick(ingredientWithQuantity));
+            Button deleteButton = new Button("Удалить");
+            deleteButton.setOnAction(event -> onDeleteButtonClick(ingredientWithQuantity));
 
-        Button changeButton = new Button("Изменить");
-        changeButton.setOnAction(event -> onChangeButtonClick(ingredientWithQuantity));
-        ingredientHBox.getChildren().addAll(ingredientText, deleteButton, changeButton);
-
+            Button changeButton = new Button("Изменить");
+            changeButton.setOnAction(event -> onChangeButtonClick(ingredientWithQuantity));
+            ingredientHBox.getChildren().addAll(ingredientText, deleteButton, changeButton);
+        }
+//        else {
+//            // Возможно, вы захотите предпринять какие-то дополнительные действия, если ингредиент null
+//            Text ingredientText = new Text("Ингредиент отсутствует");
+//            ingredientText.setFont(new Font(22));
+//            ingredientHBox.getChildren().add(ingredientText);
+//        }
         return ingredientHBox;
     }
 
@@ -208,7 +224,7 @@ public class ViewPageController implements Initializable{
     }
     public void updateRecipeSteps() {
         if (selectedRecipe != null) {
-            setRecipeSteps(selectedRecipe.getId());
+            setIngredients(selectedRecipe.getIngredientsWithQuantity());
         }
     }
     private void setRecipeSteps(int recipeId) {
