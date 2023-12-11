@@ -41,11 +41,15 @@ public class ChangeIngredientController implements Initializable {
     private TextField carbsTextField;
 
     private Ingredient ingredient;
+    private IngredientsController parentController;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-//        nameTextField.setPromptText("!!!");
+        parentController = IngredientsController.getInstance();
+        parentController.setChangeIngredientController(this);
+    }
+    public void setParentController(IngredientsController parentController) {
+        this.parentController = parentController;
     }
 
 public void setIngredient(Ingredient ingredient) {
@@ -74,6 +78,7 @@ public void setIngredient(Ingredient ingredient) {
 
             if (ingredient.setName(newName)) {
                 System.out.println("Название изменено на " + newName);
+                parentController.refreshIngredients();
             } else {
                 System.out.println("Ингредиент с таким именем уже существует");
             }
@@ -88,6 +93,7 @@ public void setIngredient(Ingredient ingredient) {
             double newCalories = Double.parseDouble(caloriesTextField.getText());
 
             if (ingredient.setCalories(newCalories)) {
+                parentController.refreshIngredients();
                 System.out.println("Количество калорий изменено на " + newCalories);
             }
         } catch (NumberFormatException e) {
@@ -101,6 +107,7 @@ public void setIngredient(Ingredient ingredient) {
             double newProteins = Double.parseDouble(proteinTextField.getText());
 
             if (ingredient.setProtein(newProteins)) {
+                parentController.refreshIngredients();
                 System.out.println("Количество белков изменено на " + newProteins);
             }
         } catch (NumberFormatException e) {
@@ -114,6 +121,7 @@ public void setIngredient(Ingredient ingredient) {
             double newFats = Double.parseDouble(fatsTextField.getText());
 
             if (ingredient.setFats(newFats)) {
+                parentController.refreshIngredients();
                 System.out.println("Количество жиров изменено на " + newFats);
             }
         } catch (NumberFormatException e) {
@@ -127,6 +135,7 @@ public void setIngredient(Ingredient ingredient) {
             double newCarbs = Double.parseDouble(carbsTextField.getText());
 
             if (ingredient.setCarbs(newCarbs)) {
+                parentController.refreshIngredients();
                 System.out.println("Количество углеводов изменено на " + newCarbs);
             }
         } catch (NumberFormatException e) {

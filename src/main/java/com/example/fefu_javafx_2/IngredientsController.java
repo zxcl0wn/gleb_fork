@@ -35,6 +35,17 @@ public class IngredientsController implements Initializable {
     private Parent root;
     @FXML
     VBox ingredientsVBox;
+    private static IngredientsController instance;
+    private ChangeIngredientController changeIngredientController;
+    public IngredientsController() {
+        instance = this;
+    }
+    public static IngredientsController getInstance() {
+        return instance;
+    }
+    public void setChangeIngredientController(ChangeIngredientController changeIngredientController) {
+        this.changeIngredientController = changeIngredientController;
+    }
 
 
     @FXML
@@ -168,6 +179,11 @@ public class IngredientsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void refreshIngredients() {
+        ingredientsVBox.getChildren().clear();
+        loadIngredients();
     }
 
 }
