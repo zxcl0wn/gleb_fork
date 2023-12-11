@@ -26,6 +26,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -233,6 +235,9 @@ public class ViewPageController implements Initializable{
         VboxSteps.setPadding(new Insets(20));
 
         List<RecipeStep> recipeSteps = RecipeStep.getRecipeStepsByRecipeId(recipeId);
+        Collections.sort(recipeSteps, Comparator.comparingInt(RecipeStep::getId));
+
+        System.out.println("ВСЕ ШАГИ: " + recipeSteps);
 
         for (RecipeStep recipeStep : recipeSteps) {
             HBox stepHBox = createStepHBox(recipeStep);

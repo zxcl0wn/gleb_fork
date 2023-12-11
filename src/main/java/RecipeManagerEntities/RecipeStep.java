@@ -67,7 +67,7 @@ public class RecipeStep {
     }
 
     public static RecipeStep addToDBAndGet(int recipe_id, String text, String img) {
-        // null - если не существует рецепта с rexipe_id
+        // null - если не существует рецепта с recipe_id
         RecipeStepsDB recipe_steps_db = new RecipeStepsDB();
         boolean successful_operation = recipe_steps_db.create(recipe_id, text, img);
         if (!successful_operation) return null;

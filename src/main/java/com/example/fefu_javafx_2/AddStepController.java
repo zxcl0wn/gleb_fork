@@ -55,15 +55,7 @@ public class AddStepController {
             RecipeStep newStep = RecipeStep.addToDBAndGet(selectedRecipe.getId(), stepText, stepImg);
             if (newStep != null) {
                 System.out.println("Шаг успешно добавлен: " + newStep.getText());
-
-
                 ViewPageController viewPageController = getParentController();
-
-                // Обновляем шаги на странице просмотра рецепта
-                viewPageController.updateRecipeSteps();
-
-
-
 
                 closeButton(event);
             } else {
