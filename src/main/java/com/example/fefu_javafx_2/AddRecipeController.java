@@ -81,6 +81,11 @@ public class AddRecipeController implements Initializable{
             System.out.println("Ошибка!!!");
             return;
         }
+        try {
+            switch_home(event);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Recipe addedRecipe = Recipe.addToDBAndGet(name, category, image, cookingTime, difficultyLevel);
         System.out.println(name + " успешно добавлен!");

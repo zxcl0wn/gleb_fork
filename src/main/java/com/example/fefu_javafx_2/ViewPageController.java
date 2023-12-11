@@ -5,6 +5,8 @@ import RecipeManagerEntities.Recipe;
 import RecipeManagerEntities.RecipeStep;
 import RecipeManagerEntities.ShoppingCart;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
@@ -52,6 +54,12 @@ public class ViewPageController implements Initializable{
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private MainController mainController;
+
+    public void setMainController(MainController mainController) {
+        this.mainController = mainController;
+    }
+
 
     public void setRecipe(Recipe recipe) {
         System.out.println("SET RECIPE!");
@@ -220,6 +228,7 @@ public class ViewPageController implements Initializable{
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -229,7 +238,7 @@ public class ViewPageController implements Initializable{
             setIngredients(selectedRecipe.getIngredientsWithQuantity());
         }
     }
-    private void setRecipeSteps(int recipeId) {
+    public void setRecipeSteps(int recipeId) {
         VboxSteps.getChildren().clear();
         VboxSteps.setSpacing(50);
         VboxSteps.setPadding(new Insets(20));
@@ -258,8 +267,8 @@ public class ViewPageController implements Initializable{
         });
 
         VboxSteps.getChildren().add(stepHbox);
-
     }
+
 
     private HBox createStepHBox(RecipeStep recipeStep) {
         HBox stepHBox = new HBox(150);
@@ -267,7 +276,7 @@ public class ViewPageController implements Initializable{
         stepHBox.setPrefHeight(200);
         ImageView stepImage = new ImageView("file:///" + recipeStep.getImg());
         stepImage.setFitHeight(150);
-        stepImage.setFitWidth(150);
+        stepImage.setFitWidth(200);
 
         Text stepText = new Text(recipeStep.getText());
         stepText.setFont(new Font(15));
@@ -293,6 +302,9 @@ public class ViewPageController implements Initializable{
     private void onDeleteStepButtonClick(RecipeStep recipeStep) {
         recipeStep.delete();
 //        System.out.println("УДАЛЕНИЕ РЕЦ");
+        if (mainController != null) {
+            mainController.updateRecipeVbox();
+        }
         setRecipeSteps(selectedRecipe.getId());
     }
 
@@ -346,6 +358,9 @@ public class ViewPageController implements Initializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void updateSteps() {
+        setRecipeSteps(selectedRecipe.getId());
     }
 
 

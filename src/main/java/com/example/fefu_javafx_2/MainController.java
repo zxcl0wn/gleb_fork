@@ -49,6 +49,10 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+    public void updateRecipeVbox() {
+        loadRecipes(); // Замените эту строку на вызов вашего метода обновления
+    }
+
     @FXML
     public void switch_home(javafx.event.ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("main_page.fxml"));
@@ -428,8 +432,8 @@ public class MainController implements Initializable {
         categoryLabel.setFont(new Font(18));
         categoryLabel.setMinHeight(60);
         categoryLabel.setMaxHeight(60);
-        categoryLabel.setMinWidth(140);
-        categoryLabel.setMaxWidth(140);
+        categoryLabel.setMinWidth(150);
+        categoryLabel.setMaxWidth(150);
         categoryLabel.setAlignment(Pos.CENTER);
         vboxCategories.getChildren().add(categoryLabel);
 
@@ -437,10 +441,10 @@ public class MainController implements Initializable {
         Button allButton = new Button("Все");
         allButton.setMinHeight(60);
         allButton.setMaxHeight(60);
-        allButton.setMinWidth(140);
-        allButton.setMaxWidth(140);
+        allButton.setMinWidth(150);
+        allButton.setMaxWidth(150);
+        allButton.setAlignment(Pos.CENTER);
         allButton.setOnAction(this::all_recipes);
-        vboxCategories.setAlignment(Pos.CENTER);
         vboxCategories.getChildren().add(allButton);
 
 
@@ -458,8 +462,8 @@ public class MainController implements Initializable {
         categoryButton.setAlignment(Pos.CENTER);
         categoryButton.setMinHeight(60);
         categoryButton.setMaxHeight(60);
-        categoryButton.setMinWidth(140);
-        categoryButton.setMaxWidth(140);
+        categoryButton.setMinWidth(150);
+        categoryButton.setMaxWidth(150);
 
 
 //        Кнопка удаление категории
@@ -468,8 +472,8 @@ public class MainController implements Initializable {
         deleteButton.setAlignment(Pos.CENTER);
         deleteButton.setMinHeight(30);
         deleteButton.setMaxHeight(30);
-        deleteButton.setMinWidth(140);
-        deleteButton.setMaxWidth(140);
+        deleteButton.setMinWidth(150);
+        deleteButton.setMaxWidth(150);
 
 
         VBox buttonAndDeleteVbox = new VBox(categoryButton, deleteButton);

@@ -7,6 +7,8 @@ import RecipeManagerEntities.RecipeStep;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 
 import javafx.fxml.FXMLLoader;
@@ -47,6 +49,7 @@ public class AddStepController {
         this.selectedRecipe = recipe;
     }
 
+
     public void addStepButton(javafx.event.ActionEvent event) {
         String stepText = description.getText().trim();
         String stepImg = imageLink.getText().trim();
@@ -56,6 +59,7 @@ public class AddStepController {
             if (newStep != null) {
                 System.out.println("Шаг успешно добавлен: " + newStep.getText());
                 ViewPageController viewPageController = getParentController();
+
 
                 closeButton(event);
             } else {
@@ -77,6 +81,6 @@ public class AddStepController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return loader.getController();
+        return viewPageController;
     }
 }
