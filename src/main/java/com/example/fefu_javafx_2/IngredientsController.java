@@ -161,6 +161,7 @@ public class IngredientsController implements Initializable {
         ingredient.delete();
         ingredientsVBox.getChildren().removeIf(node -> node instanceof HBox && ((HBox) node).getChildren().contains(ingredient));
         System.out.println("Ингредиент удален: " + ingredient.getName());
+        refreshIngredients();
     }
 
     private void onEditButtonClick(Ingredient ingredient) {
